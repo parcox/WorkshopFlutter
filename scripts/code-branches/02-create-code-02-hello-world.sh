@@ -38,11 +38,16 @@ else
     echo ""
 fi
 
-# Step 3: Create branch
-print_step "BRANCH" "Creating code-02-hello-world..."
+# Step 3: Create branch from previous
+print_step "BRANCH" "Creating code-02-hello-world from code-01-init..."
 echo ""
 
-create_orphan_branch "code-02-hello-world"
+cd "$REPO_DIR"
+print_info "Checking out code-01-init as base..."
+git checkout code-01-init 2>/dev/null
+
+print_info "Creating new branch code-02-hello-world..."
+git checkout -b code-02-hello-world 2>/dev/null
 
 # Step 4: Modify HomePage
 print_info "Modifying HomePage with custom UI..."
