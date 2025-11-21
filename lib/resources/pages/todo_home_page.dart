@@ -20,6 +20,13 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
+          // Refresh button
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              controller.refresh();
+            },
+          ),
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'clear') {
@@ -41,14 +48,17 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           ),
         ],
       ),
-      body: controller.isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                _buildStatsCard(controller),
-                Expanded(child: _buildTaskList()),
-              ],
+      body: Column(
+        children: [
+          _buildStatsCard(controller),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () => controller.refresh(),
+              child: _buildTaskList(),
             ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           routeTo('/add-task');
@@ -102,14 +112,68 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
 
   Widget _buildTaskList() {
     final controller = widget.controller;
+
+    // Show loading indicator
+    if (controller.isLoading && controller.tasks.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16),
+            Text('Loading tasks from cloud...'),
+          ],
+        ),
+      );
+    }
+
+    // Show error message
+    if (controller.errorMessage != null) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.cloud_off, size: 64, color: Colors.red),
+              SizedBox(height: 16),
+              Text(
+                'Failed to load tasks',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                controller.errorMessage!,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {
+                  controller.refresh();
+                },
+                icon: Icon(Icons.refresh),
+                label: Text('Retry'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     List<Task> tasks = controller.tasks;
 
+    // Empty state
     if (tasks.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.inbox, size: 80, color: Colors.grey.shade300),
+            Icon(Icons.cloud_done, size: 80, color: Colors.grey.shade300),
             SizedBox(height: 16),
             Text(
               'No tasks yet!',
@@ -184,7 +248,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Clear All Tasks?'),
-        content: Text('This will delete all tasks permanently. Are you sure?'),
+        content: Text('This will delete all tasks from cloud permanently. Are you sure?'),
         actions: [
           TextButton(
             onPressed: () {
@@ -194,18 +258,29 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           ),
           TextButton(
             onPressed: () async {
-              final controller = widget.controller;
-              await controller.clearAllTasks();
-
               Navigator.pop(context);
 
-              showToastNotification(
-                context,
-                title: "Cleared",
-                description: "All tasks have been deleted",
-                icon: Icons.delete_sweep,
-                style: ToastNotificationStyleType.WARNING,
-              );
+              final controller = widget.controller;
+
+              try {
+                await controller.clearAllTasks();
+
+                showToastNotification(
+                  context,
+                  title: "Success",
+                  description: "All tasks have been deleted from cloud",
+                  icon: Icons.delete_sweep,
+                  style: ToastNotificationStyleType.SUCCESS,
+                );
+              } catch (e) {
+                showToastNotification(
+                  context,
+                  title: "Error",
+                  description: "Failed to clear tasks",
+                  icon: Icons.error,
+                  style: ToastNotificationStyleType.DANGER,
+                );
+              }
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: Text('Clear All'),
