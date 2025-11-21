@@ -169,12 +169,8 @@ class _HomePageState extends State<HomePage> {
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: () {
-          showToastNotification(
-            context,
-            title: "Task: ${task['title']}",
-            description: "Detail page akan dibuat di branch berikutnya",
-            style: ToastNotificationStyleType.info,
-          );
+          // Navigate ke Detail Task Page dengan passing data
+          routeTo('/detail-task', data: task);
         },
       ),
     );
