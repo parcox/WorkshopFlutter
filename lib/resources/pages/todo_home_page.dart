@@ -111,8 +111,12 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          routeTo('/add-task');
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, '/add-task');
+          if (result == true) {
+            // Task was added, refresh the list
+            controller.refresh();
+          }
         },
         icon: Icon(Icons.add),
         label: Text('Add Task'),
@@ -331,8 +335,16 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: InkWell(
-          onTap: () {
-            routeTo('/detail-task', data: task.toJson());
+          onTap: () async {
+            final result = await Navigator.pushNamed(
+              context,
+              '/detail-task',
+              arguments: task.toJson(),
+            );
+            if (result == true) {
+              // Task was modified or deleted, refresh the list
+              widget.controller.refresh();
+            }
           },
           borderRadius: BorderRadius.circular(12),
           child: Padding(

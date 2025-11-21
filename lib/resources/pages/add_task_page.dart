@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
-import '/app/controllers/todo_home_controller.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '/app/models/task.dart';
 
 class AddTaskPage extends NyStatefulWidget {
   static const path = '/add-task';
@@ -128,13 +129,20 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
       isSaving = true;
     });
 
-    final homeController = nyController<TodoHomeController>();
-
     try {
-      // Call addTask method (sekarang async!)
-      await homeController.addTask(
+      // Create new task directly with Supabase
+      // We'll let the parent page refresh on return
+      final task = Task(
+        id: '', // Supabase will generate
         title: title,
         description: description,
+        isCompleted: false,
+        createdAt: DateTime.now(),
+      );
+
+      await Supabase.instance.client.from('tasks').insert(
+            task.toSupabaseJson()
+              ..remove('id'), // Remove id, let Supabase generate
       );
 
       showToastNotification(
@@ -149,7 +157,7 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
       await Future.delayed(Duration(milliseconds: 500));
 
       if (mounted) {
-        Navigator.pop(context);
+        Navigator.pop(context, true); // Return true to indicate task was added
       }
     } catch (e) {
       print('Error saving task: $e');

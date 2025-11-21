@@ -131,8 +131,8 @@ class _HomePageState extends NyState<HomePage> {
     );
   }
 
-  Widget _buildTaskCard(Map<String, dynamic> task) {
-    bool isCompleted = task['isCompleted'] ?? false;
+  Widget _buildTaskCard(Task task) {
+    bool isCompleted = task.isCompleted;
 
     return Card(
       elevation: 2,
@@ -146,7 +146,7 @@ class _HomePageState extends NyState<HomePage> {
           ),
         ),
         title: Text(
-          task['title'],
+          task.title,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -154,7 +154,7 @@ class _HomePageState extends NyState<HomePage> {
           ),
         ),
         subtitle: Text(
-          task['description'],
+          task.description,
           style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),

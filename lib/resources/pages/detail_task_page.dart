@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import 'package:intl/intl.dart';
-import '/app/controllers/todo_home_controller.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '/app/models/task.dart';
 
 class DetailTaskPage extends NyStatefulWidget {
@@ -19,7 +19,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     super.initState();
     _initializeTask();
   }
-  
+
   void _initializeTask() {
     final taskData = widget.data() as Map<String, dynamic>?;
 
@@ -245,11 +245,14 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     });
 
     try {
-      final controller = nyController<TodoHomeController>();
-      await controller.toggleComplete(task!.id);
+      // Update task status directly with Supabase
+      final newStatus = !task!.isCompleted;
+      await Supabase.instance.client
+          .from('tasks')
+          .update({'is_completed': newStatus}).eq('id', task!.id);
 
       setState(() {
-        task = task!.copyWith(isCompleted: !task!.isCompleted);
+        task = task!.copyWith(isCompleted: newStatus);
         isProcessing = false;
       });
 
@@ -325,8 +328,8 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     });
 
     try {
-      final controller = nyController<TodoHomeController>();
-      await controller.deleteTask(task!.id);
+      // Delete task directly with Supabase
+      await Supabase.instance.client.from('tasks').delete().eq('id', task!.id);
 
       showToastNotification(
         context,
@@ -339,7 +342,8 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       await Future.delayed(Duration(milliseconds: 500));
 
       if (mounted) {
-        Navigator.pop(context);
+        Navigator.pop(
+            context, true); // Return true to indicate task was deleted
       }
     } catch (e) {
       print('Error deleting task: $e');
