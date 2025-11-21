@@ -11,79 +11,183 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Data static (hardcoded)
+  final List<Map<String, dynamic>> tasks = [
+    {
+      'id': '1',
+      'title': 'Belajar Flutter',
+      'description': 'Ikuti workshop Flutter dengan Nylo framework',
+      'isCompleted': false,
+      'createdAt': '2025-11-20',
+    },
+    {
+      'id': '2',
+      'title': 'Setup Supabase',
+      'description': 'Create project dan database di Supabase',
+      'isCompleted': true,
+      'createdAt': '2025-11-19',
+    },
+    {
+      'id': '3',
+      'title': 'Build ToDo App',
+      'description': 'Implementasi CRUD operations',
+      'isCompleted': false,
+      'createdAt': '2025-11-21',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Simple ToDo App"),
+        title: const Text('My Todo List'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Center(
+      body: Column(
+        children: [
+          _buildStatsCard(),
+          Expanded(child: _buildTaskList()),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showToastNotification(
+            context,
+            title: "Coming Soon",
+            description: "Add Task feature akan dibuat di sesi berikutnya",
+            style: ToastNotificationStyleType.info,
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildStatsCard() {
+    int totalTasks = tasks.length;
+    int completedTasks = tasks.where((t) => t['isCompleted'] == true).length;
+    int pendingTasks = totalTasks - completedTasks;
+
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildStatItem('Total', totalTasks, Colors.blue),
+          _buildStatItem('Done', completedTasks, Colors.green),
+          _buildStatItem('Pending', pendingTasks, Colors.orange),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String label, int count, Color color) {
+    return Column(
+      children: [
+        Text(
+          count.toString(),
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade700,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTaskList() {
+    if (tasks.isEmpty) {
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Icon besar
-            const Icon(
-              Icons.check_circle_outline,
-              size: 100,
-              color: Colors.blue,
+            Icon(
+              Icons.inbox_outlined,
+              size: 80,
+              color: Colors.grey.shade400,
             ),
-
-            const SizedBox(height: 20),
-
-            // Text dengan style
-            const Text(
-              "Hello Flutter with Nylo!",
+            const SizedBox(height: 16),
+            Text(
+              'Belum ada task',
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Subtitle
-            const Text(
-              "Workshop Simple ToDo App",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-
-            const SizedBox(height: 40),
-
-            // Button
-            ElevatedButton(
-              onPressed: () {
-                // Show toast notification
-                showToastNotification(
-                  context,
-                  title: "Hello!",
-                  description: "Selamat datang di Workshop Flutter",
-                  style: ToastNotificationStyleType.success,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text(
-                "Lihat ToDo List",
-                style: TextStyle(fontSize: 16),
+                fontSize: 18,
+                color: Colors.grey.shade600,
               ),
             ),
           ],
         ),
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      itemCount: tasks.length,
+      itemBuilder: (context, index) {
+        final task = tasks[index];
+        return _buildTaskCard(task);
+      },
+    );
+  }
+
+  Widget _buildTaskCard(Map<String, dynamic> task) {
+    bool isCompleted = task['isCompleted'] ?? false;
+
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        // Icon di kiri
+        leading: CircleAvatar(
+          backgroundColor: isCompleted ? Colors.green : Colors.orange,
+          child: Icon(
+            isCompleted ? Icons.check : Icons.circle_outlined,
+            color: Colors.white,
+          ),
+        ),
+
+        // Title & description
+        title: Text(
+          task['title'],
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            // Coret text jika sudah selesai
+            decoration: isCompleted ? TextDecoration.lineThrough : null,
+          ),
+        ),
+        subtitle: Text(
+          task['description'],
+          style: const TextStyle(fontSize: 14, color: Colors.grey),
+        ),
+
+        // Icon di kanan
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+
+        // Action ketika card diklik
+        onTap: () {
+          showToastNotification(
+            context,
+            title: "Task: ${task['title']}",
+            description: "Detail page akan dibuat di sesi berikutnya",
+            style: ToastNotificationStyleType.info,
+          );
+        },
       ),
     );
   }
