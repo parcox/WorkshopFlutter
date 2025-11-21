@@ -65,7 +65,7 @@ dependencies:
   nylo_framework: ^6.9.1
   shared_preferences: ^2.5.3
   supabase_flutter: ^2.9.1
-  intl: ^0.19.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
