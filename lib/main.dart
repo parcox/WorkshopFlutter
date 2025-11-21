@@ -1,28 +1,50 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
-import 'bootstrap/boot.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter/services.dart';
 
-/// Nylo - Framework for Flutter Developers
-/// Docs: https://nylo.dev/docs/6.x
-
-/// Main entry point for the application.
 void main() async {
-  await Nylo.init(
-    setup: Boot.nylo,
-    setupFinished: Boot.finished,
+  WidgetsFlutterBinding.ensureInitialized();
 
-    // appLifecycle: {
-    //   // Uncomment the code below to enable app lifecycle events
-    //   AppLifecycleState.resumed: () {
-    //     print("App resumed");
-    //   },
-    //   AppLifecycleState.paused: () {
-    //     print("App paused");
-    //   },
-    // }
+  // Load .env file
+  String envContent = await rootBundle.loadString('.env');
+  Map<String, String> envVars = {};
 
-    // showSplashScreen: true,
-    // Uncomment showSplashScreen to show the splash screen
-    // File: lib/resources/widgets/splash_screen.dart
-  );
+  for (String line in envContent.split('\n')) {
+    line = line.trim();
+    // Skip comments and empty lines
+    if (line.isEmpty || line.startsWith('#')) continue;
+
+    // Parse KEY=VALUE
+    int separatorIndex = line.indexOf('=');
+    if (separatorIndex != -1) {
+      String key = line.substring(0, separatorIndex).trim();
+      String value = line.substring(separatorIndex + 1).trim();
+      envVars[key] = value;
+    }
+  }
+
+  // Initialize Supabase
+  try {
+    await Supabase.initialize(
+      url: envVars['SUPABASE_URL'] ?? '',
+      anonKey: envVars['SUPABASE_ANON_KEY'] ?? '',
+    );
+    print('✅ Supabase initialized successfully');
+  } catch (e) {
+    print('⚠️ Supabase initialization error: $e');
+    print('⚠️ Please configure .env file with your Supabase credentials');
+  }
+
+  runApp(Main());
+}
+
+class Main extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBuild(
+      navigatorKey: NyNavigator.instance.router.navigatorKey,
+      onGenerateRoute: nyRoutes,
+    );
+  }
 }

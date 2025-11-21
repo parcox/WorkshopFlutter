@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   nylo_framework: ^6.9.1
   shared_preferences: ^2.5.3
+  supabase_flutter: ^2.9.1
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +20,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # Add .env file as asset
+  assets:
+    - .env
