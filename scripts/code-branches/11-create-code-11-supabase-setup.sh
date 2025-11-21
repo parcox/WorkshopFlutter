@@ -453,10 +453,22 @@ echo ""
 # 10. Test Flutter setup
 test_flutter_setup
 
-# 11. Commit and push
+# 11. Commit and push (initial commit)
 commit_and_push_branch "$BRANCH_NAME" "$COMMIT_MESSAGE"
 
-# 12. Return to main
+# 12. Commit pubspec.lock changes (updated by flutter pub get)
+echo "${CYAN}📝 Committing pubspec.lock changes...${NC}"
+if [[ -n $(git status --porcelain) ]]; then
+    git add pubspec.lock
+    git commit -m "Update pubspec.lock after flutter pub get"
+    git push origin "$BRANCH_NAME"
+    echo "${GREEN}✓ pubspec.lock changes committed${NC}"
+else
+    echo "${GREEN}✓ No additional changes to commit${NC}"
+fi
+echo ""
+
+# 13. Return to main
 return_to_main
 
 echo ""
