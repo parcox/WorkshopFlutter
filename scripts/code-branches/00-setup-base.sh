@@ -243,8 +243,19 @@ cleanup_temp() {
 return_to_main() {
     cd "$REPO_DIR"
     print_info "Returning to main branch..."
+    
+    # Checkout main branch
     git checkout main 2>/dev/null
-    print_success "Back to main branch"
+    
+    # CRITICAL: Clean untracked files left by orphan branch operations
+    # This ensures main branch working directory stays clean (only docs/, scripts/, README.md)
+    print_info "Cleaning untracked Flutter files..."
+    git clean -fd > /dev/null 2>&1 || true
+    
+    # Also remove any ignored files to be extra safe
+    git clean -fdx > /dev/null 2>&1 || true
+    
+    print_success "Back to main branch (clean)"
 }
 
 # ============================================
