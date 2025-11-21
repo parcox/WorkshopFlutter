@@ -208,6 +208,57 @@ EOF
 }
 
 # ============================================
+# Function: Create orphan branch from previous branch
+# ============================================
+create_orphan_branch_from_prev() {
+    local branch_name="$1"
+    local prev_branch="$2"
+
+    print_info "Creating orphan branch: $branch_name (from $prev_branch)"
+
+    cd "$REPO_DIR"
+
+    # Checkout previous branch first
+    print_info "Checking out previous branch: $prev_branch"
+    if ! git checkout "$prev_branch" 2>/dev/null; then
+        print_error "Failed to checkout $prev_branch"
+        return 1
+    fi
+
+    # Create orphan branch (no history)
+    git checkout --orphan "$branch_name" 2>/dev/null
+
+    # Files from prev_branch are already in working directory
+    # Just need to stage them (don't remove!)
+    print_info "Preserving files from $prev_branch"
+    
+    # Add minimal README for code branch
+    cat > README.md << 'EOF'
+# Simple ToDo App - Code Branch
+
+Ini adalah code branch untuk Workshop Flutter Nylo + Supabase.
+
+## Branch Structure
+- `main`: Documentation only
+- `code-XX-*`: Code implementations per sesi
+
+## Run Project
+```bash
+flutter pub get
+flutter run
+```
+
+## Dokumentasi
+Checkout ke branch `main` untuk dokumentasi lengkap:
+```bash
+git checkout main
+```
+EOF
+
+    return 0
+}
+
+# ============================================
 # Function: Commit and push branch
 # ============================================
 commit_and_push_branch() {
@@ -285,6 +336,8 @@ export -f check_prerequisites
 export -f clone_nylo_to_temp
 export -f test_flutter_setup
 export -f create_orphan_branch
+export -f create_orphan_branch_from_prev
 export -f commit_and_push_branch
 export -f cleanup_temp
+export -f return_to_main
 export -f return_to_main

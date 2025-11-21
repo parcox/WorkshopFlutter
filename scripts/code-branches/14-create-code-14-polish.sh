@@ -33,20 +33,10 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Checkout previous branch
-echo "${CYAN}📌 Checking out branch: $PREV_BRANCH${NC}"
-git checkout "$PREV_BRANCH"
-if [ $? -ne 0 ]; then
-  echo "${RED}❌ Failed to checkout branch: $PREV_BRANCH${NC}"
-  exit 1
-fi
-echo "${GREEN}✓ Checked out $PREV_BRANCH${NC}"
-echo ""
+# 2. Create new orphan branch from previous branch (preserves all files)
+create_orphan_branch_from_prev "$BRANCH_NAME" "$PREV_BRANCH"
 
-# 3. Create new orphan branch
-create_orphan_branch "$BRANCH_NAME"
-
-# 4. Add intl package to pubspec.yaml for date formatting
+# 3. Add intl package to pubspec.yaml for date formatting
 echo "${CYAN}📝 Adding intl package for date formatting...${NC}"
 
 cat > "pubspec.yaml" << 'EOF'
