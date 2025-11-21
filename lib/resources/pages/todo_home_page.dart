@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import 'package:intl/intl.dart';
 import '/app/controllers/todo_home_controller.dart';
 import '/app/models/task.dart';
 
@@ -21,7 +22,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           children: [
             Text('Simple ToDo App'),
             Text(
-              '☁️ Cloud Sync',
+              '☁️ Cloud Sync Active',
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
@@ -29,10 +30,19 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
-          // Refresh button
+          // Refresh button with animation
           IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
+            icon: controller.isLoading
+                ? SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
+                : Icon(Icons.refresh),
+            onPressed: controller.isLoading ? null : () {
               controller.refresh();
             },
             tooltip: 'Refresh from cloud',
@@ -41,6 +51,8 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             onSelected: (value) {
               if (value == 'clear') {
                 _showClearConfirmation();
+              } else if (value == 'about') {
+                _showAboutDialog();
               }
             },
             itemBuilder: (context) => [
@@ -51,6 +63,16 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                     Icon(Icons.delete_sweep, color: Colors.red),
                     SizedBox(width: 8),
                     Text('Clear All Tasks'),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 'about',
+                child: Row(
+                  children: [
+                    Icon(Icons.info_outline, color: Colors.blue),
+                    SizedBox(width: 8),
+                    Text('About'),
                   ],
                 ),
               ),
@@ -88,11 +110,12 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           routeTo('/add-task');
         },
-        child: Icon(Icons.add),
+        icon: Icon(Icons.add),
+        label: Text('Add Task'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         tooltip: 'Add new task',
@@ -101,32 +124,41 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
   }
 
   Widget _buildStatsCard(TodoHomeController controller) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade50, Colors.blue.shade100],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.blue.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade200.withOpacity(0.5),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem('Total', controller.totalTasks, Colors.blue),
-          _buildStatItem('Done', controller.completedTasks, Colors.green),
-          _buildStatItem('Pending', controller.pendingTasks, Colors.orange),
+          _buildStatItem('Total', controller.totalTasks, Colors.blue, Icons.list),
+          _buildStatItem('Done', controller.completedTasks, Colors.green, Icons.check_circle),
+          _buildStatItem('Pending', controller.pendingTasks, Colors.orange, Icons.pending),
         ],
       ),
     );
   }
 
-  Widget _buildStatItem(String label, int count, Color color) {
+  Widget _buildStatItem(String label, int count, Color color, IconData icon) {
     return Column(
       children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-        ),
+        Icon(icon, color: color, size: 28),
         SizedBox(height: 4),
         Text(
           count.toString(),
@@ -135,6 +167,10 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             fontWeight: FontWeight.bold,
             color: color,
           ),
+        ),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
         ),
       ],
     );
@@ -203,19 +239,6 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
-                'Troubleshooting tips:',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                '• Check internet connection\n'
-                '• Verify .env file configuration\n'
-                '• Ensure Supabase project is active',
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                textAlign: TextAlign.left,
-              ),
             ],
           ),
         ),
@@ -242,7 +265,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             ),
             SizedBox(height: 8),
             Text(
-              'Tap the + button to add your first task',
+              'Tap the button below to add your first task',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey.shade500,
@@ -272,54 +295,102 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
       );
     }
 
-    // Task list
+    // Task list with animations
     return ListView.builder(
       padding: EdgeInsets.all(16),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         final task = tasks[index];
-        return _buildTaskCard(task);
+        return _buildTaskCard(task, index);
       },
     );
   }
 
-  Widget _buildTaskCard(Task task) {
+  Widget _buildTaskCard(Task task, int index) {
     bool isCompleted = task.isCompleted;
 
-    return Card(
-      elevation: 2,
-      margin: EdgeInsets.only(bottom: 12),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: isCompleted ? Colors.green : Colors.orange,
-          child: Icon(
-            isCompleted ? Icons.check : Icons.circle_outlined,
-            color: Colors.white,
+    // Format date
+    String formattedDate = DateFormat('MMM d, yyyy • h:mm a').format(task.createdAt);
+
+    return TweenAnimationBuilder<double>(
+      duration: Duration(milliseconds: 300 + (index * 50)),
+      tween: Tween(begin: 0.0, end: 1.0),
+      builder: (context, value, child) {
+        return Opacity(
+          opacity: value,
+          child: Transform.translate(
+            offset: Offset(0, 20 * (1 - value)),
+            child: child,
+          ),
+        );
+      },
+      child: Card(
+        elevation: 2,
+        margin: EdgeInsets.only(bottom: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: InkWell(
+          onTap: () {
+            routeTo('/detail-task', data: task.toJson());
+          },
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Row(
+              children: [
+                // Status indicator
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: isCompleted ? Colors.green : Colors.orange,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isCompleted ? Icons.check : Icons.circle_outlined,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                SizedBox(width: 12),
+                // Task content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        task.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          decoration: isCompleted ? TextDecoration.lineThrough : null,
+                          color: isCompleted ? Colors.grey : Colors.black87,
+                        ),
+                      ),
+                      if (task.description.isNotEmpty) ...[
+                        SizedBox(height: 4),
+                        Text(
+                          task.description,
+                          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                      SizedBox(height: 4),
+                      Text(
+                        formattedDate,
+                        style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                      ),
+                    ],
+                  ),
+                ),
+                // Arrow icon
+                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+              ],
+            ),
           ),
         ),
-        title: Text(
-          task.title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            decoration: isCompleted ? TextDecoration.lineThrough : null,
-          ),
-        ),
-        subtitle: task.description.isNotEmpty
-            ? Text(
-                task.description,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              )
-            : null,
-        trailing: Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          routeTo(
-            '/detail-task',
-            data: task.toJson(),
-          );
-        },
       ),
     );
   }
@@ -328,9 +399,15 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Clear All Tasks?'),
+        title: Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.orange),
+            SizedBox(width: 8),
+            Text('Clear All Tasks?'),
+          ],
+        ),
         content: Text(
-          'This will permanently delete all tasks from the cloud database. '
+          'This will permanently delete all ${widget.controller.totalTasks} tasks from the cloud database. '
           'This action cannot be undone.\n\nAre you sure?',
         ),
         actions: [
@@ -340,7 +417,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             },
             child: Text('Cancel'),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () async {
               Navigator.pop(context);
 
@@ -366,8 +443,49 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                 );
               }
             },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
             child: Text('Delete All'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAboutDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Simple ToDo App'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Version 1.0.0',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            Text('Built with:'),
+            SizedBox(height: 8),
+            Text('• Flutter & Dart'),
+            Text('• Nylo Framework'),
+            Text('• Supabase (PostgreSQL)'),
+            SizedBox(height: 16),
+            Text(
+              'A simple todo list app with cloud synchronization.',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Close'),
           ),
         ],
       ),

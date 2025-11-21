@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import 'package:intl/intl.dart';
 import '/app/controllers/todo_home_controller.dart';
 import '/app/models/task.dart';
 
@@ -17,11 +18,9 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
   init() async {
     super.init();
 
-    // Ambil data dari route arguments
     final taskData = widget.data() as Map<String, dynamic>?;
 
     if (taskData != null) {
-      // Convert Map ke Task object
       task = Task.fromJson(taskData);
     }
   }
@@ -36,6 +35,8 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     }
 
     bool isCompleted = task!.isCompleted;
+    String formattedDate = DateFormat('EEEE, MMMM d, yyyy').format(task!.createdAt);
+    String formattedTime = DateFormat('h:mm a').format(task!.createdAt);
 
     return Scaffold(
       appBar: AppBar(
@@ -70,28 +71,37 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
           children: [
             // Status badge
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: isCompleted ? Colors.green.shade50 : Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isCompleted ? Colors.green : Colors.orange,
+                gradient: LinearGradient(
+                  colors: isCompleted
+                    ? [Colors.green.shade400, Colors.green.shade600]
+                    : [Colors.orange.shade400, Colors.orange.shade600],
                 ),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: (isCompleted ? Colors.green : Colors.orange).withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     isCompleted ? Icons.check_circle : Icons.pending,
-                    size: 16,
-                    color: isCompleted ? Colors.green : Colors.orange,
+                    size: 20,
+                    color: Colors.white,
                   ),
-                  SizedBox(width: 4),
+                  SizedBox(width: 8),
                   Text(
                     isCompleted ? 'Completed' : 'Pending',
                     style: TextStyle(
-                      color: isCompleted ? Colors.green : Colors.orange,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -103,17 +113,19 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
             Text(
               'Title',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey.shade600,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 1,
               ),
             ),
             SizedBox(height: 8),
             Text(
               task!.title,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.black87,
               ),
             ),
             SizedBox(height: 24),
@@ -122,27 +134,76 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
             Text(
               'Description',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey.shade600,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 1,
               ),
             ),
             SizedBox(height: 8),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade200),
+              ),
+              child: Text(
+                task!.description.isEmpty ? 'No description provided' : task!.description,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: task!.description.isEmpty ? Colors.grey : Colors.black87,
+                  height: 1.5,
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+
+            // Created date section
             Text(
-              task!.description.isEmpty ? 'No description' : task!.description,
-              style: TextStyle(fontSize: 16),
+              'Created',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1,
+              ),
+            ),
+            SizedBox(height: 8),
+            Row(
+              children: [
+                Icon(Icons.calendar_today, size: 16, color: Colors.blue),
+                SizedBox(width: 8),
+                Text(
+                  formattedDate,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+                ),
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(Icons.access_time, size: 16, color: Colors.blue),
+                SizedBox(width: 8),
+                Text(
+                  formattedTime,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+                ),
+              ],
             ),
             SizedBox(height: 32),
 
             // Toggle status button
             SizedBox(
               width: double.infinity,
+              height: 50,
               child: ElevatedButton.icon(
                 onPressed: isProcessing ? null : _toggleTaskStatus,
                 icon: isProcessing
                     ? SizedBox(
-                        height: 16,
-                        width: 16,
+                        height: 20,
+                        width: 20,
                         child: CircularProgressIndicator(
                           color: Colors.white,
                           strokeWidth: 2,
@@ -154,12 +215,16 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
                       ),
                 label: Text(
                   isCompleted ? 'Mark as Pending' : 'Mark as Completed',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isCompleted ? Colors.orange : Colors.green,
                   padding: EdgeInsets.symmetric(vertical: 12),
                   disabledBackgroundColor: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 2,
                 ),
               ),
             ),
@@ -180,7 +245,6 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       final controller = NYC.controller<TodoHomeController>();
       await controller.toggleComplete(task!.id);
 
-      // Update local state
       setState(() {
         task = task!.copyWith(isCompleted: !task!.isCompleted);
         isProcessing = false;
@@ -189,7 +253,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       showToastNotification(
         context,
         title: "Success",
-        description: "Task status updated and saved!",
+        description: "Task status updated and saved to cloud!",
         icon: Icons.check_circle,
         style: ToastNotificationStyleType.SUCCESS,
       );
@@ -215,8 +279,17 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Delete Task'),
-          content: Text('Are you sure you want to delete this task?'),
+          title: Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.orange),
+              SizedBox(width: 8),
+              Text('Delete Task?'),
+            ],
+          ),
+          content: Text(
+            'Are you sure you want to delete "${task!.title}"?\n\n'
+            'This action cannot be undone.',
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -224,12 +297,15 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
               },
               child: Text('Cancel'),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
                 _deleteTask();
               },
-              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
               child: Text('Delete'),
             ),
           ],
@@ -252,7 +328,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       showToastNotification(
         context,
         title: "Success",
-        description: "Task deleted and saved!",
+        description: "Task deleted and saved to cloud!",
         icon: Icons.delete,
         style: ToastNotificationStyleType.SUCCESS,
       );
