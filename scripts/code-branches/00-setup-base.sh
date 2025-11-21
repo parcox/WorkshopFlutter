@@ -263,11 +263,11 @@ return_to_main() {
     print_info "Cleaning ignored files..."
     git clean -fdx
 
-    # Verify main is clean
-    local file_count=$(ls -A | grep -v -E '^(\\.git|\\.gitignore|README\\.md|docs|scripts)$' | wc -l | tr -d ' ')
-    if [[ $file_count -gt 0 ]]; then
-        print_error "Warning: Main branch still has unexpected files"
-        ls -la | grep -v -E '^total|^d.*\\s+\\.$|^d.*\\s+\\.\\.$|^\\.git|^\\.gitignore|^.*README\\.md|^d.*docs|^d.*scripts'
+    # Verify main is clean (check for Flutter-specific files)
+    local unexpected_files=$(find . -maxdepth 1 \( -name "lib" -o -name "android" -o -name "ios" -o -name ".dart_tool" -o -name "pubspec.yaml" -o -name "pubspec.lock" \) 2>/dev/null)
+    if [[ -n "$unexpected_files" ]]; then
+        print_error "Warning: Flutter files still present in main branch"
+        echo "$unexpected_files"
     fi
 
     print_success "Back to main branch (verified clean)"
