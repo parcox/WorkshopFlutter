@@ -15,7 +15,13 @@ export CYAN='\033[0;36m'
 export NC='\033[0m' # No Color
 
 # Global variables
-export REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+# CRITICAL FIX: Always use git rev-parse to detect REPO_DIR
+# DO NOT use ${BASH_SOURCE[0]} - it doesn't work in zsh when sourced multiple times
+REPO_DIR=$(git rev-parse --show-toplevel 2>/dev/null)
+if [[ -z "$REPO_DIR" ]]; then
+    REPO_DIR="$(pwd)"
+fi
+export REPO_DIR
 export TEMP_DIR="/tmp/nylo_temp_$$"
 export GITHUB_REMOTE=""
 
