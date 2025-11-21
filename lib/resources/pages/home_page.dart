@@ -1,40 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import '/app/controllers/todo_home_controller.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends NyStatefulWidget<TodoHomeController> {
   static const path = '/home';
 
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
+  HomePage({super.key}) : super(child: () => _HomePageState());
 }
 
-class _HomePageState extends State<HomePage> {
-  // Data static (hardcoded)
-  final List<Map<String, dynamic>> tasks = [
-    {
-      'id': '1',
-      'title': 'Belajar Flutter',
-      'description': 'Ikuti workshop Flutter dengan Nylo framework',
-      'isCompleted': false,
-      'createdAt': '2025-11-20',
-    },
-    {
-      'id': '2',
-      'title': 'Setup Supabase',
-      'description': 'Create project dan database di Supabase',
-      'isCompleted': true,
-      'createdAt': '2025-11-19',
-    },
-    {
-      'id': '3',
-      'title': 'Build ToDo App',
-      'description': 'Implementasi CRUD operations',
-      'isCompleted': false,
-      'createdAt': '2025-11-21',
-    },
-  ];
+class _HomePageState extends NyState<HomePage> {
+  @override
+  init() async {
+    super.init();
+    // Controller sudah di-initialize otomatis oleh Nylo
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +41,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildStatsCard() {
-    int totalTasks = tasks.length;
-    int completedTasks = tasks.where((t) => t['isCompleted'] == true).length;
-    int pendingTasks = totalTasks - completedTasks;
+    // Ambil controller
+    final controller = widget.controller;
+
+    // Ambil stats dari controller
+    int totalTasks = controller.totalTasks;
+    int completedTasks = controller.completedTasks;
+    int pendingTasks = controller.pendingTasks;
 
     return Container(
       margin: const EdgeInsets.all(16),
@@ -108,6 +91,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildTaskList() {
+    // Ambil controller
+    final controller = widget.controller;
+
+    // Ambil tasks dari controller (tidak hardcode lagi!)
+    List<Map<String, dynamic>> tasks = controller.tasks;
+
     if (tasks.isEmpty) {
       return Center(
         child: Column(
