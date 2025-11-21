@@ -278,6 +278,37 @@ cleanup_temp() {
 }
 
 # ============================================
+# Function: Add dependency to pubspec.yaml
+# ============================================
+add_dependency() {
+    local package_name="$1"
+    local version="$2"
+
+    echo "${CYAN}📝 Adding $package_name: $version to pubspec.yaml...${NC}"
+
+    # Check if dependency already exists
+    if grep -q "^  $package_name:" pubspec.yaml; then
+        echo "${YELLOW}⚠️  $package_name already exists in pubspec.yaml${NC}"
+        return 0
+    fi
+
+    # Add after flutter: sdk: flutter line
+    awk -v pkg="  $package_name: $version" '
+    /^  flutter:$/ {
+        print
+        getline
+        print
+        print pkg
+        next
+    }
+    { print }
+    ' pubspec.yaml > pubspec.yaml.tmp
+
+    mv pubspec.yaml.tmp pubspec.yaml
+    echo "${GREEN}✓ $package_name added to pubspec.yaml${NC}"
+}
+
+# ============================================
 # Function: Return to main branch
 # ============================================
 return_to_main() {
@@ -321,5 +352,5 @@ export -f test_flutter_setup
 export -f create_orphan_branch
 export -f commit_and_push_branch
 export -f cleanup_temp
-export -f return_to_main
+export -f add_dependency
 export -f return_to_main

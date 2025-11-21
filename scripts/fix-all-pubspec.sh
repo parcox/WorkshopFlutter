@@ -69,12 +69,10 @@ BRANCH_DEPS[code-14-polish]="shared_preferences: ^2.5.3|supabase_flutter: ^2.9.1
 
 echo "Fixing pubspec.yaml in all branches..."
 
-for branch in code-{02..14}-*; do
-    # Check if branch exists
-    if ! git rev-parse --verify "$branch" &>/dev/null; then
-        echo "⏭️  Branch $branch doesn't exist, skipping..."
-        continue
-    fi
+# Get all code branches
+branches=($(git branch | grep -E 'code-0[2-9]|code-1[0-4]' | tr -d ' *'))
+
+for branch in "${branches[@]}"; do
 
     echo ""
     echo "📝 Processing $branch..."
@@ -103,7 +101,7 @@ for branch in code-{02..14}-*; do
         done
     fi
 
-    git add pubspec.yaml
+    git add -f pubspec.yaml
     git commit -m "Fix pubspec.yaml: use base from code-01 + branch dependencies" --no-verify 2>/dev/null
     echo "✅ $branch updated"
 done
