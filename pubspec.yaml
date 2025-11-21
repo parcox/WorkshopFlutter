@@ -1,12 +1,5 @@
 name: simple_todo_app
-description: "A simple todo application built with Nylo framework"
-publish_to: 'none'
-version: 1.0.0+1
-
-environment:
-  sdk: '>=3.5.0 <4.0.0'
-
-dependencies:
+description: "A simple todo application built with Nylo framework"dependencies:
   flutter:
     sdk: flutter
   nylo_framework: ^6.9.1
