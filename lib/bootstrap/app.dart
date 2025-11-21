@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/resources/widgets/loader_widget.dart';
+import 'package:simple_todo_app/resources/widgets/loader_widget.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 
 /// Main entry point for the application

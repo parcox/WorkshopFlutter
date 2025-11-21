@@ -431,7 +431,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                   title: "Success",
                   description: "All tasks have been deleted from cloud",
                   icon: Icons.delete_sweep,
-                  style: ToastNotificationStyleType.SUCCESS,
+                  style: ToastNotificationStyleType.success,
                 );
               } catch (e) {
                 showToastNotification(
@@ -439,7 +439,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                   title: "Error",
                   description: "Failed to clear tasks: ${e.toString()}",
                   icon: Icons.error,
-                  style: ToastNotificationStyleType.DANGER,
+                  style: ToastNotificationStyleType.danger,
                 );
               }
             },

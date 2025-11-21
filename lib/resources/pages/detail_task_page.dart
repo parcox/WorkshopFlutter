@@ -15,9 +15,12 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
   bool isProcessing = false;
 
   @override
-  init() async {
-    super.init();
-
+  initState() {
+    super.initState();
+    _initializeTask();
+  }
+  
+  void _initializeTask() {
     final taskData = widget.data() as Map<String, dynamic>?;
 
     if (taskData != null) {
@@ -52,7 +55,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
                 title: "Info",
                 description: "Edit feature coming soon!",
                 icon: Icons.edit,
-                style: ToastNotificationStyleType.INFO,
+                style: ToastNotificationStyleType.info,
               );
             },
           ),
@@ -242,7 +245,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     });
 
     try {
-      final controller = NYC.controller<TodoHomeController>();
+      final controller = nyController<TodoHomeController>();
       await controller.toggleComplete(task!.id);
 
       setState(() {
@@ -255,7 +258,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
         title: "Success",
         description: "Task status updated and saved to cloud!",
         icon: Icons.check_circle,
-        style: ToastNotificationStyleType.SUCCESS,
+        style: ToastNotificationStyleType.success,
       );
     } catch (e) {
       print('Error toggling task: $e');
@@ -269,7 +272,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
         title: "Error",
         description: "Failed to update task status!",
         icon: Icons.error,
-        style: ToastNotificationStyleType.DANGER,
+        style: ToastNotificationStyleType.danger,
       );
     }
   }
@@ -322,7 +325,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     });
 
     try {
-      final controller = NYC.controller<TodoHomeController>();
+      final controller = nyController<TodoHomeController>();
       await controller.deleteTask(task!.id);
 
       showToastNotification(
@@ -330,7 +333,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
         title: "Success",
         description: "Task deleted and saved to cloud!",
         icon: Icons.delete,
-        style: ToastNotificationStyleType.SUCCESS,
+        style: ToastNotificationStyleType.success,
       );
 
       await Future.delayed(Duration(milliseconds: 500));
@@ -350,7 +353,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
         title: "Error",
         description: "Failed to delete task!",
         icon: Icons.error,
-        style: ToastNotificationStyleType.DANGER,
+        style: ToastNotificationStyleType.danger,
       );
     }
   }

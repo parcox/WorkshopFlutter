@@ -3,7 +3,7 @@ import 'package:nylo_framework/nylo_framework.dart';
 import '/app/models/task.dart';
 import '/app/services/supabase_service.dart';
 
-class TodoHomeController extends Controller {
+class TodoHomeController extends NyController {
   // State
   List<Task> tasks = [];
   bool isLoading = false;
@@ -13,38 +13,34 @@ class TodoHomeController extends Controller {
   final SupabaseService supabase = SupabaseService();
 
   @override
-  construct(BuildContext context) {
+  construct(BuildContext context) async {
     super.construct(context);
 
     // Load tasks from Supabase
-    loadTasksFromSupabase();
+    await loadTasksFromSupabase();
   }
 
   /// Load tasks from Supabase
   Future<void> loadTasksFromSupabase() async {
-    setState(() {
-      isLoading = true;
-      errorMessage = null;
-    });
+    isLoading = true;
+    errorMessage = null;
+    setState(setState: () {});
 
     try {
       // Fetch dari Supabase
       List<Task> loadedTasks = await supabase.getTasks();
 
       tasks = loadedTasks;
-
-      setState(() {
-        isLoading = false;
-      });
+      isLoading = false;
+      setState(setState: () {});
 
       print('✅ Loaded ${tasks.length} tasks from Supabase');
     } catch (e) {
       print('❌ Error loading tasks: $e');
 
-      setState(() {
-        isLoading = false;
-        errorMessage = 'Failed to load tasks: ${e.toString()}';
-      });
+      isLoading = false;
+      errorMessage = 'Failed to load tasks: ${e.toString()}';
+      setState(setState: () {});
     }
   }
 
@@ -81,7 +77,7 @@ class TodoHomeController extends Controller {
       // Add to local list
       tasks.insert(0, createdTask);
 
-      setState(() {});
+      setState(setState: () {});
 
       print('✅ Task added to Supabase: $createdTask');
     } catch (e) {
@@ -117,7 +113,7 @@ class TodoHomeController extends Controller {
       // Update local list
       tasks[taskIndex] = savedTask;
 
-      setState(() {});
+      setState(setState: () {});
 
       print('✅ Task updated in Supabase: $savedTask');
     } catch (e) {
@@ -147,7 +143,7 @@ class TodoHomeController extends Controller {
       // Remove from local list
       tasks.removeWhere((t) => t.id == id);
 
-      setState(() {});
+      setState(setState: () {});
 
       print('✅ Task deleted from Supabase: $id');
     } catch (e) {
@@ -163,7 +159,7 @@ class TodoHomeController extends Controller {
 
       tasks.clear();
 
-      setState(() {});
+      setState(setState: () {});
 
       print('✅ All tasks cleared from Supabase');
     } catch (e) {

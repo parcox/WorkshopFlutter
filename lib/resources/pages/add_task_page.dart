@@ -119,7 +119,7 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
         title: "Error",
         description: "Task title tidak boleh kosong!",
         icon: Icons.error,
-        style: ToastNotificationStyleType.DANGER,
+        style: ToastNotificationStyleType.danger,
       );
       return;
     }
@@ -128,7 +128,7 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
       isSaving = true;
     });
 
-    final homeController = NYC.controller<TodoHomeController>();
+    final homeController = nyController<TodoHomeController>();
 
     try {
       // Call addTask method (sekarang async!)
@@ -142,7 +142,7 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
         title: "Success",
         description: "Task berhasil ditambahkan dan disimpan!",
         icon: Icons.check_circle,
-        style: ToastNotificationStyleType.SUCCESS,
+        style: ToastNotificationStyleType.success,
       );
 
       // Wait a bit before popping
@@ -159,7 +159,7 @@ class _AddTaskPageState extends NyState<AddTaskPage> {
         title: "Error",
         description: "Gagal menyimpan task!",
         icon: Icons.error,
-        style: ToastNotificationStyleType.DANGER,
+        style: ToastNotificationStyleType.danger,
       );
 
       setState(() {
