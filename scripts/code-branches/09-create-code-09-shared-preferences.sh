@@ -45,34 +45,8 @@ git checkout -b "$BRANCH_NAME" 2>/dev/null
 echo "${GREEN}✓ Branch $BRANCH_NAME created from $PREV_BRANCH${NC}"
 echo ""
 
-# 4. Update pubspec.yaml to add shared_preferences
-echo "${CYAN}📝 Adding shared_preferences to pubspec.yaml...${NC}"
-
-cat > "pubspec.yaml" << 'EOF'
-name: simple_todo_app
-description: "A simple todo application built with Nylo framework"
-publish_to: 'none'
-version: 1.0.0+1
-
-environment:
-  sdk: '>=3.5.0 <4.0.0'
-
-dependencies:
-  flutter:
-    sdk: flutter
-  nylo_framework: ^6.9.1
-  shared_preferences: ^2.5.3
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-
-flutter:
-  uses-material-design: true
-EOF
-
-echo "${GREEN}✓ pubspec.yaml updated with shared_preferences${NC}"
+# 4. Add shared_preferences to pubspec.yaml
+add_dependency "shared_preferences" "^2.5.3"
 echo ""
 
 # 5. Create StorageService

@@ -233,6 +233,40 @@ commit_and_push_branch() {
 }
 
 # ============================================
+# Function: Add dependency to pubspec.yaml
+# ============================================
+add_dependency() {
+    local package_name="$1"
+    local package_version="$2"
+
+    print_info "Adding $package_name: $package_version to pubspec.yaml..."
+
+    # Check if dependency already exists
+    if grep -q "^  $package_name:" pubspec.yaml; then
+        print_info "$package_name already in pubspec.yaml, updating version..."
+        # Update existing dependency version
+        sed -i.bak "s|^  $package_name:.*|  $package_name: $package_version|" pubspec.yaml
+        rm -f pubspec.yaml.bak
+    else
+        # Add new dependency after flutter dependency
+        awk -v pkg="  $package_name: $package_version" '
+        /^dependencies:/ { in_deps=1 }
+        /^  flutter:/ && in_deps {
+            print
+            getline
+            print
+            print pkg
+            next
+        }
+        { print }
+        ' pubspec.yaml > pubspec.yaml.tmp
+        mv pubspec.yaml.tmp pubspec.yaml
+    fi
+
+    print_success "$package_name added to pubspec.yaml"
+}
+
+# ============================================
 # Function: Cleanup temp directory
 # ============================================
 cleanup_temp() {

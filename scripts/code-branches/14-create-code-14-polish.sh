@@ -47,40 +47,14 @@ git checkout -b "$BRANCH_NAME" 2>/dev/null
 echo "${GREEN}✓ Branch $BRANCH_NAME created from $PREV_BRANCH${NC}"
 echo ""
 
-# 3. Add intl package to pubspec.yaml for date formatting
-echo "${CYAN}📝 Adding intl package for date formatting...${NC}"
-
-cat > "pubspec.yaml" << 'EOF'
-name: simple_todo_app
-description: "A simple todo application built with Nylo framework"
-publish_to: 'none'
-version: 1.0.0+1
-
-environment:
-  sdk: '>=3.5.0 <4.0.0'
-
-dependencies:
-  flutter:
-    sdk: flutter
-  nylo_framework: ^6.9.1
-  shared_preferences: ^2.5.3
-  supabase_flutter: ^2.9.1
-  intl: ^0.20.2
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-
-flutter:
-  uses-material-design: true
-
-  # Add .env file as asset
-  assets:
-    - .env
-EOF
-
-echo "${GREEN}✓ pubspec.yaml updated with intl package${NC}"
+# 3. Check intl package (should already be in pubspec from Nylo)
+echo "${CYAN}📝 Verifying intl package (for date formatting)...${NC}"
+if grep -q "^  intl:" pubspec.yaml; then
+    echo "${GREEN}✓ intl package already available in pubspec.yaml${NC}"
+else
+    echo "${YELLOW}⚠️  intl not found, adding it...${NC}"
+    add_dependency "intl" "^0.20.2"
+fi
 echo ""
 
 # 5. Update HomePage with animations and improved UI

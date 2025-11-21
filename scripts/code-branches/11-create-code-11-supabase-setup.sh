@@ -47,39 +47,30 @@ git checkout -b "$BRANCH_NAME" 2>/dev/null
 echo "${GREEN}✓ Branch $BRANCH_NAME created from $PREV_BRANCH${NC}"
 echo ""
 
-# 4. Update pubspec.yaml to add supabase_flutter
-echo "${CYAN}📝 Adding supabase_flutter to pubspec.yaml...${NC}"
+# 4. Add supabase_flutter to pubspec.yaml
+add_dependency "supabase_flutter" "^2.9.1"
+echo ""
 
-cat > "pubspec.yaml" << 'EOF'
-name: simple_todo_app
-description: "A simple todo application built with Nylo framework"
-publish_to: 'none'
-version: 1.0.0+1
-
-environment:
-  sdk: '>=3.5.0 <4.0.0'
-
-dependencies:
-  flutter:
-    sdk: flutter
-  nylo_framework: ^6.9.1
-  shared_preferences: ^2.5.3
-  supabase_flutter: ^2.9.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-
-flutter:
-  uses-material-design: true
-
-  # Add .env file as asset
-  assets:
-    - .env
-EOF
-
-echo "${GREEN}✓ pubspec.yaml updated with supabase_flutter${NC}"
+# 4b. Add .env to assets if not already there
+echo "${CYAN}📝 Adding .env to assets in pubspec.yaml...${NC}"
+if ! grep -q "\.env" pubspec.yaml; then
+    # Add .env to assets section
+    if grep -q "^  assets:" pubspec.yaml; then
+        # Assets section exists, add .env to it
+        sed -i.bak '/^  assets:/a\
+    - .env' pubspec.yaml
+        rm -f pubspec.yaml.bak
+    else
+        # Assets section doesn't exist, add it under flutter:
+        sed -i.bak '/^flutter:/a\
+  assets:\
+    - .env' pubspec.yaml
+        rm -f pubspec.yaml.bak
+    fi
+    echo "${GREEN}✓ .env added to assets${NC}"
+else
+    echo "${GREEN}✓ .env already in assets${NC}"
+fi
 echo ""
 
 # 5. Create .env file with placeholder
