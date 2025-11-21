@@ -84,11 +84,11 @@ class TodoHomeController extends Controller {
 
   int get pendingTasks => tasks.where((t) => !t.isCompleted).length;
 
-  // Create: Add new task (belum save to storage - akan di branch 10)
-  void addTask({
+  // Create: Add new task (NOW WITH AUTO-SAVE!)
+  Future<void> addTask({
     required String title,
     String description = '',
-  }) {
+  }) async {
     String newId = DateTime.now().millisecondsSinceEpoch.toString();
 
     Task newTask = Task(
@@ -100,19 +100,21 @@ class TodoHomeController extends Controller {
     );
 
     tasks.insert(0, newTask);
-    setState(() {});
 
-    print('Task added: $newTask');
-    print('⚠️ Note: Task belum auto-save ke storage (akan ditambahkan di branch 10)');
+    // Save ke storage
+    await saveTasksToStorage();
+
+    setState(() {});
+    print('Task added and saved: $newTask');
   }
 
-  // Update: Modify existing task (belum save to storage - akan di branch 10)
-  void updateTask({
+  // Update: Modify existing task (NOW WITH AUTO-SAVE!)
+  Future<void> updateTask({
     required String id,
     String? title,
     String? description,
     bool? isCompleted,
-  }) {
+  }) async {
     final taskIndex = tasks.indexWhere((t) => t.id == id);
 
     if (taskIndex == -1) {
@@ -126,30 +128,38 @@ class TodoHomeController extends Controller {
       isCompleted: isCompleted,
     );
 
+    // Save ke storage
+    await saveTasksToStorage();
+
     setState(() {});
-    print('Task updated: ${tasks[taskIndex]}');
-    print('⚠️ Note: Task belum auto-save ke storage (akan ditambahkan di branch 10)');
+    print('Task updated and saved: ${tasks[taskIndex]}');
   }
 
-  // Toggle task completion status (belum save to storage - akan di branch 10)
-  void toggleComplete(String id) {
+  // Toggle task completion status (NOW WITH AUTO-SAVE!)
+  Future<void> toggleComplete(String id) async {
     final taskIndex = tasks.indexWhere((t) => t.id == id);
 
     if (taskIndex != -1) {
       tasks[taskIndex] = tasks[taskIndex].copyWith(
         isCompleted: !tasks[taskIndex].isCompleted,
       );
+
+      // Save ke storage
+      await saveTasksToStorage();
+
       setState(() {});
-      print('⚠️ Note: Task belum auto-save ke storage (akan ditambahkan di branch 10)');
     }
   }
 
-  // Delete: Remove task (belum save to storage - akan di branch 10)
-  void deleteTask(String id) {
+  // Delete: Remove task (NOW WITH AUTO-SAVE!)
+  Future<void> deleteTask(String id) async {
     tasks.removeWhere((t) => t.id == id);
+
+    // Save ke storage
+    await saveTasksToStorage();
+
     setState(() {});
-    print('Task deleted: $id');
-    print('⚠️ Note: Task belum auto-save ke storage (akan ditambahkan di branch 10)');
+    print('Task deleted and saved');
   }
 
   // Clear all tasks
@@ -160,11 +170,12 @@ class TodoHomeController extends Controller {
     print('All tasks cleared');
   }
 
-  // Delete all completed tasks
-  void deleteCompletedTasks() {
+  // Delete all completed tasks (NOW WITH AUTO-SAVE!)
+  Future<void> deleteCompletedTasks() async {
     tasks.removeWhere((t) => t.isCompleted);
+    await saveTasksToStorage();
     setState(() {});
-    print('⚠️ Note: Task belum auto-save ke storage (akan ditambahkan di branch 10)');
+    print('Completed tasks deleted and saved');
   }
 
   // Filter methods

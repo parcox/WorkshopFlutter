@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import '/app/controllers/todo_home_controller.dart';
 
-class AddTaskPage extends StatefulWidget {
+class AddTaskPage extends NyStatefulWidget {
   static const path = '/add-task';
 
-  const AddTaskPage({super.key});
-
-  @override
-  State<AddTaskPage> createState() => _AddTaskPageState();
+  AddTaskPage({super.key}) : super(child: () => _AddTaskPageState());
 }
 
-class _AddTaskPageState extends State<AddTaskPage> {
+class _AddTaskPageState extends NyState<AddTaskPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  bool isSaving = false;
 
   @override
   void dispose() {
@@ -23,52 +21,86 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget view(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Task'),
+        title: Text('Add New Task'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Title field
+            Text(
+              'Task Title *',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            SizedBox(height: 8),
             TextField(
               controller: titleController,
-              decoration: const InputDecoration(
-                labelText: 'Task Title',
-                hintText: 'e.g. Belajar Flutter',
+              decoration: InputDecoration(
+                hintText: 'Enter task title',
                 border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.title),
+                filled: true,
+                fillColor: Colors.grey.shade50,
+              ),
+              maxLines: 1,
+            ),
+            SizedBox(height: 24),
+
+            // Description field
+            Text(
+              'Description (Optional)',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 8),
             TextField(
               controller: descriptionController,
-              maxLines: 4,
-              decoration: const InputDecoration(
-                labelText: 'Description (optional)',
-                hintText: 'Describe your task here...',
+              decoration: InputDecoration(
+                hintText: 'Enter task description',
                 border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.description),
+                filled: true,
+                fillColor: Colors.grey.shade50,
               ),
+              maxLines: 4,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 32),
+
+            // Save button
             SizedBox(
               width: double.infinity,
-              height: 50,
               child: ElevatedButton(
-                onPressed: _handleSave,
+                onPressed: isSaving ? null : _handleSave,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  disabledBackgroundColor: Colors.grey,
                 ),
-                child: const Text(
-                  'Save Task',
-                  style: TextStyle(fontSize: 16),
-                ),
+                child: isSaving
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(
+                        'Save Task',
+                        style: TextStyle(fontSize: 16),
+                      ),
               ),
             ),
           ],
@@ -77,40 +109,62 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
-  void _handleSave() {
+  Future<void> _handleSave() async {
     String title = titleController.text.trim();
     String description = descriptionController.text.trim();
 
     if (title.isEmpty) {
       showToastNotification(
         context,
-        title: 'Error',
-        description: 'Task title tidak boleh kosong!',
-        style: ToastNotificationStyleType.danger,
+        title: "Error",
+        description: "Task title tidak boleh kosong!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.DANGER,
       );
       return;
     }
 
-    // Get TodoHomeController
+    setState(() {
+      isSaving = true;
+    });
+
     final homeController = NYC.controller<TodoHomeController>();
 
-    // Call addTask method
-    homeController.addTask(
-      title: title,
-      description: description,
-    );
+    try {
+      // Call addTask method (sekarang async!)
+      await homeController.addTask(
+        title: title,
+        description: description,
+      );
 
-    // Show success message
-    showToastNotification(
-      context,
-      title: 'Success',
-      description: 'Task berhasil ditambahkan!',
-      style: ToastNotificationStyleType.success,
-    );
+      showToastNotification(
+        context,
+        title: "Success",
+        description: "Task berhasil ditambahkan dan disimpan!",
+        icon: Icons.check_circle,
+        style: ToastNotificationStyleType.SUCCESS,
+      );
 
-    // Kembali ke home
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pop(context);
-    });
+      // Wait a bit before popping
+      await Future.delayed(Duration(milliseconds: 500));
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      print('Error saving task: $e');
+
+      showToastNotification(
+        context,
+        title: "Error",
+        description: "Gagal menyimpan task!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.DANGER,
+      );
+
+      setState(() {
+        isSaving = false;
+      });
+    }
   }
 }

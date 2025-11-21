@@ -10,7 +10,8 @@ class DetailTaskPage extends NyStatefulWidget {
 }
 
 class _DetailTaskPageState extends NyState<DetailTaskPage> {
-  Task? task;  // Ubah dari Map ke Task
+  Task? task;
+  bool isProcessing = false;
 
   @override
   init() async {
@@ -34,7 +35,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       );
     }
 
-    bool isCompleted = task!.isCompleted;  // Akses property langsung
+    bool isCompleted = task!.isCompleted;
 
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +57,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
           ),
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () {
+            onPressed: isProcessing ? null : () {
               _showDeleteConfirmation();
             },
           ),
@@ -109,7 +110,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
             ),
             SizedBox(height: 8),
             Text(
-              task!.title,  // Akses property langsung
+              task!.title,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -137,13 +138,20 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  _toggleTaskStatus();
-                },
-                icon: Icon(
-                  isCompleted ? Icons.refresh : Icons.check,
-                  color: Colors.white,
-                ),
+                onPressed: isProcessing ? null : _toggleTaskStatus,
+                icon: isProcessing
+                    ? SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Icon(
+                        isCompleted ? Icons.refresh : Icons.check,
+                        color: Colors.white,
+                      ),
                 label: Text(
                   isCompleted ? 'Mark as Pending' : 'Mark as Completed',
                   style: TextStyle(color: Colors.white),
@@ -151,6 +159,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isCompleted ? Colors.orange : Colors.green,
                   padding: EdgeInsets.symmetric(vertical: 12),
+                  disabledBackgroundColor: Colors.grey,
                 ),
               ),
             ),
@@ -160,24 +169,45 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     );
   }
 
-  void _toggleTaskStatus() {
+  Future<void> _toggleTaskStatus() async {
     if (task == null) return;
 
-    final controller = NYC.controller<TodoHomeController>();
-    controller.toggleComplete(task!.id);  // Akses property langsung
-
-    // Update local state
     setState(() {
-      task = task!.copyWith(isCompleted: !task!.isCompleted);
+      isProcessing = true;
     });
 
-    showToastNotification(
-      context,
-      title: "Success",
-      description: "Task status updated!",
-      icon: Icons.check_circle,
-      style: ToastNotificationStyleType.SUCCESS,
-    );
+    try {
+      final controller = NYC.controller<TodoHomeController>();
+      await controller.toggleComplete(task!.id);
+
+      // Update local state
+      setState(() {
+        task = task!.copyWith(isCompleted: !task!.isCompleted);
+        isProcessing = false;
+      });
+
+      showToastNotification(
+        context,
+        title: "Success",
+        description: "Task status updated and saved!",
+        icon: Icons.check_circle,
+        style: ToastNotificationStyleType.SUCCESS,
+      );
+    } catch (e) {
+      print('Error toggling task: $e');
+
+      setState(() {
+        isProcessing = false;
+      });
+
+      showToastNotification(
+        context,
+        title: "Error",
+        description: "Failed to update task status!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.DANGER,
+      );
+    }
   }
 
   void _showDeleteConfirmation() {
@@ -208,20 +238,44 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     );
   }
 
-  void _deleteTask() {
+  Future<void> _deleteTask() async {
     if (task == null) return;
 
-    final controller = NYC.controller<TodoHomeController>();
-    controller.deleteTask(task!.id);  // Akses property langsung
+    setState(() {
+      isProcessing = true;
+    });
 
-    showToastNotification(
-      context,
-      title: "Success",
-      description: "Task deleted successfully!",
-      icon: Icons.delete,
-      style: ToastNotificationStyleType.SUCCESS,
-    );
+    try {
+      final controller = NYC.controller<TodoHomeController>();
+      await controller.deleteTask(task!.id);
 
-    Navigator.pop(context);
+      showToastNotification(
+        context,
+        title: "Success",
+        description: "Task deleted and saved!",
+        icon: Icons.delete,
+        style: ToastNotificationStyleType.SUCCESS,
+      );
+
+      await Future.delayed(Duration(milliseconds: 500));
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      print('Error deleting task: $e');
+
+      setState(() {
+        isProcessing = false;
+      });
+
+      showToastNotification(
+        context,
+        title: "Error",
+        description: "Failed to delete task!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.DANGER,
+      );
+    }
   }
 }
