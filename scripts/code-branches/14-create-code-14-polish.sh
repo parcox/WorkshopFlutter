@@ -33,8 +33,34 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Create new orphan branch from previous branch (preserves all files)
-create_orphan_branch_from_prev "$BRANCH_NAME" "$PREV_BRANCH"
+# 2. Clone Nylo (if not already done)
+if [[ ! -d "$TEMP_DIR" ]]; then
+    if ! clone_nylo_to_temp; then
+        exit 1
+    fi
+
+    if ! test_flutter_setup; then
+        cleanup_temp
+        exit 1
+    fi
+else
+    print_step "SKIP" "Nylo already cloned to temp (reusing)"
+    echo ""
+fi
+
+# 3. Create branch from previous
+echo "${CYAN}📌 Creating $BRANCH_NAME from $PREV_BRANCH...${NC}"
+echo ""
+
+cd "$REPO_DIR"
+echo "  → Checking out $PREV_BRANCH as base..."
+git checkout "$PREV_BRANCH" 2>/dev/null
+
+echo "  → Creating new branch $BRANCH_NAME..."
+git checkout -b "$BRANCH_NAME" 2>/dev/null
+
+echo "${GREEN}✓ Branch $BRANCH_NAME created from $PREV_BRANCH${NC}"
+echo ""
 
 # 3. Add intl package to pubspec.yaml for date formatting
 echo "${CYAN}📝 Adding intl package for date formatting...${NC}"
