@@ -13,6 +13,11 @@ class DetailTaskPage extends NyStatefulWidget {
 class _DetailTaskPageState extends NyState<DetailTaskPage> {
   Task? task;
   bool isProcessing = false;
+  bool hasChanges = false; // Track if task was modified
+  bool isEditMode = false; // Track if in edit mode
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   @override
   initState() {
@@ -20,11 +25,20 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     _initializeTask();
   }
 
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   void _initializeTask() {
     final taskData = widget.data() as Map<String, dynamic>?;
 
     if (taskData != null) {
       task = Task.fromJson(taskData);
+      titleController.text = task!.title;
+      descriptionController.text = task!.description;
     }
   }
 
@@ -41,30 +55,56 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
     String formattedDate = DateFormat('EEEE, MMMM d, yyyy').format(task!.createdAt);
     String formattedTime = DateFormat('h:mm a').format(task!.createdAt);
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (!didPop) {
+          // Handle back button - return hasChanges flag
+          Navigator.pop(context, hasChanges);
+        }
+      },
+      child: Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context, hasChanges);
+            },
+          ),
         title: Text('Task Detail'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              showToastNotification(
-                context,
-                title: "Info",
-                description: "Edit feature coming soon!",
-                icon: Icons.edit,
-                style: ToastNotificationStyleType.info,
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: isProcessing ? null : () {
-              _showDeleteConfirmation();
-            },
-          ),
+            if (isEditMode)
+              IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  // Cancel edit mode
+                  setState(() {
+                    isEditMode = false;
+                    titleController.text = task!.title;
+                    descriptionController.text = task!.description;
+                  });
+                },
+              )
+            else
+              IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  setState(() {
+                    isEditMode = true;
+                  });
+                },
+              ),
+            if (!isEditMode)
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: isProcessing
+                    ? null
+                    : () {
+                        _showDeleteConfirmation();
+                      },
+              ),
         ],
       ),
       body: SingleChildScrollView(
@@ -123,14 +163,32 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
               ),
             ),
             SizedBox(height: 8),
-            Text(
-              task!.title,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
+              if (isEditMode)
+                TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter task title',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                )
+              else
+                Text(
+                  task!.title,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
             SizedBox(height: 24),
 
             // Description section
@@ -144,23 +202,46 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
               ),
             ),
             SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Text(
-                task!.description.isEmpty ? 'No description provided' : task!.description,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: task!.description.isEmpty ? Colors.grey : Colors.black87,
-                  height: 1.5,
+              if (isEditMode)
+                TextField(
+                  controller: descriptionController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    hintText: 'Enter task description',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                    height: 1.5,
+                  ),
+                )
+              else
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Text(
+                    task!.description.isEmpty
+                        ? 'No description provided'
+                        : task!.description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: task!.description.isEmpty
+                          ? Colors.grey
+                          : Colors.black87,
+                      height: 1.5,
+                    ),
+                  ),
                 ),
-              ),
-            ),
             SizedBox(height: 24),
 
             // Created date section
@@ -197,44 +278,145 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
             ),
             SizedBox(height: 32),
 
-            // Toggle status button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton.icon(
-                onPressed: isProcessing ? null : _toggleTaskStatus,
-                icon: isProcessing
-                    ? SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
+              // Action buttons - either Save/Cancel for edit mode or Toggle status for view mode
+              if (isEditMode)
+                Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        onPressed: isProcessing ? null : _saveChanges,
+                        icon: isProcessing
+                            ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Icon(Icons.save, color: Colors.white),
+                        label: Text(
+                          'Save Changes',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
-                      )
-                    : Icon(
-                        isCompleted ? Icons.refresh : Icons.check,
-                        color: Colors.white,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          disabledBackgroundColor: Colors.grey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 2,
+                        ),
                       ),
-                label: Text(
-                  isCompleted ? 'Mark as Pending' : 'Mark as Completed',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isCompleted ? Colors.orange : Colors.green,
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  disabledBackgroundColor: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    ),
+                  ],
+                )
+              else
+                // Toggle status button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    onPressed: isProcessing ? null : _toggleTaskStatus,
+                    icon: isProcessing
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Icon(
+                            isCompleted ? Icons.refresh : Icons.check,
+                            color: Colors.white,
+                          ),
+                    label: Text(
+                      isCompleted ? 'Mark as Pending' : 'Mark as Completed',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          isCompleted ? Colors.orange : Colors.green,
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      disabledBackgroundColor: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 2,
+                    ),
                   ),
-                  elevation: 2,
                 ),
-              ),
-            ),
           ],
         ),
       ),
+      ), // Close PopScope
     );
+  }
+
+  Future<void> _saveChanges() async {
+    if (task == null) return;
+
+    final newTitle = titleController.text.trim();
+    final newDescription = descriptionController.text.trim();
+
+    if (newTitle.isEmpty) {
+      showToastNotification(
+        context,
+        title: "Error",
+        description: "Task title cannot be empty!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.danger,
+      );
+      return;
+    }
+
+    setState(() {
+      isProcessing = true;
+    });
+
+    try {
+      // Update task in Supabase
+      await Supabase.instance.client.from('tasks').update({
+        'title': newTitle,
+        'description': newDescription,
+      }).eq('id', task!.id);
+
+      setState(() {
+        task = task!.copyWith(
+          title: newTitle,
+          description: newDescription,
+        );
+        isProcessing = false;
+        isEditMode = false;
+        hasChanges = true;
+      });
+
+      showToastNotification(
+        context,
+        title: "Success",
+        description: "Task updated successfully!",
+        icon: Icons.check_circle,
+        style: ToastNotificationStyleType.success,
+      );
+    } catch (e) {
+      print('Error updating task: $e');
+
+      setState(() {
+        isProcessing = false;
+      });
+
+      showToastNotification(
+        context,
+        title: "Error",
+        description: "Failed to update task!",
+        icon: Icons.error,
+        style: ToastNotificationStyleType.danger,
+      );
+    }
   }
 
   Future<void> _toggleTaskStatus() async {
@@ -254,6 +436,7 @@ class _DetailTaskPageState extends NyState<DetailTaskPage> {
       setState(() {
         task = task!.copyWith(isCompleted: newStatus);
         isProcessing = false;
+        hasChanges = true; // Mark that task was modified
       });
 
       showToastNotification(

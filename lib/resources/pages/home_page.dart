@@ -31,9 +31,12 @@ class _HomePageState extends NyState<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigate ke Add Task Page
-          routeTo('/add-task');
+        onPressed: () async {
+          // Navigate ke Add Task Page dan refresh jika task ditambahkan
+          final result = await Navigator.pushNamed(context, '/add-task');
+          if (result == true) {
+            widget.controller.refresh();
+          }
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add, color: Colors.white),
@@ -158,9 +161,16 @@ class _HomePageState extends NyState<HomePage> {
           style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          // Navigate ke Detail Task Page dengan passing data
-          routeTo('/detail-task', data: task);
+        onTap: () async {
+          // Navigate ke Detail Task Page dengan passing data dan refresh jika diubah
+          final result = await Navigator.pushNamed(
+            context,
+            '/detail-task',
+            arguments: task.toJson(),
+          );
+          if (result == true) {
+            widget.controller.refresh();
+          }
         },
       ),
     );
