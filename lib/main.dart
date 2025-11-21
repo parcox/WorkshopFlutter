@@ -1,8 +1,11 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/services.dart';
+import 'bootstrap/boot.dart';
 
+/// Main entry point for the application.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,15 +39,9 @@ void main() async {
     print('⚠️ Please configure .env file with your Supabase credentials');
   }
 
-  runApp(Main());
-}
-
-class Main extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppBuild(
-      navigatorKey: NyNavigator.instance.router.navigatorKey,
-      onGenerateRoute: nyRoutes,
-    );
-  }
+  // Initialize Nylo
+  await Nylo.init(
+    setup: Boot.nylo,
+    setupFinished: Boot.finished,
+  );
 }

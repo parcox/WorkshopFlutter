@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import '/app/controllers/todo_home_controller.dart';
+import '/app/models/task.dart';
 
 class HomePage extends NyStatefulWidget<TodoHomeController> {
   static const path = '/home';
@@ -10,8 +11,8 @@ class HomePage extends NyStatefulWidget<TodoHomeController> {
 
 class _HomePageState extends NyState<HomePage> {
   @override
-  init() async {
-    super.init();
+  void initState() {
+    super.initState();
     // Controller sudah di-initialize otomatis oleh Nylo
   }
 
@@ -95,7 +96,7 @@ class _HomePageState extends NyState<HomePage> {
     final controller = widget.controller;
 
     // Ambil tasks dari controller (tidak hardcode lagi!)
-    List<Map<String, dynamic>> tasks = controller.tasks;
+    List<Task> tasks = controller.tasks;
 
     if (tasks.isEmpty) {
       return Center(
