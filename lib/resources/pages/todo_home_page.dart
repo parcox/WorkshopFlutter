@@ -19,13 +19,36 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         title: Text('Simple ToDo App'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-      ),
-      body: Column(
-        children: [
-          _buildStatsCard(controller),
-          Expanded(child: _buildTaskList()),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'clear') {
+                _showClearConfirmation();
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'clear',
+                child: Row(
+                  children: [
+                    Icon(Icons.delete_sweep, color: Colors.red),
+                    SizedBox(width: 8),
+                    Text('Clear All Tasks'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
+      body: controller.isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                _buildStatsCard(controller),
+                Expanded(child: _buildTaskList()),
+              ],
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           routeTo('/add-task');
@@ -79,8 +102,6 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
 
   Widget _buildTaskList() {
     final controller = widget.controller;
-
-    // Sekarang List<Task>, bukan List<Map> lagi!
     List<Task> tasks = controller.tasks;
 
     if (tasks.isEmpty) {
@@ -121,8 +142,8 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
     );
   }
 
-  Widget _buildTaskCard(Task task) {  // Ubah dari Map ke Task
-    bool isCompleted = task.isCompleted;  // Akses property langsung
+  Widget _buildTaskCard(Task task) {
+    bool isCompleted = task.isCompleted;
 
     return Card(
       elevation: 2,
@@ -136,7 +157,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           ),
         ),
         title: Text(
-          task.title,  // Akses property langsung, bukan task['title']
+          task.title,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -144,16 +165,52 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
           ),
         ),
         subtitle: Text(
-          task.description,  // Akses property langsung
+          task.description,
           style: TextStyle(fontSize: 14, color: Colors.grey),
         ),
         trailing: Icon(Icons.arrow_forward_ios, size: 16),
         onTap: () {
           routeTo(
             '/detail-task',
-            data: task.toJson(),  // Convert ke Map untuk passing data
+            data: task.toJson(),
           );
         },
+      ),
+    );
+  }
+
+  void _showClearConfirmation() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Clear All Tasks?'),
+        content: Text('This will delete all tasks permanently. Are you sure?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final controller = widget.controller;
+              await controller.clearAllTasks();
+
+              Navigator.pop(context);
+
+              showToastNotification(
+                context,
+                title: "Cleared",
+                description: "All tasks have been deleted",
+                icon: Icons.delete_sweep,
+                style: ToastNotificationStyleType.WARNING,
+              );
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text('Clear All'),
+          ),
+        ],
       ),
     );
   }
