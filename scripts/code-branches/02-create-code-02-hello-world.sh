@@ -22,23 +22,7 @@ if ! check_prerequisites; then
     exit 1
 fi
 
-# Step 2: Clone Nylo (if not already done by previous script)
-if [[ ! -d "$TEMP_DIR" ]]; then
-    if ! clone_nylo_to_temp; then
-        exit 1
-    fi
-
-    # Test Flutter setup
-    if ! test_flutter_setup; then
-        cleanup_temp
-        exit 1
-    fi
-else
-    print_step "SKIP" "Nylo already cloned to temp (reusing)"
-    echo ""
-fi
-
-# Step 3: Create branch from previous
+# Step 2: Create branch from previous
 print_step "BRANCH" "Creating code-02-hello-world from code-01-init..."
 echo ""
 

@@ -31,22 +31,7 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Clone Nylo (if not already done)
-if [[ ! -d "$TEMP_DIR" ]]; then
-    if ! clone_nylo_to_temp; then
-        exit 1
-    fi
-
-    if ! test_flutter_setup; then
-        cleanup_temp
-        exit 1
-    fi
-else
-    print_step "SKIP" "Nylo already cloned to temp (reusing)"
-    echo ""
-fi
-
-# 3. Create branch from previous
+# 2. Create branch from previous
 echo "${CYAN}📌 Creating $BRANCH_NAME from $PREV_BRANCH...${NC}"
 echo ""
 

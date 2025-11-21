@@ -31,22 +31,7 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Clone Nylo (if not already done)
-if [[ ! -d "$TEMP_DIR" ]]; then
-    if ! clone_nylo_to_temp; then
-        exit 1
-    fi
-
-    if ! test_flutter_setup; then
-        cleanup_temp
-        exit 1
-    fi
-else
-    print_step "SKIP" "Nylo already cloned to temp (reusing)"
-    echo ""
-fi
-
-# 3. Create branch from previous
+# 2. Create branch from previous
 echo "${CYAN}📌 Creating $BRANCH_NAME from $PREV_BRANCH...${NC}"
 echo ""
 
@@ -600,13 +585,33 @@ EOF
 echo "${GREEN}✓ HomePage updated with loading indicator and clear menu${NC}"
 echo ""
 
-# 8. Test Flutter setup
-test_flutter_setup
+# 8. Run flutter pub get to install shared_preferences
+echo "${CYAN}📦 Installing dependencies...${NC}"
+cd "$REPO_DIR"
+if flutter pub get > /dev/null 2>&1; then
+    echo "${GREEN}✓ Dependencies installed${NC}"
+else
+    echo "${RED}✗ flutter pub get failed${NC}"
+    exit 1
+fi
+echo ""
 
-# 9. Commit and push
+# 9. Commit and push (initial commit)
 commit_and_push_branch "$BRANCH_NAME" "$COMMIT_MESSAGE"
 
-# 10. Return to main
+# 10. Commit pubspec.lock changes (if any)
+echo "${CYAN}📝 Checking for pubspec.lock changes...${NC}"
+if [[ -n $(git status --porcelain) ]]; then
+    git add pubspec.lock
+    git commit -m "Update pubspec.lock after flutter pub get"
+    git push origin "$BRANCH_NAME"
+    echo "${GREEN}✓ pubspec.lock changes committed${NC}"
+else
+    echo "${GREEN}✓ No additional changes to commit${NC}"
+fi
+echo ""
+
+# 11. Return to main
 return_to_main
 
 echo ""

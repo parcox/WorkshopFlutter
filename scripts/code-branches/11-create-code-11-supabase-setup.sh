@@ -33,22 +33,7 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Clone Nylo (if not already done)
-if [[ ! -d "$TEMP_DIR" ]]; then
-    if ! clone_nylo_to_temp; then
-        exit 1
-    fi
-
-    if ! test_flutter_setup; then
-        cleanup_temp
-        exit 1
-    fi
-else
-    print_step "SKIP" "Nylo already cloned to temp (reusing)"
-    echo ""
-fi
-
-# 3. Create branch from previous
+# 2. Create branch from previous
 echo "${CYAN}📌 Creating $BRANCH_NAME from $PREV_BRANCH...${NC}"
 echo ""
 
@@ -450,8 +435,16 @@ EOF
 echo "${GREEN}✓ Task model updated with Supabase methods${NC}"
 echo ""
 
-# 10. Test Flutter setup
-test_flutter_setup
+# 10. Run flutter pub get to install supabase_flutter
+echo "${CYAN}📦 Installing dependencies...${NC}"
+cd "$REPO_DIR"
+if flutter pub get > /dev/null 2>&1; then
+    echo "${GREEN}✓ Dependencies installed${NC}"
+else
+    echo "${RED}✗ flutter pub get failed${NC}"
+    exit 1
+fi
+echo ""
 
 # 11. Commit and push (initial commit)
 commit_and_push_branch "$BRANCH_NAME" "$COMMIT_MESSAGE"

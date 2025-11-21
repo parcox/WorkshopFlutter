@@ -33,22 +33,7 @@ echo ""
 # 1. Check prerequisites
 check_prerequisites
 
-# 2. Clone Nylo (if not already done)
-if [[ ! -d "$TEMP_DIR" ]]; then
-    if ! clone_nylo_to_temp; then
-        exit 1
-    fi
-
-    if ! test_flutter_setup; then
-        cleanup_temp
-        exit 1
-    fi
-else
-    print_step "SKIP" "Nylo already cloned to temp (reusing)"
-    echo ""
-fi
-
-# 3. Create branch from previous
+# 2. Create branch from previous
 echo "${CYAN}📌 Creating $BRANCH_NAME from $PREV_BRANCH...${NC}"
 echo ""
 
@@ -554,11 +539,20 @@ EOF
 echo "${GREEN}✓ HomePage updated with pull-to-refresh and error handling${NC}"
 echo ""
 
-# 6. Test Flutter setup
-test_flutter_setup
-
-# 7. Commit and push
+# 6. Commit and push (initial commit)
 commit_and_push_branch "$BRANCH_NAME" "$COMMIT_MESSAGE"
+
+# 7. Commit pubspec.lock changes (if any)
+echo "${CYAN}📝 Checking for pubspec.lock changes...${NC}"
+if [[ -n $(git status --porcelain) ]]; then
+    git add pubspec.lock
+    git commit -m "Update pubspec.lock"
+    git push origin "$BRANCH_NAME"
+    echo "${GREEN}✓ pubspec.lock changes committed${NC}"
+else
+    echo "${GREEN}✓ No additional changes to commit${NC}"
+fi
+echo ""
 
 # 8. Return to main
 return_to_main
