@@ -243,27 +243,27 @@ cleanup_temp() {
 return_to_main() {
     cd "$REPO_DIR"
     print_info "Returning to main branch..."
-    
+
     # Checkout main branch
     if ! git checkout main 2>/dev/null; then
         print_error "Failed to checkout main branch"
         return 1
     fi
-    
+
     # CRITICAL: Clean untracked files left by orphan branch operations
     print_info "Cleaning untracked files..."
     git clean -fd
-    
+
     print_info "Cleaning ignored files..."
     git clean -fdx
-    
+
     # Verify main is clean
     local file_count=$(ls -A | grep -v -E '^(\\.git|\\.gitignore|README\\.md|docs|scripts)$' | wc -l | tr -d ' ')
     if [[ $file_count -gt 0 ]]; then
         print_error "Warning: Main branch still has unexpected files"
         ls -la | grep -v -E '^total|^d.*\\s+\\.$|^d.*\\s+\\.\\.$|^\\.git|^\\.gitignore|^.*README\\.md|^d.*docs|^d.*scripts'
     fi
-    
+
     print_success "Back to main branch (verified clean)"
 }
 
