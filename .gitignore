@@ -1,1 +1,27 @@
+# GitHub Copilot (private)
 .github/
+
+# Flutter/Dart files (should only exist in code branches)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+android/
+ios/
+lib/
+test/
+pubspec.yaml
+analysis_options.yaml
+lang/
+public/
+
+# Temporary files
+/tmp/nylo_temp_*
+
+# Miscellaneous
+*.log
+.DS_Store
