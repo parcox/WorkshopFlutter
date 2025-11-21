@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import '/app/controllers/todo_home_controller.dart';
 
 class DetailTaskPage extends StatefulWidget {
   static const path = '/detail-task';
@@ -11,13 +12,11 @@ class DetailTaskPage extends StatefulWidget {
 }
 
 class _DetailTaskPageState extends State<DetailTaskPage> {
-  // Data task yang diterima dari halaman sebelumnya
   Map<String, dynamic>? task;
 
   @override
   void initState() {
     super.initState();
-    // Ambil data task dari route arguments
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final args = ModalRoute.of(context)?.settings.arguments;
       if (args is Map<String, dynamic>) {
@@ -30,7 +29,6 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Jika task null, tampilkan loading
     if (task == null) {
       return Scaffold(
         appBar: AppBar(
@@ -63,14 +61,7 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
           ),
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () {
-              showToastNotification(
-                context,
-                title: "Delete",
-                description: "Delete feature akan dibuat di sesi berikutnya",
-                style: ToastNotificationStyleType.warning,
-              );
-            },
+            onPressed: _handleDelete,
           ),
         ],
       ),
@@ -79,7 +70,6 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Status badge
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
@@ -103,8 +93,6 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Title
             const Text(
               'Title',
               style: TextStyle(
@@ -122,8 +110,6 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Description
             const Text(
               'Description',
               style: TextStyle(
@@ -137,37 +123,12 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
               task!['description'] ?? 'No description',
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 20),
-
-            // Created date
-            const Text(
-              'Created At',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              task!['createdAt'] ?? '-',
-              style: const TextStyle(fontSize: 16),
-            ),
             const SizedBox(height: 32),
-
-            // Toggle complete button
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  showToastNotification(
-                    context,
-                    title: "Toggle Status",
-                    description: "Status update akan dibuat di sesi berikutnya (dengan Controller)",
-                    style: ToastNotificationStyleType.info,
-                  );
-                },
+                onPressed: _handleToggle,
                 icon: Icon(isCompleted ? Icons.undo : Icons.check),
                 label: Text(
                   isCompleted ? 'Mark as Pending' : 'Mark as Completed',
@@ -181,6 +142,61 @@ class _DetailTaskPageState extends State<DetailTaskPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _handleToggle() {
+    if (task == null) return;
+
+    final controller = NYC.controller<TodoHomeController>();
+    bool isCompleted = task!['isCompleted'] ?? false;
+
+    controller.toggleComplete(task!['id']);
+
+    setState(() {
+      task!['isCompleted'] = !isCompleted;
+    });
+
+    showToastNotification(
+      context,
+      title: 'Success',
+      description: isCompleted ? 'Task marked as pending' : 'Task marked as completed',
+      style: ToastNotificationStyleType.success,
+    );
+  }
+
+  void _handleDelete() {
+    if (task == null) return;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Task'),
+        content: const Text('Are you sure you want to delete this task?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              final controller = NYC.controller<TodoHomeController>();
+              controller.deleteTask(task!['id']);
+
+              Navigator.pop(context); // Close dialog
+              Navigator.pop(context); // Back to home
+
+              showToastNotification(
+                context,
+                title: 'Deleted',
+                description: 'Task deleted successfully',
+                style: ToastNotificationStyleType.success,
+              );
+            },
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
       ),
     );
   }

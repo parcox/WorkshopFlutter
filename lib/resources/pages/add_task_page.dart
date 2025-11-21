@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import '/app/controllers/todo_home_controller.dart';
 
 class AddTaskPage extends StatefulWidget {
   static const path = '/add-task';
@@ -11,13 +12,11 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-  // Controller untuk TextField
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
   @override
   void dispose() {
-    // Bersihkan controller saat page ditutup
     titleController.dispose();
     descriptionController.dispose();
     super.dispose();
@@ -36,7 +35,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title input
             TextField(
               controller: titleController,
               decoration: const InputDecoration(
@@ -47,8 +45,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Description input
             TextField(
               controller: descriptionController,
               maxLines: 4,
@@ -60,8 +56,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
             ),
             const SizedBox(height: 24),
-
-            // Save button
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -87,9 +81,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     String title = titleController.text.trim();
     String description = descriptionController.text.trim();
 
-    // Validasi
     if (title.isEmpty) {
-      // Show error message
       showToastNotification(
         context,
         title: 'Error',
@@ -99,10 +91,14 @@ class _AddTaskPageState extends State<AddTaskPage> {
       return;
     }
 
-    // Print untuk testing (nanti akan save ke controller)
-    print('Saving task:');
-    print('Title: $title');
-    print('Description: $description');
+    // Get TodoHomeController
+    final homeController = NYC.controller<TodoHomeController>();
+
+    // Call addTask method
+    homeController.addTask(
+      title: title,
+      description: description,
+    );
 
     // Show success message
     showToastNotification(
@@ -112,7 +108,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       style: ToastNotificationStyleType.success,
     );
 
-    // Kembali ke halaman sebelumnya setelah 1 detik
+    // Kembali ke home
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.pop(context);
     });
