@@ -16,7 +16,16 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Simple ToDo App'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Simple ToDo App'),
+            Text(
+              '☁️ Cloud Sync',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
@@ -26,6 +35,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             onPressed: () {
               controller.refresh();
             },
+            tooltip: 'Refresh from cloud',
           ),
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -50,6 +60,25 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
       ),
       body: Column(
         children: [
+          // Connection status banner
+          if (controller.errorMessage != null)
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              color: Colors.red.shade100,
+              child: Row(
+                children: [
+                  Icon(Icons.cloud_off, size: 16, color: Colors.red),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Connection error. Pull down to retry.',
+                      style: TextStyle(fontSize: 12, color: Colors.red.shade900),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           _buildStatsCard(controller),
           Expanded(
             child: RefreshIndicator(
@@ -66,6 +95,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        tooltip: 'Add new task',
       ),
     );
   }
@@ -122,13 +152,18 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             CircularProgressIndicator(),
             SizedBox(height: 16),
             Text('Loading tasks from cloud...'),
+            SizedBox(height: 8),
+            Text(
+              'Please wait',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
           ],
         ),
       );
     }
 
-    // Show error message
-    if (controller.errorMessage != null) {
+    // Show error message (if no tasks loaded)
+    if (controller.errorMessage != null && controller.tasks.isEmpty) {
       return Center(
         child: Padding(
           padding: EdgeInsets.all(32),
@@ -138,26 +173,48 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
               Icon(Icons.cloud_off, size: 64, color: Colors.red),
               SizedBox(height: 16),
               Text(
-                'Failed to load tasks',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'Connection Error',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 12),
+              Text(
+                'Failed to connect to cloud database',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
               ),
               SizedBox(height: 8),
               Text(
                 controller.errorMessage!,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 24),
               ElevatedButton.icon(
                 onPressed: () {
                   controller.refresh();
                 },
                 icon: Icon(Icons.refresh),
-                label: Text('Retry'),
+                label: Text('Retry Connection'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Troubleshooting tips:',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '• Check internet connection\n'
+                '• Verify .env file configuration\n'
+                '• Ensure Supabase project is active',
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                textAlign: TextAlign.left,
               ),
             ],
           ),
@@ -173,7 +230,7 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.cloud_done, size: 80, color: Colors.grey.shade300),
+            Icon(Icons.cloud_done, size: 80, color: Colors.green.shade200),
             SizedBox(height: 16),
             Text(
               'No tasks yet!',
@@ -191,11 +248,31 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                 color: Colors.grey.shade500,
               ),
             ),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.cloud_done, size: 16, color: Colors.blue),
+                  SizedBox(width: 8),
+                  Text(
+                    'Connected to cloud',
+                    style: TextStyle(fontSize: 12, color: Colors.blue.shade900),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       );
     }
 
+    // Task list
     return ListView.builder(
       padding: EdgeInsets.all(16),
       itemCount: tasks.length,
@@ -228,10 +305,14 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
             decoration: isCompleted ? TextDecoration.lineThrough : null,
           ),
         ),
-        subtitle: Text(
-          task.description,
-          style: TextStyle(fontSize: 14, color: Colors.grey),
-        ),
+        subtitle: task.description.isNotEmpty
+            ? Text(
+                task.description,
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
+            : null,
         trailing: Icon(Icons.arrow_forward_ios, size: 16),
         onTap: () {
           routeTo(
@@ -248,7 +329,10 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Clear All Tasks?'),
-        content: Text('This will delete all tasks from cloud permanently. Are you sure?'),
+        content: Text(
+          'This will permanently delete all tasks from the cloud database. '
+          'This action cannot be undone.\n\nAre you sure?',
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -276,14 +360,14 @@ class _TodoHomePageState extends NyState<TodoHomePage> {
                 showToastNotification(
                   context,
                   title: "Error",
-                  description: "Failed to clear tasks",
+                  description: "Failed to clear tasks: ${e.toString()}",
                   icon: Icons.error,
                   style: ToastNotificationStyleType.DANGER,
                 );
               }
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: Text('Clear All'),
+            child: Text('Delete All'),
           ),
         ],
       ),
