@@ -52,12 +52,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showToastNotification(
-            context,
-            title: "Coming Soon",
-            description: "Add Task feature akan dibuat di sesi berikutnya",
-            style: ToastNotificationStyleType.info,
-          );
+          // Navigate ke Add Task Page
+          routeTo('/add-task');
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add, color: Colors.white),
@@ -152,7 +148,6 @@ class _HomePageState extends State<HomePage> {
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        // Icon di kiri
         leading: CircleAvatar(
           backgroundColor: isCompleted ? Colors.green : Colors.orange,
           child: Icon(
@@ -160,14 +155,11 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-
-        // Title & description
         title: Text(
           task['title'],
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            // Coret text jika sudah selesai
             decoration: isCompleted ? TextDecoration.lineThrough : null,
           ),
         ),
@@ -175,16 +167,12 @@ class _HomePageState extends State<HomePage> {
           task['description'],
           style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
-
-        // Icon di kanan
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-
-        // Action ketika card diklik
         onTap: () {
           showToastNotification(
             context,
             title: "Task: ${task['title']}",
-            description: "Detail page akan dibuat di sesi berikutnya",
+            description: "Detail page akan dibuat di branch berikutnya",
             style: ToastNotificationStyleType.info,
           );
         },
