@@ -245,17 +245,26 @@ return_to_main() {
     print_info "Returning to main branch..."
     
     # Checkout main branch
-    git checkout main 2>/dev/null
+    if ! git checkout main 2>/dev/null; then
+        print_error "Failed to checkout main branch"
+        return 1
+    fi
     
     # CRITICAL: Clean untracked files left by orphan branch operations
-    # This ensures main branch working directory stays clean (only docs/, scripts/, README.md)
-    print_info "Cleaning untracked Flutter files..."
-    git clean -fd > /dev/null 2>&1 || true
+    print_info "Cleaning untracked files..."
+    git clean -fd
     
-    # Also remove any ignored files to be extra safe
-    git clean -fdx > /dev/null 2>&1 || true
+    print_info "Cleaning ignored files..."
+    git clean -fdx
     
-    print_success "Back to main branch (clean)"
+    # Verify main is clean
+    local file_count=$(ls -A | grep -v -E '^(\\.git|\\.gitignore|README\\.md|docs|scripts)$' | wc -l | tr -d ' ')
+    if [[ $file_count -gt 0 ]]; then
+        print_error "Warning: Main branch still has unexpected files"
+        ls -la | grep -v -E '^total|^d.*\\s+\\.$|^d.*\\s+\\.\\.$|^\\.git|^\\.gitignore|^.*README\\.md|^d.*docs|^d.*scripts'
+    fi
+    
+    print_success "Back to main branch (verified clean)"
 }
 
 # ============================================
