@@ -298,6 +298,14 @@ dart run nylo_framework:main make:page MyPage
 
 ---
 
+## 👨‍🏫 Instructor
+
+**Fitri Wibowo**
+- 📧 Email: fitri.wibowo@polnep.ac.id
+- 🏫 Politeknik Negeri Pontianak
+
+---
+
 ## 📄 License
 
 MIT License - Workshop Material
@@ -319,6 +327,6 @@ MIT License - Workshop Material
 
 *Built with ❤️ for absolute beginners*
 
-*Last Updated: November 21, 2025*
+*Last Updated: November 22, 2025*
 
 </div>
