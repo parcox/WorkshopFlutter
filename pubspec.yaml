@@ -1,6 +1,5 @@
 name: simple_todo_app
 description: "A simple todo application built with Nylo framework"
-
 publish_to: 'none'
 
 version: 1.0.0+1
