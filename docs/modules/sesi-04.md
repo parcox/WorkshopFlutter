@@ -85,7 +85,8 @@ class Task {
     required this.createdAt,
   });
 
-  // Convert dari JSON (Map) ke Task object - for SharedPreferences
+  // Convert dari JSON (Map) ke Task object
+  // Dipakai saat load data dari storage
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       id: json['id'] as String,
@@ -96,7 +97,8 @@ class Task {
     );
   }
 
-  // Convert dari Task object ke JSON (Map) - for SharedPreferences
+  // Convert dari Task object ke JSON (Map)
+  // Dipakai saat save data ke storage
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -104,29 +106,6 @@ class Task {
       'description': description,
       'isCompleted': isCompleted,
       'createdAt': createdAt.toIso8601String(),
-    };
-  }
-
-  // Convert dari Supabase response ke Task object
-  // Note: Supabase uses snake_case for column names
-  factory Task.fromSupabaseJson(Map<String, dynamic> json) {
-    return Task(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String? ?? '',
-      isCompleted: json['is_completed'] as bool? ?? false,  // snake_case dari database
-      createdAt: DateTime.parse(json['created_at'] as String),  // snake_case
-    );
-  }
-
-  // Convert Task object ke Supabase format (snake_case)
-  Map<String, dynamic> toSupabaseJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'is_completed': isCompleted,  // Convert ke snake_case untuk database
-      'created_at': createdAt.toIso8601String(),
     };
   }
 
@@ -168,25 +147,20 @@ Task({
 })
 ```
 
-**2. fromJson() & toJson() - Untuk SharedPreferences:**
-- Menggunakan camelCase format (`isCompleted`, `createdAt`)
-- `fromJson()` untuk convert `Map` → `Task`
-- `toJson()` untuk convert `Task` → `Map`
+**2. fromJson() - Factory Constructor:**
+- `factory` = Constructor special yang bisa return object
+- Dipakai untuk convert `Map<String, dynamic>` → `Task`
 - Pakai `as String` untuk type casting dengan aman
 - Pakai `??` untuk default value jika null
 
-**3. fromSupabaseJson() & toSupabaseJson() - Untuk Supabase:**
-- Menggunakan snake_case format (`is_completed`, `created_at`)
-- Supabase database menggunakan snake_case naming convention
-- Conversion otomatis antara camelCase (Dart) dan snake_case (Database)
-- `fromSupabaseJson()` untuk convert data dari Supabase → Task
-- `toSupabaseJson()` untuk convert Task → format Supabase
+**3. toJson() - Regular Method:**
+- Return `Map<String, dynamic>`
+- Dipakai untuk convert `Task` → `Map` (untuk save ke storage)
+- DateTime di-convert ke ISO8601 string format
 
 **4. copyWith() - Helper Method:**
 - Buat copy object dengan beberapa property berubah
 - Useful untuk immutable updates
-
-**💡 Note:** Model ini sudah siap untuk Sesi 5 (Supabase integration)!
 
 ---
 
