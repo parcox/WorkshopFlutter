@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sesi-02</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="sesi-2-ui-navigation-dengan-flutter">📱 Sesi 2: UI &amp;
+Navigation dengan Flutter</h1>
+<h2 id="overview-sesi">🎯 Overview Sesi</h2>
+<p><strong>Durasi</strong>: 90 menit (1.5 jam) |
+<strong>Branch</strong>: <code>01-hello-nylo</code> →
+<code>02-home-page</code> → <code>03-add-page</code> →
+<code>04-detail-page</code> | <strong>Tujuan</strong>: Belajar Flutter
+widgets dasar dan navigasi antar halaman</p>
+<hr />
+<h2 id="agenda-sesi">📋 Agenda Sesi</h2>
+<h3 id="bagian-1-flutter-widgets-fundamentals-30-menit"><strong>Bagian
+1: Flutter Widgets Fundamentals</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Pengenalan widget tree di
+Flutter</label></li>
+<li><label><input type="checkbox" checked="" />Widget-widget dasar:
+Container, Column, Row, Text, Icon</label></li>
+<li><label><input type="checkbox" checked="" />ListView untuk
+menampilkan list data</label></li>
+<li><label><input type="checkbox" checked="" />Card untuk container
+dengan shadow</label></li>
+<li><label><input type="checkbox" checked="" />Button widgets:
+ElevatedButton, IconButton, FloatingActionButton</label></li>
+</ul>
+<h3 id="bagian-2-build-home-page-30-menit"><strong>Bagian 2: Build Home
+Page</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Generate HomePage dengan
+Metro CLI</label></li>
+<li><label><input type="checkbox" checked="" />Build UI list todo dengan
+data static</label></li>
+<li><label><input type="checkbox" checked="" />Styling cards dan
+layout</label></li>
+</ul>
+<h3 id="bagian-3-multi-page-navigation-30-menit"><strong>Bagian 3:
+Multi-Page Navigation</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Generate AddTaskPage dan
+DetailTaskPage</label></li>
+<li><label><input type="checkbox" checked="" />Setup routes di
+Nylo</label></li>
+<li><label><input type="checkbox" checked="" />Navigasi antar halaman
+dengan routeTo()</label></li>
+<li><label><input type="checkbox" checked="" />Passing data antar
+halaman</label></li>
+</ul>
+<hr />
+<h2 id="bagian-1-flutter-widgets-fundamentals-30-menit-1">📱 Bagian 1:
+Flutter Widgets Fundamentals (30 menit)</h2>
+<h3 id="widget-tree-concept"><strong>1.1 Widget Tree
+Concept</strong></h3>
+<p>Flutter itu seperti menyusun balok LEGO. Setiap balok adalah
+<strong>widget</strong>, dan kita susun widget-widget ini untuk membuat
+tampilan aplikasi.</p>
+<pre><code>Scaffold (kerangka utama)
+├── AppBar (header di atas)
+├── Body
+│   └── ListView (list yang bisa di-scroll)
+│       ├── Card (kotak dengan shadow)
+│       │   └── ListTile (baris dengan icon, text, trailing)
+│       ├── Card
+│       └── Card
+└── FloatingActionButton (tombol bulat melayang)</code></pre>
+<p><strong>Analogi sederhana</strong>: - <strong>Scaffold</strong> =
+Rumah (kerangka utama) - <strong>AppBar</strong> = Atap rumah (bagian
+atas) - <strong>Body</strong> = Ruangan dalam rumah -
+<strong>ListView</strong> = Rak yang bisa di-scroll -
+<strong>Card</strong> = Kotak penyimpanan di rak</p>
+<hr />
+<h3 id="widget-widget-dasar"><strong>1.2 Widget-Widget
+Dasar</strong></h3>
+<h4 id="container"><strong>Container</strong></h4>
+<p>Widget paling fleksibel untuk layout. Seperti kotak yang bisa diatur
+ukuran, warna, padding, margin.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Container(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  width<span class="op">:</span> <span class="dv">200</span><span class="op">,</span>           <span class="co">// lebar</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  height<span class="op">:</span> <span class="dv">100</span><span class="op">,</span>          <span class="co">// tinggi</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span>  <span class="co">// jarak dalam</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  margin<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">8</span>)<span class="op">,</span>    <span class="co">// jarak luar</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  decoration<span class="op">:</span> BoxDecoration(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span>          <span class="co">// warna background</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span> <span class="co">// sudut melengkung</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Text(<span class="st">&#39;Hello&#39;</span>)<span class="op">,</span>  <span class="co">// isi container</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Kapan pakai Container?</strong> - Kalau butuh background
+warna - Kalau butuh padding/margin - Kalau butuh border radius (sudut
+melengkung)</p>
+<hr />
+<h4 id="column-row"><strong>Column &amp; Row</strong></h4>
+<p><strong>Column</strong> = Susun widget secara
+<strong>vertikal</strong> (atas ke bawah) <strong>Row</strong> = Susun
+widget secara <strong>horizontal</strong> (kiri ke kanan)</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Column - susun vertical</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Column(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  children<span class="op">:</span> [</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 1&#39;</span>)<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 2&#39;</span>)<span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 3&#39;</span>)<span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Row - susun horizontal</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>Row(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  children<span class="op">:</span> [</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    Icon(Icons<span class="op">.</span>star)<span class="op">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Rating&#39;</span>)<span class="op">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;4.5&#39;</span>)<span class="op">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Alignment</strong>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Column(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span>  <span class="co">// posisi vertikal</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  crossAxisAlignment<span class="op">:</span> CrossAxisAlignment<span class="op">.</span>start<span class="op">,</span> <span class="co">// posisi horizontal</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  children<span class="op">:</span> [<span class="op">...</span>]<span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Analogi</strong>: - <code>mainAxisAlignment</code> = Posisi
+sepanjang arah utama (vertikal untuk Column, horizontal untuk Row) -
+<code>crossAxisAlignment</code> = Posisi tegak lurus arah utama</p>
+<hr />
+<h4 id="listview"><strong>ListView</strong></h4>
+<p>Untuk menampilkan list data yang bisa di-scroll. Ada 2 cara:</p>
+<p><strong>1. ListView dengan children (untuk data
+sedikit/fixed):</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ListView(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  children<span class="op">:</span> [</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 1&#39;</span>)<span class="op">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 2&#39;</span>)<span class="op">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Text(<span class="st">&#39;Item 3&#39;</span>)<span class="op">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>2. ListView.builder (untuk data banyak/dynamic):</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ListView<span class="op">.</span>builder(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  itemCount<span class="op">:</span> <span class="dv">10</span><span class="op">,</span>  <span class="co">// jumlah item</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  itemBuilder<span class="op">:</span> (context<span class="op">,</span> index) <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Widget yang akan dibuat untuk setiap item</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Text(<span class="st">&#39;Item $index&#39;</span>);</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Kapan pakai ListView.builder?</strong> - Data banyak (10+
+item) - Data dari variable/list - Performance lebih baik karena hanya
+build widget yang terlihat di layar</p>
+<hr />
+<h4 id="card"><strong>Card</strong></h4>
+<p>Widget untuk membuat container dengan shadow (efek mengambang).</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Card(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  elevation<span class="op">:</span> <span class="dv">4</span><span class="op">,</span>  <span class="co">// tinggi shadow (0-20)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  margin<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> ListTile(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    leading<span class="op">:</span> Icon(Icons<span class="op">.</span>check_circle)<span class="op">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">:</span> Text(<span class="st">&#39;Task Title&#39;</span>)<span class="op">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    subtitle<span class="op">:</span> Text(<span class="st">&#39;Task description here&#39;</span>)<span class="op">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    trailing<span class="op">:</span> Icon(Icons<span class="op">.</span>more_vert)<span class="op">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Kombinasi Card + ListTile</strong> sangat umum untuk membuat
+list item yang rapi!</p>
+<hr />
+<h4 id="button-widgets"><strong>Button Widgets</strong></h4>
+<p><strong>1. ElevatedButton</strong> - Button dengan shadow dan
+background warna:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ElevatedButton(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Button diklik!&#39;</span>);</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Text(<span class="st">&#39;Save&#39;</span>)<span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>2. IconButton</strong> - Button berbentuk icon saja:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>IconButton(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  icon<span class="op">:</span> Icon(Icons<span class="op">.</span>delete)<span class="op">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Delete clicked&#39;</span>);</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>3. FloatingActionButton</strong> - Button bulat yang melayang
+(biasa di kanan bawah):</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FloatingActionButton(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;FAB clicked&#39;</span>);</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<hr />
+<h4 id="textfield"><strong>TextField</strong></h4>
+<p>Widget untuk input text dari user.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>TextField(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  decoration<span class="op">:</span> InputDecoration(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    labelText<span class="op">:</span> <span class="st">&#39;Task Title&#39;</span><span class="op">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    hintText<span class="op">:</span> <span class="st">&#39;Enter task title here&#39;</span><span class="op">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    border<span class="op">:</span> OutlineInputBorder()<span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    prefixIcon<span class="op">:</span> Icon(Icons<span class="op">.</span>edit)<span class="op">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  onChanged<span class="op">:</span> (value) <span class="op">{</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;User ketik: $value&#39;</span>);</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Properties penting:</strong> - <code>labelText</code> = Label
+yang muncul di atas - <code>hintText</code> = Placeholder text abu-abu -
+<code>border</code> = Border style - <code>onChanged</code> = Function
+yang dipanggil setiap kali user ketik</p>
+<hr />
+<h3 id="hands-on-coba-widget-dasar"><strong>1.3 Hands-on: Coba Widget
+Dasar</strong></h3>
+<p>Mari coba modifikasi <code>home_page.dart</code> bawaan Nylo untuk
+eksplorasi widgets.</p>
+<p><strong>Langkah 1: Buka file home_page.dart</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path: lib/resources/pages/home_page.dart</span></span></code></pre></div>
+<p><strong>Langkah 2: Ganti body dengan widget experiments:</strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// lib/resources/pages/home_page.dart</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/controllers/home_controller.dart&#39;</span>;</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HomePage <span class="kw">extends</span> NyStatefulWidget<span class="op">&lt;</span>HomeController<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> RouteView path <span class="op">=</span> (<span class="st">&quot;/home&quot;</span><span class="op">,</span> (_) <span class="op">=&gt;</span> HomePage());</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  HomePage(<span class="op">{</span><span class="kw">super</span><span class="op">.</span>key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(child<span class="op">:</span> () <span class="op">=&gt;</span> _HomePageState());</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _HomePageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>HomePage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  init() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>init();</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&#39;Widget Playground&#39;</span>)<span class="op">,</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> ListView(</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Container example</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>          _buildContainerExample()<span class="op">,</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Row example</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>          _buildRowExample()<span class="op">,</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Card example</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>          _buildCardExample()<span class="op">,</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>          <span class="co">// TextField example</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>          _buildTextFieldExample()<span class="op">,</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  Widget _buildContainerExample() <span class="op">{</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Container(</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>      padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>      decoration<span class="op">:</span> BoxDecoration(</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>        color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">.</span>shade100<span class="op">,</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Text(</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;Ini Container dengan background biru&#39;</span><span class="op">,</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  Widget _buildRowExample() <span class="op">{</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Row(</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>      mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>spaceAround<span class="op">,</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>        Icon(Icons<span class="op">.</span>star<span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span> size<span class="op">:</span> <span class="dv">32</span>)<span class="op">,</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>        Icon(Icons<span class="op">.</span>favorite<span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>red<span class="op">,</span> size<span class="op">:</span> <span class="dv">32</span>)<span class="op">,</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>        Icon(Icons<span class="op">.</span>thumb_up<span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span> size<span class="op">:</span> <span class="dv">32</span>)<span class="op">,</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>  Widget _buildCardExample() <span class="op">{</span></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Card(</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>      elevation<span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> ListTile(</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>        leading<span class="op">:</span> CircleAvatar(</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>          child<span class="op">:</span> Icon(Icons<span class="op">.</span>check)<span class="op">,</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&#39;Contoh Card + ListTile&#39;</span>)<span class="op">,</span></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>        subtitle<span class="op">:</span> Text(<span class="st">&#39;Ini subtitle&#39;</span>)<span class="op">,</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>        trailing<span class="op">:</span> Icon(Icons<span class="op">.</span>arrow_forward)<span class="op">,</span></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>  Widget _buildTextFieldExample() <span class="op">{</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> TextField(</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>      decoration<span class="op">:</span> InputDecoration(</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>        labelText<span class="op">:</span> <span class="st">&#39;Coba ketik di sini&#39;</span><span class="op">,</span></span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>        hintText<span class="op">:</span> <span class="st">&#39;Placeholder text&#39;</span><span class="op">,</span></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>        border<span class="op">:</span> OutlineInputBorder()<span class="op">,</span></span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>        prefixIcon<span class="op">:</span> Icon(Icons<span class="op">.</span>edit)<span class="op">,</span></span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Langkah 3: Run aplikasi dan lihat hasilnya!</strong></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run</span></code></pre></div>
+<p><strong>💡 Coba-coba sendiri:</strong> - Ganti warna background
+Container - Tambah icon baru di Row - Ubah text di Card - Tambahkan
+<code>suffixIcon</code> di TextField</p>
+<p><strong>📸 Screenshot:</strong> Ambil screenshot hasil percobaan Anda
+dan bandingkan dengan teman!</p>
+<hr />
+<h2 id="bagian-2-build-home-page-todo-list-30-menit">🏠 Bagian 2: Build
+Home Page ToDo List (30 menit)</h2>
+<p>Sekarang kita akan membuat halaman utama aplikasi ToDo List dengan
+data static (hardcode dulu).</p>
+<h3 id="generate-homepage-baru"><strong>2.1 Generate HomePage
+Baru</strong></h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate page baru untuk todo list</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:page todo_home_page</span></code></pre></div>
+<p><strong>Output:</strong></p>
+<pre><code>✓ Created lib/resources/pages/todo_home_page.dart
+✓ Created lib/app/controllers/todo_home_controller.dart</code></pre>
+<hr />
+<h3 id="setup-route-untuk-todohomepage"><strong>2.2 Setup Route untuk
+TodoHomePage</strong></h3>
+<p><strong>Edit file: <code>lib/routes/router.dart</code></strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/home_page.dart&#39;</span>;</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/todo_home_page.dart&#39;</span>;</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>appRouter() <span class="op">=&gt;</span> nyRoutes((router) <span class="op">{</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(HomePage<span class="op">.</span>path);</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Route baru untuk todo home</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(TodoHomePage<span class="op">.</span>path);</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>);</span></code></pre></div>
+<hr />
+<h3 id="update-main-app-untuk-start-di-todohomepage"><strong>2.3 Update
+Main App untuk Start di TodoHomePage</strong></h3>
+<p><strong>Edit file:
+<code>lib/app/providers/route_provider.dart</code></strong></p>
+<p>Cari bagian <code>initialRoute</code> dan ganti ke
+<code>/todo-home</code>:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">// lib/app/providers/route_provider.dart</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RouteProvider <span class="kw">implements</span> NyProvider <span class="op">{</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  boot(Nylo nylo) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> nylo;</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  afterBoot(Nylo nylo) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    NyNavigator<span class="op">.</span>instance<span class="op">.</span>router <span class="op">=</span> nylo<span class="op">.</span>router;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Ubah initial route ke todo home page</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    NyNavigator<span class="op">.</span>instance<span class="op">.</span>initialRoute <span class="op">=</span> <span class="st">&#39;/todo-home&#39;</span>;  <span class="co">// &lt;-- UBAH INI</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="build-todohomepage-ui"><strong>2.4 Build TodoHomePage
+UI</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/controllers/todo_home_controller.dart&#39;</span>;</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TodoHomePage <span class="kw">extends</span> NyStatefulWidget<span class="op">&lt;</span>TodoHomeController<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> RouteView path <span class="op">=</span> (<span class="st">&quot;/todo-home&quot;</span><span class="op">,</span> (_) <span class="op">=&gt;</span> TodoHomePage());</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  TodoHomePage(<span class="op">{</span><span class="kw">super</span><span class="op">.</span>key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(child<span class="op">:</span> () <span class="op">=&gt;</span> _TodoHomePageState());</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _TodoHomePageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>TodoHomePage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  init() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>init();</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&#39;My Todo List&#39;</span>)<span class="op">,</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> _buildTaskList()<span class="op">,</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>      floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>          <span class="co">// </span><span class="al">TODO</span><span class="co">: Nanti akan navigate ke Add Task Page</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>          print(<span class="st">&#39;FAB diklik!&#39;</span>);</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>  Widget _buildTaskList() <span class="op">{</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data static untuk sementara (hardcode)</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">List</span><span class="op">&lt;</span><span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;&gt;</span> tasks <span class="op">=</span> [</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>      <span class="op">{</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="st">&#39;1&#39;</span><span class="op">,</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;title&#39;</span><span class="op">:</span> <span class="st">&#39;Belajar Flutter&#39;</span><span class="op">,</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;description&#39;</span><span class="op">:</span> <span class="st">&#39;Selesaikan tutorial Flutter basics&#39;</span><span class="op">,</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;isCompleted&#39;</span><span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>      <span class="op">{</span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="st">&#39;2&#39;</span><span class="op">,</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;title&#39;</span><span class="op">:</span> <span class="st">&#39;Setup Project Nylo&#39;</span><span class="op">,</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;description&#39;</span><span class="op">:</span> <span class="st">&#39;Install dan setup Nylo framework&#39;</span><span class="op">,</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;isCompleted&#39;</span><span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>      <span class="op">{</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="st">&#39;3&#39;</span><span class="op">,</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;title&#39;</span><span class="op">:</span> <span class="st">&#39;Build ToDo App&#39;</span><span class="op">,</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;description&#39;</span><span class="op">:</span> <span class="st">&#39;Buat aplikasi ToDo sederhana&#39;</span><span class="op">,</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;isCompleted&#39;</span><span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>    ];</span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> ListView<span class="op">.</span>builder(</span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>      padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>      itemCount<span class="op">:</span> tasks<span class="op">.</span>length<span class="op">,</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>      itemBuilder<span class="op">:</span> (context<span class="op">,</span> index) <span class="op">{</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">final</span> task <span class="op">=</span> tasks[index];</span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> _buildTaskCard(task);</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a>  Widget _buildTaskCard(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> task) <span class="op">{</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isCompleted <span class="op">=</span> task[<span class="st">&#39;isCompleted&#39;</span>] <span class="op">??</span> <span class="cn">false</span>;</span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Card(</span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>      elevation<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>      margin<span class="op">:</span> EdgeInsets<span class="op">.</span>only(bottom<span class="op">:</span> <span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> ListTile(</span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Icon di kiri</span></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>        leading<span class="op">:</span> CircleAvatar(</span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>          backgroundColor<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>green <span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>          child<span class="op">:</span> Icon(</span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a>            isCompleted <span class="op">?</span> Icons<span class="op">.</span>check <span class="op">:</span> Icons<span class="op">.</span>circle_outlined<span class="op">,</span></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a>            color<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Title &amp; description</span></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(</span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a>          task[<span class="st">&#39;title&#39;</span>]<span class="op">,</span></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a>          style<span class="op">:</span> TextStyle(</span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>            fontSize<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb19-90"><a href="#cb19-90" aria-hidden="true" tabindex="-1"></a>            fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb19-91"><a href="#cb19-91" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Coret text jika sudah selesai</span></span>
+<span id="cb19-92"><a href="#cb19-92" aria-hidden="true" tabindex="-1"></a>            decoration<span class="op">:</span> isCompleted <span class="op">?</span> TextDecoration<span class="op">.</span>lineThrough <span class="op">:</span> <span class="cn">null</span><span class="op">,</span></span>
+<span id="cb19-93"><a href="#cb19-93" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb19-94"><a href="#cb19-94" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb19-95"><a href="#cb19-95" aria-hidden="true" tabindex="-1"></a>        subtitle<span class="op">:</span> Text(</span>
+<span id="cb19-96"><a href="#cb19-96" aria-hidden="true" tabindex="-1"></a>          task[<span class="st">&#39;description&#39;</span>]<span class="op">,</span></span>
+<span id="cb19-97"><a href="#cb19-97" aria-hidden="true" tabindex="-1"></a>          style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey)<span class="op">,</span></span>
+<span id="cb19-98"><a href="#cb19-98" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb19-99"><a href="#cb19-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-100"><a href="#cb19-100" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Icon di kanan</span></span>
+<span id="cb19-101"><a href="#cb19-101" aria-hidden="true" tabindex="-1"></a>        trailing<span class="op">:</span> Icon(Icons<span class="op">.</span>arrow_forward_ios<span class="op">,</span> size<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb19-102"><a href="#cb19-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-103"><a href="#cb19-103" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Action ketika card diklik</span></span>
+<span id="cb19-104"><a href="#cb19-104" aria-hidden="true" tabindex="-1"></a>        onTap<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb19-105"><a href="#cb19-105" aria-hidden="true" tabindex="-1"></a>          print(<span class="st">&#39;Task &quot;${task[&#39;</span>title<span class="st">&#39;]}&quot; diklik!&#39;</span>);</span>
+<span id="cb19-106"><a href="#cb19-106" aria-hidden="true" tabindex="-1"></a>          <span class="co">// </span><span class="al">TODO</span><span class="co">: Nanti akan navigate ke Detail Page</span></span>
+<span id="cb19-107"><a href="#cb19-107" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
+<span id="cb19-108"><a href="#cb19-108" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb19-109"><a href="#cb19-109" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb19-110"><a href="#cb19-110" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb19-111"><a href="#cb19-111" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>🔥 Run aplikasi dan lihat hasilnya!</strong></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># atau tekan R di terminal untuk hot reload</span></span></code></pre></div>
+<p><strong>📋 Checklist:</strong> - [ ] Muncul AppBar dengan title “My
+Todo List” - [ ] Ada 3 task cards di list - [ ] Task ke-2 sudah selesai
+(icon hijau, text coret) - [ ] FAB (tombol +) muncul di kanan bawah - [
+] Ketika card diklik, muncul print di console</p>
+<hr />
+<h3 id="improve-ui-dengan-styling"><strong>2.5 Improve UI dengan
+Styling</strong></h3>
+<p>Mari tambahkan sedikit styling agar lebih menarik!</p>
+<p><strong>Tambahkan section stats di atas list:</strong></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@override</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Scaffold(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    appBar<span class="op">:</span> AppBar(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(<span class="st">&#39;My Todo List&#39;</span>)<span class="op">,</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    body<span class="op">:</span> Column(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        _buildStatsCard()<span class="op">,</span>  <span class="co">// &lt;-- Tambah stats card</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        Expanded(child<span class="op">:</span> _buildTaskList())<span class="op">,</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>      onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>        print(<span class="st">&#39;FAB diklik!&#39;</span>);</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>Widget _buildStatsCard() <span class="op">{</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Hitung dari data static</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> totalTasks <span class="op">=</span> <span class="dv">3</span>;</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> completedTasks <span class="op">=</span> <span class="dv">1</span>;</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> pendingTasks <span class="op">=</span> <span class="dv">2</span>;</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Container(</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    margin<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    decoration<span class="op">:</span> BoxDecoration(</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>      color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">.</span>shade50<span class="op">,</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>      borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> Row(</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>      mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>spaceAround<span class="op">,</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>        _buildStatItem(<span class="st">&#39;Total&#39;</span><span class="op">,</span> totalTasks<span class="op">,</span> Colors<span class="op">.</span>blue)<span class="op">,</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>        _buildStatItem(<span class="st">&#39;Done&#39;</span><span class="op">,</span> completedTasks<span class="op">,</span> Colors<span class="op">.</span>green)<span class="op">,</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>        _buildStatItem(<span class="st">&#39;Pending&#39;</span><span class="op">,</span> pendingTasks<span class="op">,</span> Colors<span class="op">.</span>orange)<span class="op">,</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>Widget _buildStatItem(<span class="dt">String</span> label<span class="op">,</span> <span class="dt">int</span> count<span class="op">,</span> Color color) <span class="op">{</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Column(</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>    children<span class="op">:</span> [</span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>      Text(</span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>        count<span class="op">.</span>toString()<span class="op">,</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>          fontSize<span class="op">:</span> <span class="dv">28</span><span class="op">,</span></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>          fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>          color<span class="op">:</span> color<span class="op">,</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>      SizedBox(height<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>      Text(</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>        label<span class="op">,</span></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>          fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>          color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade700<span class="op">,</span></span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Hot reload dan lihat stats card muncul di atas
+list!</strong></p>
+<hr />
+<h2 id="bagian-3-multi-page-navigation-30-menit-1">🚀 Bagian 3:
+Multi-Page Navigation (30 menit)</h2>
+<p>Sekarang kita akan buat 2 halaman baru: 1.
+<strong>AddTaskPage</strong> - Form untuk tambah task baru 2.
+<strong>DetailTaskPage</strong> - Detail task yang diklik</p>
+<h3 id="generate-addtaskpage"><strong>3.1 Generate
+AddTaskPage</strong></h3>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:page add_task_page</span></code></pre></div>
+<p><strong>Output:</strong></p>
+<pre><code>✓ Created lib/resources/pages/add_task_page.dart
+✓ Created lib/app/controllers/add_task_controller.dart</code></pre>
+<hr />
+<h3 id="build-addtaskpage-ui"><strong>3.2 Build AddTaskPage
+UI</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/add_task_page.dart</code></strong></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/controllers/add_task_controller.dart&#39;</span>;</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AddTaskPage <span class="kw">extends</span> NyStatefulWidget<span class="op">&lt;</span>AddTaskController<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> RouteView path <span class="op">=</span> (<span class="st">&quot;/add-task&quot;</span><span class="op">,</span> (_) <span class="op">=&gt;</span> AddTaskPage());</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  AddTaskPage(<span class="op">{</span><span class="kw">super</span><span class="op">.</span>key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(child<span class="op">:</span> () <span class="op">=&gt;</span> _AddTaskPageState());</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _AddTaskPageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>AddTaskPage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Controller untuk TextField</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> TextEditingController titleController <span class="op">=</span> TextEditingController();</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> TextEditingController descriptionController <span class="op">=</span> TextEditingController();</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> dispose() <span class="op">{</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Bersihkan controller saat page ditutup</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    titleController<span class="op">.</span>dispose();</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    descriptionController<span class="op">.</span>dispose();</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>dispose();</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&#39;Add New Task&#39;</span>)<span class="op">,</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>        foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> SingleChildScrollView(</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Column(</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>          crossAxisAlignment<span class="op">:</span> CrossAxisAlignment<span class="op">.</span>start<span class="op">,</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>          children<span class="op">:</span> [</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Title input</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>            TextField(</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>              controller<span class="op">:</span> titleController<span class="op">,</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>              decoration<span class="op">:</span> InputDecoration(</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>                labelText<span class="op">:</span> <span class="st">&#39;Task Title&#39;</span><span class="op">,</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>                hintText<span class="op">:</span> <span class="st">&#39;e.g. Belajar Flutter&#39;</span><span class="op">,</span></span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>                border<span class="op">:</span> OutlineInputBorder()<span class="op">,</span></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>                prefixIcon<span class="op">:</span> Icon(Icons<span class="op">.</span>title)<span class="op">,</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Description input</span></span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>            TextField(</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>              controller<span class="op">:</span> descriptionController<span class="op">,</span></span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>              maxLines<span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>              decoration<span class="op">:</span> InputDecoration(</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>                labelText<span class="op">:</span> <span class="st">&#39;Description (optional)&#39;</span><span class="op">,</span></span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>                hintText<span class="op">:</span> <span class="st">&#39;Describe your task here...&#39;</span><span class="op">,</span></span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>                border<span class="op">:</span> OutlineInputBorder()<span class="op">,</span></span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>                prefixIcon<span class="op">:</span> Icon(Icons<span class="op">.</span>description)<span class="op">,</span></span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">24</span>)<span class="op">,</span></span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Save button</span></span>
+<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a>            SizedBox(</span>
+<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a>              width<span class="op">:</span> <span class="dt">double</span><span class="op">.</span>infinity<span class="op">,</span></span>
+<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a>              height<span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a>              child<span class="op">:</span> ElevatedButton(</span>
+<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a>                onPressed<span class="op">:</span> _handleSave<span class="op">,</span></span>
+<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a>                style<span class="op">:</span> ElevatedButton<span class="op">.</span>styleFrom(</span>
+<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a>                  backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>                  foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a>                child<span class="op">:</span> Text(</span>
+<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&#39;Save Task&#39;</span><span class="op">,</span></span>
+<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a>                  style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a>          ]<span class="op">,</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb24-83"><a href="#cb24-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-84"><a href="#cb24-84" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> _handleSave() <span class="op">{</span></span>
+<span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> title <span class="op">=</span> titleController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> description <span class="op">=</span> descriptionController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Validasi</span></span>
+<span id="cb24-89"><a href="#cb24-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (title<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Show error message</span></span>
+<span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a>      showToastNotification(</span>
+<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a>        context<span class="op">,</span></span>
+<span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> <span class="st">&#39;Error&#39;</span><span class="op">,</span></span>
+<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> <span class="st">&#39;Task title tidak boleh kosong!&#39;</span><span class="op">,</span></span>
+<span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>DANGER<span class="op">,</span></span>
+<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span>;</span>
+<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Print untuk testing (nanti akan save ke storage)</span></span>
+<span id="cb24-101"><a href="#cb24-101" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Saving task:&#39;</span>);</span>
+<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Title: $title&#39;</span>);</span>
+<span id="cb24-103"><a href="#cb24-103" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Description: $description&#39;</span>);</span>
+<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-105"><a href="#cb24-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Show success message</span></span>
+<span id="cb24-106"><a href="#cb24-106" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb24-107"><a href="#cb24-107" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&#39;Success&#39;</span><span class="op">,</span></span>
+<span id="cb24-109"><a href="#cb24-109" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&#39;Task berhasil ditambahkan!&#39;</span><span class="op">,</span></span>
+<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>SUCCESS<span class="op">,</span></span>
+<span id="cb24-111"><a href="#cb24-111" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-113"><a href="#cb24-113" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Kembali ke halaman sebelumnya setelah 1 detik</span></span>
+<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Future</span><span class="op">.</span>delayed(Duration(seconds<span class="op">:</span> <span class="dv">1</span>)<span class="op">,</span> () <span class="op">{</span></span>
+<span id="cb24-115"><a href="#cb24-115" aria-hidden="true" tabindex="-1"></a>      pop(context);</span>
+<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="generate-detailtaskpage"><strong>3.3 Generate
+DetailTaskPage</strong></h3>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:page detail_task_page</span></code></pre></div>
+<hr />
+<h3 id="build-detailtaskpage-ui"><strong>3.4 Build DetailTaskPage
+UI</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/detail_task_page.dart</code></strong></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/controllers/detail_task_controller.dart&#39;</span>;</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DetailTaskPage <span class="kw">extends</span> NyStatefulWidget<span class="op">&lt;</span>DetailTaskController<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> RouteView path <span class="op">=</span> (<span class="st">&quot;/detail-task&quot;</span><span class="op">,</span> (_) <span class="op">=&gt;</span> DetailTaskPage());</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  DetailTaskPage(<span class="op">{</span><span class="kw">super</span><span class="op">.</span>key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(child<span class="op">:</span> () <span class="op">=&gt;</span> _DetailTaskPageState());</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _DetailTaskPageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>DetailTaskPage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Data task yang diterima dari halaman sebelumnya</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;?</span> task;</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  init() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>init();</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Ambil data task dari route arguments</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    task <span class="op">=</span> widget<span class="op">.</span>data();</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Jika task null, tampilkan error</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (task <span class="op">==</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> Scaffold(</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>        appBar<span class="op">:</span> AppBar(title<span class="op">:</span> Text(<span class="st">&#39;Error&#39;</span>))<span class="op">,</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>        body<span class="op">:</span> Center(child<span class="op">:</span> Text(<span class="st">&#39;Task not found&#39;</span>))<span class="op">,</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isCompleted <span class="op">=</span> task<span class="op">!</span>[<span class="st">&#39;isCompleted&#39;</span>] <span class="op">??</span> <span class="cn">false</span>;</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&#39;Task Detail&#39;</span>)<span class="op">,</span></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>        foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>        actions<span class="op">:</span> [</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>          IconButton(</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">:</span> Icon(Icons<span class="op">.</span>edit)<span class="op">,</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>            onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>              print(<span class="st">&#39;Edit button diklik&#39;</span>);</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>              <span class="co">// </span><span class="al">TODO</span><span class="co">: Navigate ke edit page</span></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>          IconButton(</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">:</span> Icon(Icons<span class="op">.</span>delete)<span class="op">,</span></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>            onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>              print(<span class="st">&#39;Delete button diklik&#39;</span>);</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>              <span class="co">// </span><span class="al">TODO</span><span class="co">: Implement delete</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> SingleChildScrollView(</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Column(</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>          crossAxisAlignment<span class="op">:</span> CrossAxisAlignment<span class="op">.</span>start<span class="op">,</span></span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>          children<span class="op">:</span> [</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Status badge</span></span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>            Container(</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>              padding<span class="op">:</span> EdgeInsets<span class="op">.</span>symmetric(horizontal<span class="op">:</span> <span class="dv">12</span><span class="op">,</span> vertical<span class="op">:</span> <span class="dv">6</span>)<span class="op">,</span></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>              decoration<span class="op">:</span> BoxDecoration(</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a>                color<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>green <span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span></span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a>                borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a>              child<span class="op">:</span> Row(</span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a>                mainAxisSize<span class="op">:</span> MainAxisSize<span class="op">.</span>min<span class="op">,</span></span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a>                children<span class="op">:</span> [</span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a>                  Icon(</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a>                    isCompleted <span class="op">?</span> Icons<span class="op">.</span>check_circle <span class="op">:</span> Icons<span class="op">.</span>pending<span class="op">,</span></span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a>                    color<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a>                    size<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a>                  )<span class="op">,</span></span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a>                  SizedBox(width<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a>                  Text(</span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a>                    isCompleted <span class="op">?</span> <span class="st">&#39;Completed&#39;</span> <span class="op">:</span> <span class="st">&#39;Pending&#39;</span><span class="op">,</span></span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a>                    style<span class="op">:</span> TextStyle(color<span class="op">:</span> Colors<span class="op">.</span>white)<span class="op">,</span></span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a>                  )<span class="op">,</span></span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a>                ]<span class="op">,</span></span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Title</span></span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a>              <span class="st">&#39;Title&#39;</span><span class="op">,</span></span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(</span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a>                fontSize<span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a>                color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a>                fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a>              task<span class="op">!</span>[<span class="st">&#39;title&#39;</span>]<span class="op">,</span></span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(</span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a>                fontSize<span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a>                fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Description</span></span>
+<span id="cb26-106"><a href="#cb26-106" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a>              <span class="st">&#39;Description&#39;</span><span class="op">,</span></span>
+<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(</span>
+<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a>                fontSize<span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a>                color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a>                fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb26-112"><a href="#cb26-112" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-113"><a href="#cb26-113" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb26-115"><a href="#cb26-115" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb26-116"><a href="#cb26-116" aria-hidden="true" tabindex="-1"></a>              task<span class="op">!</span>[<span class="st">&#39;description&#39;</span>] <span class="op">??</span> <span class="st">&#39;No description&#39;</span><span class="op">,</span></span>
+<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">32</span>)<span class="op">,</span></span>
+<span id="cb26-120"><a href="#cb26-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-121"><a href="#cb26-121" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Toggle complete button</span></span>
+<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a>            SizedBox(</span>
+<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a>              width<span class="op">:</span> <span class="dt">double</span><span class="op">.</span>infinity<span class="op">,</span></span>
+<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a>              height<span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a>              child<span class="op">:</span> ElevatedButton<span class="op">.</span>icon(</span>
+<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a>                onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a>                  print(<span class="st">&#39;Toggle complete: ${!isCompleted}&#39;</span>);</span>
+<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a>                  <span class="co">// </span><span class="al">TODO</span><span class="co">: Update task status</span></span>
+<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a>                <span class="op">},</span></span>
+<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a>                icon<span class="op">:</span> Icon(isCompleted <span class="op">?</span> Icons<span class="op">.</span>undo <span class="op">:</span> Icons<span class="op">.</span>check)<span class="op">,</span></span>
+<span id="cb26-131"><a href="#cb26-131" aria-hidden="true" tabindex="-1"></a>                label<span class="op">:</span> Text(</span>
+<span id="cb26-132"><a href="#cb26-132" aria-hidden="true" tabindex="-1"></a>                  isCompleted <span class="op">?</span> <span class="st">&#39;Mark as Pending&#39;</span> <span class="op">:</span> <span class="st">&#39;Mark as Completed&#39;</span><span class="op">,</span></span>
+<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a>                  style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb26-134"><a href="#cb26-134" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb26-135"><a href="#cb26-135" aria-hidden="true" tabindex="-1"></a>                style<span class="op">:</span> ElevatedButton<span class="op">.</span>styleFrom(</span>
+<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a>                  backgroundColor<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>orange <span class="op">:</span> Colors<span class="op">.</span>green<span class="op">,</span></span>
+<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a>                  foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb26-140"><a href="#cb26-140" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb26-141"><a href="#cb26-141" aria-hidden="true" tabindex="-1"></a>          ]<span class="op">,</span></span>
+<span id="cb26-142"><a href="#cb26-142" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb26-143"><a href="#cb26-143" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb26-144"><a href="#cb26-144" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb26-145"><a href="#cb26-145" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb26-146"><a href="#cb26-146" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="setup-routes"><strong>3.5 Setup Routes</strong></h3>
+<p><strong>Edit file: <code>lib/routes/router.dart</code></strong></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/home_page.dart&#39;</span>;</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/todo_home_page.dart&#39;</span>;</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/add_task_page.dart&#39;</span>;</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/resources/pages/detail_task_page.dart&#39;</span>;</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>appRouter() <span class="op">=&gt;</span> nyRoutes((router) <span class="op">{</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(HomePage<span class="op">.</span>path);</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(TodoHomePage<span class="op">.</span>path);</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(AddTaskPage<span class="op">.</span>path);</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  router<span class="op">.</span>add(DetailTaskPage<span class="op">.</span>path);</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>);</span></code></pre></div>
+<hr />
+<h3 id="implement-navigation-dari-todohomepage"><strong>3.6 Implement
+Navigation dari TodoHomePage</strong></h3>
+<p>Sekarang kita hubungkan semua halaman dengan navigasi!</p>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<p><strong>Update FAB action:</strong></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Navigate ke Add Task Page</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    routeTo(<span class="st">&#39;/add-task&#39;</span>);</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)<span class="op">,</span></span></code></pre></div>
+<p><strong>Update onTap di task card:</strong></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Widget _buildTaskCard(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> task) <span class="op">{</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isCompleted <span class="op">=</span> task[<span class="st">&#39;isCompleted&#39;</span>] <span class="op">??</span> <span class="cn">false</span>;</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Card(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    elevation<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    margin<span class="op">:</span> EdgeInsets<span class="op">.</span>only(bottom<span class="op">:</span> <span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> ListTile(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>      leading<span class="op">:</span> CircleAvatar(</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>green <span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Icon(</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>          isCompleted <span class="op">?</span> Icons<span class="op">.</span>check <span class="op">:</span> Icons<span class="op">.</span>circle_outlined<span class="op">,</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>          color<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        task[<span class="st">&#39;title&#39;</span>]<span class="op">,</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>          fontSize<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>          fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>          decoration<span class="op">:</span> isCompleted <span class="op">?</span> TextDecoration<span class="op">.</span>lineThrough <span class="op">:</span> <span class="cn">null</span><span class="op">,</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>      subtitle<span class="op">:</span> Text(</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>        task[<span class="st">&#39;description&#39;</span>]<span class="op">,</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey)<span class="op">,</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>      trailing<span class="op">:</span> Icon(Icons<span class="op">.</span>arrow_forward_ios<span class="op">,</span> size<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>      onTap<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Navigate ke Detail Page dengan passing data</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        routeTo(</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;/detail-task&#39;</span><span class="op">,</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>          data<span class="op">:</span> task<span class="op">,</span>  <span class="co">// &lt;-- Pass task data ke halaman detail</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>        );</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="testing-navigation"><strong>3.7 Testing Navigation</strong></h3>
+<p><strong>Test flow:</strong></p>
+<ol type="1">
+<li><p><strong>Run aplikasi</strong></p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run</span></code></pre></div></li>
+<li><p><strong>Test FAB Navigation:</strong></p>
+<ul>
+<li>Klik tombol + (FAB)</li>
+<li>Harus masuk ke Add Task Page</li>
+<li>Isi form dan klik Save</li>
+<li>Harus kembali ke Home Page dengan toast success</li>
+</ul></li>
+<li><p><strong>Test Card Navigation:</strong></p>
+<ul>
+<li>Klik salah satu task card di home</li>
+<li>Harus masuk ke Detail Task Page</li>
+<li>Lihat detail task muncul</li>
+<li>Klik back button untuk kembali</li>
+</ul></li>
+</ol>
+<p><strong>📋 Checklist:</strong> - [ ] FAB navigate ke Add Task Page -
+[ ] Form validation bekerja (title wajib diisi) - [ ] Toast notification
+muncul saat save - [ ] Otomatis kembali ke home setelah save - [ ] Card
+navigate ke Detail Page dengan data yang benar - [ ] Detail page
+menampilkan title, description, dan status - [ ] Back button berfungsi
+di semua halaman</p>
+<hr />
+<h2 id="bonus-custom-app-theme">🎨 Bonus: Custom App Theme</h2>
+<p>Mari buat aplikasi lebih konsisten dengan custom theme!</p>
+<p><strong>Edit file: <code>lib/config/theme.dart</code></strong></p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ThemeData getAppTheme() <span class="op">{</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> ThemeData(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Primary color</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    primarySwatch<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    primaryColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// AppBar theme</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    appBarTheme<span class="op">:</span> AppBarTheme(</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>      elevation<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>      centerTitle<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// FloatingActionButton theme</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    floatingActionButtonTheme<span class="op">:</span> FloatingActionButtonThemeData(</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Card theme</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    cardTheme<span class="op">:</span> CardTheme(</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>      elevation<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>      shape<span class="op">:</span> RoundedRectangleBorder(</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>        borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Input decoration theme</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>    inputDecorationTheme<span class="op">:</span> InputDecorationTheme(</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>      border<span class="op">:</span> OutlineInputBorder(</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>        borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>      filled<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>      fillColor<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade50<span class="op">,</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Button theme</span></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>    elevatedButtonTheme<span class="op">:</span> ElevatedButtonThemeData(</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ElevatedButton<span class="op">.</span>styleFrom(</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>        foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>        shape<span class="op">:</span> RoundedRectangleBorder(</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>          borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Terapkan theme di MaterialApp:</strong></p>
+<p><strong>Edit file:
+<code>lib/app/providers/app_provider.dart</code></strong></p>
+<p>Cari bagian <code>boot</code> method dan pastikan theme sudah
+di-load:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@override</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>boot(Nylo nylo) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  nylo<span class="op">.</span>addThemes([</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    ThemeData<span class="op">.</span>light()<span class="op">,</span> <span class="co">// light theme</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    ThemeData<span class="op">.</span>dark()<span class="op">,</span>  <span class="co">// dark theme</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    getAppTheme()<span class="op">,</span>     <span class="co">// custom app theme</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  ]);</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  nylo<span class="op">.</span>themeId <span class="op">=</span> <span class="dv">2</span>; <span class="co">// Set ke index 2 (custom theme)</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> nylo;</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Hot reload dan lihat perubahan styling di seluruh
+aplikasi!</strong></p>
+<hr />
+<h2 id="latihan-mandiri">🎯 Latihan Mandiri</h2>
+<h3 id="latihan-1-empty-state"><strong>Latihan 1: Empty
+State</strong></h3>
+<p>Tambahkan empty state di <code>TodoHomePage</code> ketika list tasks
+kosong.</p>
+<p><strong>Hint:</strong></p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (tasks<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Center(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> Column(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>      mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        Icon(Icons<span class="op">.</span>inbox<span class="op">,</span> size<span class="op">:</span> <span class="dv">64</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey)<span class="op">,</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>        SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        Text(<span class="st">&#39;No tasks yet!&#39;</span>)<span class="op">,</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>        Text(<span class="st">&#39;Tap + button to add your first task&#39;</span>)<span class="op">,</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="latihan-2-search-bar"><strong>Latihan 2: Search
+Bar</strong></h3>
+<p>Tambahkan search bar di AppBar untuk filter tasks.</p>
+<p><strong>Hint:</strong> - Gunakan <code>TextField</code> di AppBar -
+Filter tasks dengan
+<code>tasks.where((t) =&gt; t['title'].contains(query))</code></p>
+<h3 id="latihan-3-confirmation-dialog"><strong>Latihan 3: Confirmation
+Dialog</strong></h3>
+<p>Tambahkan dialog konfirmasi sebelum delete di Detail Page.</p>
+<p><strong>Hint:</strong></p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>showDialog(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  context<span class="op">:</span> context<span class="op">,</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  builder<span class="op">:</span> (context) <span class="op">=&gt;</span> AlertDialog(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    title<span class="op">:</span> Text(<span class="st">&#39;Delete Task?&#39;</span>)<span class="op">,</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    content<span class="op">:</span> Text(<span class="st">&#39;Are you sure?&#39;</span>)<span class="op">,</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    actions<span class="op">:</span> [</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>      TextButton(onPressed<span class="op">:</span> () <span class="op">=&gt;</span> pop(context)<span class="op">,</span> child<span class="op">:</span> Text(<span class="st">&#39;Cancel&#39;</span>))<span class="op">,</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>      TextButton(onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Delete logic</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>        pop(context);</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span> child<span class="op">:</span> Text(<span class="st">&#39;Delete&#39;</span>))<span class="op">,</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<hr />
+<h2 id="common-issues-solutions">🐛 Common Issues &amp; Solutions</h2>
+<h3
+id="issue-1-navigator-operation-requested-with-a-context-that-does-not-include-a-navigator"><strong>Issue
+1: “Navigator operation requested with a context that does not include a
+Navigator”</strong></h3>
+<p><strong>Symptom</strong>: Error saat panggil <code>routeTo()</code>
+<strong>Solution</strong>: - Pastikan <code>appRouter()</code> sudah
+didaftarkan di <code>RouteProvider</code> - Pastikan semua pages sudah
+di-add di <code>router.dart</code> - Gunakan <code>context</code> dari
+<code>build()</code> method, bukan dari class level</p>
+<h3 id="issue-2-data-returns-null"><strong>Issue 2: “data() returns
+null”</strong></h3>
+<p><strong>Symptom</strong>: Data tidak sampai ke halaman tujuan
+<strong>Solution</strong>: - Pastikan pass data dengan parameter
+<code>data:</code> di <code>routeTo()</code> - Panggil
+<code>widget.data()</code> di <code>init()</code> method, bukan di
+<code>build()</code></p>
+<h3 id="issue-3-hot-reload-not-working"><strong>Issue 3: “Hot reload not
+working”</strong></h3>
+<p><strong>Symptom</strong>: Perubahan kode tidak muncul di app
+<strong>Solution</strong>: - Coba tekan R di terminal untuk hot reload -
+Jika tidak berhasil, tekan Shift+R untuk hot restart - Last resort: Stop
+app dan <code>flutter run</code> ulang</p>
+<h3 id="issue-4-textfield-not-clearing-after-submit"><strong>Issue 4:
+“TextField not clearing after submit”</strong></h3>
+<p><strong>Symptom</strong>: TextField masih berisi text setelah save
+<strong>Solution</strong>:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>titleController<span class="op">.</span>clear();</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>descriptionController<span class="op">.</span>clear();</span></code></pre></div>
+<hr />
+<h2 id="key-takeaways">📚 Key Takeaways</h2>
+<p>✅ <strong>Flutter Widgets:</strong> - Flutter itu widget tree -
+semua adalah widget - <code>Scaffold</code> kerangka dasar page (AppBar
++ Body + FAB) - <code>ListView.builder</code> untuk list dinamis -
+<code>Card</code> + <code>ListTile</code> kombinasi umum untuk list
+items - <code>TextField</code> untuk input dari user</p>
+<p>✅ <strong>Navigation di Nylo:</strong> - Generate page dengan
+<code>metro make:page</code> - Daftarkan route di
+<code>router.dart</code> - Navigate dengan <code>routeTo('/path')</code>
+- Pass data dengan <code>routeTo('/path', data: {...})</code> - Terima
+data dengan <code>widget.data()</code></p>
+<p>✅ <strong>Best Practices:</strong> - Pisahkan widget besar jadi
+method kecil (<code>_buildXxx()</code>) - Gunakan
+<code>TextEditingController</code> untuk TextField - Jangan lupa
+<code>dispose()</code> controller - Validasi input sebelum process -
+Berikan feedback ke user (toast, dialog)</p>
+<hr />
+<h2 id="resources">📖 Resources</h2>
+<ul>
+<li><strong>Flutter Widgets Catalog</strong>:
+https://docs.flutter.dev/ui/widgets</li>
+<li><strong>Material Design Guidelines</strong>:
+https://m3.material.io/</li>
+<li><strong>Nylo Routing</strong>: https://nylo.dev/docs/6.x/router</li>
+<li><strong>Flutter Layout Cheatsheet</strong>:
+https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e</li>
+</ul>
+<hr />
+<h2 id="navigation">🔗 Navigation</h2>
+<p><a href="./sesi-01.md">← Sesi 1 - Hello Flutter with Nylo</a> | <a
+href="./sesi-03.md">Sesi 3 - State Management &amp; Local Data →</a></p>
+<hr />
+<p><em>Workshop Material - Simple ToDo List with Flutter Nylo |
+Dokumentasi Sesi 2 - UI &amp; Navigation | Terakhir diperbarui: November
+21, 2025</em></p>
+</body>
+</html>

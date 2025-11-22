@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sesi-04</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="sesi-4-model-data-persistence">💾 Sesi 4: Model &amp; Data
+Persistence</h1>
+<h2 id="overview-sesi">🎯 Overview Sesi</h2>
+<p><strong>Durasi</strong>: 90 menit (1.5 jam) |
+<strong>Branch</strong>: <code>08-task-model</code> →
+<code>09-shared-preferences</code> → <code>10-persistent-data</code> |
+<strong>Tujuan</strong>: Belajar membuat Model class dan menyimpan data
+secara persistent dengan SharedPreferences</p>
+<hr />
+<h2 id="agenda-sesi">📋 Agenda Sesi</h2>
+<h3 id="bagian-1-create-task-model-30-menit"><strong>Bagian 1: Create
+Task Model</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Generate Model dengan
+Metro CLI</label></li>
+<li><label><input type="checkbox" checked="" />Understand data
+serialization (toJson, fromJson)</label></li>
+<li><label><input type="checkbox" checked="" />Implement Task model
+class</label></li>
+<li><label><input type="checkbox" checked="" />Convert Map to Model
+object</label></li>
+</ul>
+<h3 id="bagian-2-sharedpreferences-setup-30-menit"><strong>Bagian 2:
+SharedPreferences Setup</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Install
+shared_preferences package</label></li>
+<li><label><input type="checkbox" checked="" />Initialize
+SharedPreferences</label></li>
+<li><label><input type="checkbox" checked="" />Save dan load
+data</label></li>
+<li><label><input type="checkbox" checked="" />Handle JSON
+encoding/decoding</label></li>
+</ul>
+<h3 id="bagian-3-persistent-crud-30-menit"><strong>Bagian 3: Persistent
+CRUD</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Save tasks to storage
+after create</label></li>
+<li><label><input type="checkbox" checked="" />Load tasks from storage
+on app start</label></li>
+<li><label><input type="checkbox" checked="" />Update storage on
+edit/delete</label></li>
+<li><label><input type="checkbox" checked="" />Clear storage
+functionality</label></li>
+</ul>
+<hr />
+<h2 id="bagian-1-create-task-model-30-menit-1">📦 Bagian 1: Create Task
+Model (30 menit)</h2>
+<h3 id="what-is-a-model"><strong>1.1 What is a Model?</strong></h3>
+<p><strong>Model</strong> adalah class yang merepresentasikan struktur
+data. Seperti blueprint atau template.</p>
+<p><strong>Analogi:</strong> - <strong>Map&lt;String,
+dynamic&gt;</strong> = Kardus tanpa label (bisa isi apa aja, tapi
+berantakan) - <strong>Model Class</strong> = Kotak dengan label jelas
+(isinya terstruktur dan rapi)</p>
+<p><strong>Keuntungan pakai Model:</strong> - ✅ <strong>Type
+safety</strong>: Dart tahu tipe data setiap property - ✅
+<strong>Autocomplete</strong>: IDE bisa suggest property names - ✅
+<strong>Reusable</strong>: Pakai di banyak tempat dengan struktur sama -
+✅ <strong>Validation</strong>: Bisa tambah validasi di constructor - ✅
+<strong>Methods</strong>: Bisa tambah helper methods</p>
+<hr />
+<h3 id="generate-task-model"><strong>1.2 Generate Task
+Model</strong></h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:model task</span></code></pre></div>
+<p><strong>Output:</strong></p>
+<pre><code>✓ Created lib/app/models/task.dart</code></pre>
+<hr />
+<h3 id="implement-task-model"><strong>1.3 Implement Task
+Model</strong></h3>
+<p><strong>Edit file: <code>lib/app/models/task.dart</code></strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Task <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Properties</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> id;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> title;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> description;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isCompleted;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  DateTime createdAt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Constructor</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  Task(<span class="op">{</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>id<span class="op">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>title<span class="op">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span>description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span>isCompleted <span class="op">=</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>createdAt<span class="op">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Convert dari JSON (Map) ke Task object</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Dipakai saat load data dari storage</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">factory</span> Task<span class="op">.</span>fromJson(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> json) <span class="op">{</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task(</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> json[<span class="st">&#39;id&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> json[<span class="st">&#39;title&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> json[<span class="st">&#39;description&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">?</span> <span class="op">??</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> json[<span class="st">&#39;isCompleted&#39;</span>] <span class="kw">as</span> <span class="dt">bool</span><span class="op">?</span> <span class="op">??</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> DateTime<span class="op">.</span>parse(json[<span class="st">&#39;createdAt&#39;</span>] <span class="kw">as</span> <span class="dt">String</span>)<span class="op">,</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Convert dari Task object ke JSON (Map)</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Dipakai saat save data ke storage</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> toJson() <span class="op">{</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="op">{</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;id&#39;</span><span class="op">:</span> id<span class="op">,</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;title&#39;</span><span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;description&#39;</span><span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;isCompleted&#39;</span><span class="op">:</span> isCompleted<span class="op">,</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;createdAt&#39;</span><span class="op">:</span> createdAt<span class="op">.</span>toIso8601String()<span class="op">,</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>;</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Helper method untuk copy dengan perubahan</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  Task copyWith(<span class="op">{</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> id<span class="op">,</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> title<span class="op">,</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> description<span class="op">,</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span><span class="op">?</span> isCompleted<span class="op">,</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    DateTime<span class="op">?</span> createdAt<span class="op">,</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="op">{</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task(</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> id <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>id<span class="op">,</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>title<span class="op">,</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>description<span class="op">,</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> isCompleted <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>isCompleted<span class="op">,</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> createdAt <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>createdAt<span class="op">,</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Override toString untuk debugging</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> toString() <span class="op">{</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&#39;Task(id: $id, title: $title, isCompleted: $isCompleted)&#39;</span>;</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Penjelasan:</strong></p>
+<p><strong>1. Constructor:</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Task(<span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  required <span class="kw">this</span><span class="op">.</span>id<span class="op">,</span>      <span class="co">// Wajib diisi</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  required <span class="kw">this</span><span class="op">.</span>title<span class="op">,</span>   <span class="co">// Wajib diisi</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span>description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span> <span class="co">// Optional, default empty string</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span>isCompleted <span class="op">=</span> <span class="cn">false</span><span class="op">,</span> <span class="co">// Optional, default false</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  required <span class="kw">this</span><span class="op">.</span>createdAt<span class="op">,</span>  <span class="co">// Wajib diisi</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>)</span></code></pre></div>
+<p><strong>2. fromJson() - Factory Constructor:</strong> -
+<code>factory</code> = Constructor special yang bisa return object -
+Dipakai untuk convert <code>Map&lt;String, dynamic&gt;</code> →
+<code>Task</code> - Pakai <code>as String</code> untuk type casting
+dengan aman - Pakai <code>??</code> untuk default value jika null</p>
+<p><strong>3. toJson() - Regular Method:</strong> - Return
+<code>Map&lt;String, dynamic&gt;</code> - Dipakai untuk convert
+<code>Task</code> → <code>Map</code> (untuk save ke storage) - DateTime
+di-convert ke ISO8601 string format</p>
+<p><strong>4. copyWith() - Helper Method:</strong> - Buat copy object
+dengan beberapa property berubah - Useful untuk immutable updates</p>
+<hr />
+<h3 id="update-controller-untuk-pakai-model"><strong>1.4 Update
+Controller untuk Pakai Model</strong></h3>
+<p><strong>Edit file:
+<code>lib/app/controllers/todo_home_controller.dart</code></strong></p>
+<p><strong>Import Task model:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>; <span class="co">// Import Task model</span></span></code></pre></div>
+<p><strong>Ubah state dari <code>List&lt;Map&gt;</code> ke
+<code>List&lt;Task&gt;</code>:</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TodoHomeController <span class="kw">extends</span> Controller <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// State: List tasks dengan Task model (bukan Map lagi!)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> [];</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  construct(BuildContext context) <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>construct(context);</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Initialize with sample data using Task model</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    tasks <span class="op">=</span> [</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      Task(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        id<span class="op">:</span> <span class="st">&#39;1&#39;</span><span class="op">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> <span class="st">&#39;Belajar Flutter&#39;</span><span class="op">,</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> <span class="st">&#39;Selesaikan tutorial Flutter basics&#39;</span><span class="op">,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      Task(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        id<span class="op">:</span> <span class="st">&#39;2&#39;</span><span class="op">,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> <span class="st">&#39;Setup Project Nylo&#39;</span><span class="op">,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> <span class="st">&#39;Install dan setup Nylo framework&#39;</span><span class="op">,</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>      Task(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        id<span class="op">:</span> <span class="st">&#39;3&#39;</span><span class="op">,</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> <span class="st">&#39;Build ToDo App&#39;</span><span class="op">,</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> <span class="st">&#39;Buat aplikasi ToDo sederhana&#39;</span><span class="op">,</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    ];</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Helper getters - masih sama</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> totalTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>length;</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> completedTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> pendingTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> <span class="op">!</span>t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update addTask method</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> addTask(<span class="op">{</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> title<span class="op">,</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="op">{</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> newId <span class="op">=</span> DateTime<span class="op">.</span>now()<span class="op">.</span>millisecondsSinceEpoch<span class="op">.</span>toString();</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Create Task object (bukan Map lagi!)</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    Task newTask <span class="op">=</span> Task(</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> newId<span class="op">,</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">.</span>insert(<span class="dv">0</span><span class="op">,</span> newTask);</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task added: $newTask&#39;</span>);</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update updateTask method</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> updateTask(<span class="op">{</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> id<span class="op">,</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> title<span class="op">,</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> description<span class="op">,</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span><span class="op">?</span> isCompleted<span class="op">,</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="op">{</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskIndex <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;Task not found: $id&#39;</span>);</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span>;</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Pakai copyWith untuk update</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    tasks[taskIndex] <span class="op">=</span> tasks[taskIndex]<span class="op">.</span>copyWith(</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> isCompleted<span class="op">,</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task updated: ${tasks[taskIndex]}&#39;</span>);</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update toggleComplete method</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> toggleComplete(<span class="dt">String</span> id) <span class="op">{</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskIndex <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>      tasks[taskIndex] <span class="op">=</span> tasks[taskIndex]<span class="op">.</span>copyWith(</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="op">!</span>tasks[taskIndex]<span class="op">.</span>isCompleted<span class="op">,</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>      setState(() <span class="op">{}</span>);</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update deleteTask method - tetap sama</span></span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> deleteTask(<span class="dt">String</span> id) <span class="op">{</span></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">.</span>removeWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task deleted: $id&#39;</span>);</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Filter methods</span></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> getTasksByStatus(<span class="dt">bool</span> isCompleted) <span class="op">{</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted <span class="op">==</span> isCompleted)<span class="op">.</span>toList();</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> pendingTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">false</span>);</span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> completedTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">true</span>);</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="update-pages-untuk-pakai-task-model"><strong>1.5 Update Pages
+untuk Pakai Task Model</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<p><strong>Update <code>_buildTaskList()</code> - ganti type
+hint:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Widget _buildTaskList() <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> controller <span class="op">=</span> widget<span class="op">.</span>controller;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Sekarang List&lt;Task&gt;, bukan List&lt;Map&gt; lagi!</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> controller<span class="op">.</span>tasks;</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tasks<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Center(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Column(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>          Icon(Icons<span class="op">.</span>inbox<span class="op">,</span> size<span class="op">:</span> <span class="dv">80</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade300)<span class="op">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;No tasks yet!&#39;</span><span class="op">,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade600<span class="op">,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>              fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Tap the + button to add your first task&#39;</span><span class="op">,</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade500<span class="op">,</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> ListView<span class="op">.</span>builder(</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    itemCount<span class="op">:</span> tasks<span class="op">.</span>length<span class="op">,</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    itemBuilder<span class="op">:</span> (context<span class="op">,</span> index) <span class="op">{</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> task <span class="op">=</span> tasks[index];</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> _buildTaskCard(task);</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">},</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Update <code>_buildTaskCard()</code> - parameter type dari
+<code>Map</code> ke <code>Task</code>:</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Widget _buildTaskCard(Task task) <span class="op">{</span>  <span class="co">// Ubah dari Map ke Task</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isCompleted <span class="op">=</span> task<span class="op">.</span>isCompleted;  <span class="co">// Akses property langsung</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Card(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    elevation<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    margin<span class="op">:</span> EdgeInsets<span class="op">.</span>only(bottom<span class="op">:</span> <span class="dv">12</span>)<span class="op">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> ListTile(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      leading<span class="op">:</span> CircleAvatar(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>green <span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Icon(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>          isCompleted <span class="op">?</span> Icons<span class="op">.</span>check <span class="op">:</span> Icons<span class="op">.</span>circle_outlined<span class="op">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>          color<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        task<span class="op">.</span>title<span class="op">,</span>  <span class="co">// Akses property langsung, bukan task[&#39;title&#39;]</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>          fontSize<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>          fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>          decoration<span class="op">:</span> isCompleted <span class="op">?</span> TextDecoration<span class="op">.</span>lineThrough <span class="op">:</span> <span class="cn">null</span><span class="op">,</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>      subtitle<span class="op">:</span> Text(</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        task<span class="op">.</span>description<span class="op">,</span>  <span class="co">// Akses property langsung</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey)<span class="op">,</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>      trailing<span class="op">:</span> Icon(Icons<span class="op">.</span>arrow_forward_ios<span class="op">,</span> size<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>      onTap<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        routeTo(</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;/detail-task&#39;</span><span class="op">,</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>          data<span class="op">:</span> task<span class="op">.</span>toJson()<span class="op">,</span>  <span class="co">// Convert ke Map untuk passing data</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        );</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Edit file:
+<code>lib/resources/pages/detail_task_page.dart</code></strong></p>
+<p><strong>Update <code>init()</code> method untuk convert Map ke
+Task:</strong></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>; <span class="co">// Import Task model</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _DetailTaskPageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>DetailTaskPage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  Task<span class="op">?</span> task;  <span class="co">// Ubah dari Map ke Task</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  init() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>init();</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Ambil data dari route arguments</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskData <span class="op">=</span> widget<span class="op">.</span>data() <span class="kw">as</span> <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;?</span>;</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskData <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert Map ke Task object</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>      task <span class="op">=</span> Task<span class="op">.</span>fromJson(taskData);</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Rest of the code...</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Update method yang akses task properties:</strong></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@override</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (task <span class="op">==</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(title<span class="op">:</span> Text(<span class="st">&#39;Error&#39;</span>))<span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> Center(child<span class="op">:</span> Text(<span class="st">&#39;Task not found&#39;</span>))<span class="op">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isCompleted <span class="op">=</span> task<span class="op">!.</span>isCompleted;  <span class="co">// Akses property langsung</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Scaffold(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    appBar<span class="op">:</span> AppBar(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(<span class="st">&#39;Task Detail&#39;</span>)<span class="op">,</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      actions<span class="op">:</span> [</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        IconButton(</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>          icon<span class="op">:</span> Icon(Icons<span class="op">.</span>edit)<span class="op">,</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>          onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            print(<span class="st">&#39;Edit button diklik&#39;</span>);</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        IconButton(</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>          icon<span class="op">:</span> Icon(Icons<span class="op">.</span>delete)<span class="op">,</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>          onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            _showDeleteConfirmation();</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    body<span class="op">:</span> SingleChildScrollView(</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>      padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Column(</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        crossAxisAlignment<span class="op">:</span> CrossAxisAlignment<span class="op">.</span>start<span class="op">,</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Status badge</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>          Container(</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>            padding<span class="op">:</span> EdgeInsets<span class="op">.</span>symmetric(horizontal<span class="op">:</span> <span class="dv">12</span><span class="op">,</span> vertical<span class="op">:</span> <span class="dv">6</span>)<span class="op">,</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>            decoration<span class="op">:</span> BoxDecoration(</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>green <span class="op">:</span> Colors<span class="op">.</span>orange<span class="op">,</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>              borderRadius<span class="op">:</span> BorderRadius<span class="op">.</span>circular(<span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>            child<span class="op">:</span> Row(</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>              mainAxisSize<span class="op">:</span> MainAxisSize<span class="op">.</span>min<span class="op">,</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>              children<span class="op">:</span> [</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>                Icon(</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>                  isCompleted <span class="op">?</span> Icons<span class="op">.</span>check_circle <span class="op">:</span> Icons<span class="op">.</span>pending<span class="op">,</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>                  color<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>                  size<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>                SizedBox(width<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>                Text(</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>                  isCompleted <span class="op">?</span> <span class="st">&#39;Completed&#39;</span> <span class="op">:</span> <span class="st">&#39;Pending&#39;</span><span class="op">,</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>                  style<span class="op">:</span> TextStyle(color<span class="op">:</span> Colors<span class="op">.</span>white)<span class="op">,</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>                )<span class="op">,</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>              ]<span class="op">,</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Title</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Title&#39;</span><span class="op">,</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>              fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>            task<span class="op">!.</span>title<span class="op">,</span>  <span class="co">// Akses property langsung</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>              fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Description</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Description&#39;</span><span class="op">,</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>              fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">4</span>)<span class="op">,</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>            task<span class="op">!.</span>description<span class="op">.</span>isEmpty <span class="op">?</span> <span class="st">&#39;No description&#39;</span> <span class="op">:</span> task<span class="op">!.</span>description<span class="op">,</span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">32</span>)<span class="op">,</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Toggle complete button</span></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>          SizedBox(</span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>            width<span class="op">:</span> <span class="dt">double</span><span class="op">.</span>infinity<span class="op">,</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>            height<span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>            child<span class="op">:</span> ElevatedButton<span class="op">.</span>icon(</span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>              onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>                <span class="at">final</span> homeController <span class="op">=</span> nyNavigator<span class="op">.</span>navigator<span class="op">.</span>getControllerOfType<span class="op">&lt;</span>TodoHomeController<span class="op">&gt;</span>();</span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> (homeController <span class="op">!=</span> <span class="cn">null</span> <span class="op">&amp;&amp;</span> task <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>                  homeController<span class="op">.</span>toggleComplete(task<span class="op">!.</span>id);</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>                  setState(() <span class="op">{</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>                    task <span class="op">=</span> task<span class="op">!.</span>copyWith(isCompleted<span class="op">:</span> <span class="op">!</span>isCompleted);</span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>                  <span class="op">}</span>);</span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>                  showToastNotification(</span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>                    context<span class="op">,</span></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>                    title<span class="op">:</span> <span class="st">&#39;Success&#39;</span><span class="op">,</span></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>                    description<span class="op">:</span> isCompleted</span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>                      <span class="op">?</span> <span class="st">&#39;Task marked as pending&#39;</span></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>                      <span class="op">:</span> <span class="st">&#39;Task marked as completed&#39;</span><span class="op">,</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>                    style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>SUCCESS<span class="op">,</span></span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>                  );</span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>              <span class="op">},</span></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>              icon<span class="op">:</span> Icon(isCompleted <span class="op">?</span> Icons<span class="op">.</span>undo <span class="op">:</span> Icons<span class="op">.</span>check)<span class="op">,</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>              label<span class="op">:</span> Text(</span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>                isCompleted <span class="op">?</span> <span class="st">&#39;Mark as Pending&#39;</span> <span class="op">:</span> <span class="st">&#39;Mark as Completed&#39;</span><span class="op">,</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>                style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> ElevatedButton<span class="op">.</span>styleFrom(</span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a>                backgroundColor<span class="op">:</span> isCompleted <span class="op">?</span> Colors<span class="op">.</span>orange <span class="op">:</span> Colors<span class="op">.</span>green<span class="op">,</span></span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a>                foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> _handleDelete() <span class="op">{</span></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> homeController <span class="op">=</span> nyNavigator<span class="op">.</span>navigator<span class="op">.</span>getControllerOfType<span class="op">&lt;</span>TodoHomeController<span class="op">&gt;</span>();</span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (homeController <span class="op">!=</span> <span class="cn">null</span> <span class="op">&amp;&amp;</span> task <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>    homeController<span class="op">.</span>deleteTask(task<span class="op">!.</span>id);</span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&#39;Deleted&#39;</span><span class="op">,</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&#39;Task has been deleted&#39;</span><span class="op">,</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>WARNING<span class="op">,</span></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Future</span><span class="op">.</span>delayed(Duration(milliseconds<span class="op">:</span> <span class="dv">500</span>)<span class="op">,</span> () <span class="op">{</span></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>      pop(context);</span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>🔥 Hot reload dan test! App masih berfungsi normal, tapi
+sekarang pakai Model class!</strong></p>
+<hr />
+<h2 id="bagian-2-sharedpreferences-setup-30-menit-1">💾 Bagian 2:
+SharedPreferences Setup (30 menit)</h2>
+<h3 id="what-is-sharedpreferences"><strong>2.1 What is
+SharedPreferences?</strong></h3>
+<p><strong>SharedPreferences</strong> adalah storage lokal untuk
+menyimpan data simple seperti key-value pairs.</p>
+<p><strong>Analogi:</strong> - <strong>In-Memory (List)</strong> =
+Kertas catatan (hilang kalau app ditutup) -
+<strong>SharedPreferences</strong> = Buku catatan (tetap ada meski app
+ditutup)</p>
+<p><strong>Kapan pakai SharedPreferences?</strong> - ✅ Data simple
+(settings, user preferences, small data) - ✅ Data yang perlu persist
+setelah app ditutup - ✅ Quick access (tidak perlu koneksi internet)</p>
+<p><strong>Kapan TIDAK pakai SharedPreferences?</strong> - ❌ Data besar
+(gambar, video, file) - ❌ Data sensitive (password, credit card) -
+pakai secure storage - ❌ Data relational (banyak tabel dengan relasi) -
+pakai database</p>
+<hr />
+<h3 id="install-shared_preferences-package"><strong>2.2 Install
+shared_preferences Package</strong></h3>
+<p><strong>Edit file: <code>pubspec.yaml</code></strong></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">flutter</span><span class="kw">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">sdk</span><span class="kw">:</span><span class="at"> flutter</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nylo_framework</span><span class="kw">:</span><span class="at"> ^6.9.1</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">shared_preferences</span><span class="kw">:</span><span class="at"> ^2.5.3</span><span class="co">  # Tambahkan ini</span></span></code></pre></div>
+<p><strong>Install package:</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> pub get</span></code></pre></div>
+<hr />
+<h3 id="create-storage-service"><strong>2.3 Create Storage
+Service</strong></h3>
+<p>Mari buat service class untuk handle semua operasi storage.</p>
+<p><strong>Create file:
+<code>lib/app/services/storage_service.dart</code></strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;dart:convert&#39;</span>;</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:shared_preferences/shared_preferences.dart&#39;</span>;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StorageService <span class="op">{</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Storage key</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> tasksKey <span class="op">=</span> <span class="st">&#39;tasks&#39;</span>;</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Get SharedPreferences instance</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span>SharedPreferences<span class="op">&gt;</span> <span class="kw">get</span> _prefs <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="at">await</span> SharedPreferences<span class="op">.</span>getInstance();</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Save tasks to storage</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">bool</span><span class="op">&gt;</span> saveTasks(<span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> prefs <span class="op">=</span> <span class="at">await</span> _prefs;</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert List&lt;Task&gt; ke List&lt;Map&gt;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span><span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;&gt;</span> tasksJson <span class="op">=</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        tasks<span class="op">.</span>map((task) <span class="op">=&gt;</span> task<span class="op">.</span>toJson())<span class="op">.</span>toList();</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert List&lt;Map&gt; ke JSON string</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">String</span> tasksString <span class="op">=</span> jsonEncode(tasksJson);</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Save ke SharedPreferences</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">bool</span> result <span class="op">=</span> <span class="at">await</span> prefs<span class="op">.</span>setString(tasksKey<span class="op">,</span> tasksString);</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Saved ${tasks.length} tasks to storage&#39;</span>);</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> result;</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error saving tasks: $e&#39;</span>);</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> <span class="cn">false</span>;</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Load tasks from storage</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;&gt;</span> loadTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> prefs <span class="op">=</span> <span class="at">await</span> _prefs;</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Get JSON string dari SharedPreferences</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>      <span class="dt">String</span><span class="op">?</span> tasksString <span class="op">=</span> prefs<span class="op">.</span>getString(tasksKey);</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Jika null, return empty list</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (tasksString <span class="op">==</span> <span class="cn">null</span> <span class="op">||</span> tasksString<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        print(<span class="st">&#39;ℹ️ No tasks in storage&#39;</span>);</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> [];</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert JSON string ke List&lt;dynamic&gt;</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span><span class="at">dynamic</span><span class="op">&gt;</span> tasksJson <span class="op">=</span> jsonDecode(tasksString);</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert List&lt;dynamic&gt; ke List&lt;Task&gt;</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> tasksJson</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>map((json) <span class="op">=&gt;</span> Task<span class="op">.</span>fromJson(json <span class="kw">as</span> <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span>))</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>toList();</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Loaded ${tasks.length} tasks from storage&#39;</span>);</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> tasks;</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error loading tasks: $e&#39;</span>);</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> [];</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Clear all tasks from storage</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">bool</span><span class="op">&gt;</span> clearTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> prefs <span class="op">=</span> <span class="at">await</span> _prefs;</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>      <span class="dt">bool</span> result <span class="op">=</span> <span class="at">await</span> prefs<span class="op">.</span>remove(tasksKey);</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Cleared tasks from storage&#39;</span>);</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> result;</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error clearing tasks: $e&#39;</span>);</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> <span class="cn">false</span>;</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Check if tasks exist in storage</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">bool</span><span class="op">&gt;</span> hasTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> prefs <span class="op">=</span> <span class="at">await</span> _prefs;</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> prefs<span class="op">.</span>containsKey(tasksKey);</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Penjelasan flow:</strong></p>
+<p><strong>Save:</strong> 1. <code>List&lt;Task&gt;</code> →
+<code>List&lt;Map&gt;</code> (pakai <code>toJson()</code>) 2.
+<code>List&lt;Map&gt;</code> → <code>String</code> (pakai
+<code>jsonEncode()</code>) 3. Save string ke SharedPreferences</p>
+<p><strong>Load:</strong> 1. Get string dari SharedPreferences 2.
+<code>String</code> → <code>List&lt;dynamic&gt;</code> (pakai
+<code>jsonDecode()</code>) 3. <code>List&lt;dynamic&gt;</code> →
+<code>List&lt;Task&gt;</code> (pakai <code>fromJson()</code>)</p>
+<hr />
+<h2 id="bagian-3-persistent-crud-30-menit-1">🔄 Bagian 3: Persistent
+CRUD (30 menit)</h2>
+<h3 id="update-controller-dengan-storage"><strong>3.1 Update Controller
+dengan Storage</strong></h3>
+<p><strong>Edit file:
+<code>lib/app/controllers/todo_home_controller.dart</code></strong></p>
+<p><strong>Import storage service:</strong></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>;</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/services/storage_service.dart&#39;</span>;  <span class="co">// Import storage</span></span></code></pre></div>
+<p><strong>Add storage instance:</strong></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TodoHomeController <span class="kw">extends</span> Controller <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// State</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> [];</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Storage service</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> StorageService storage <span class="op">=</span> StorageService();</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  construct(BuildContext context) <span class="op">{</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>construct(context);</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Load tasks from storage saat pertama kali</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    loadTasksFromStorage();</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Load tasks from storage</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> loadTasksFromStorage() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>      isLoading <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Load dari storage</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> loadedTasks <span class="op">=</span> <span class="at">await</span> storage<span class="op">.</span>loadTasks();</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Jika storage kosong, pakai sample data</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (loadedTasks<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>        tasks <span class="op">=</span> [</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>          Task(</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>            id<span class="op">:</span> <span class="st">&#39;1&#39;</span><span class="op">,</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>            title<span class="op">:</span> <span class="st">&#39;Belajar Flutter&#39;</span><span class="op">,</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>            description<span class="op">:</span> <span class="st">&#39;Selesaikan tutorial Flutter basics&#39;</span><span class="op">,</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>            isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>            createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>          Task(</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>            id<span class="op">:</span> <span class="st">&#39;2&#39;</span><span class="op">,</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>            title<span class="op">:</span> <span class="st">&#39;Setup Project Nylo&#39;</span><span class="op">,</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>            description<span class="op">:</span> <span class="st">&#39;Install dan setup Nylo framework&#39;</span><span class="op">,</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>            isCompleted<span class="op">:</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>            createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>          Task(</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>            id<span class="op">:</span> <span class="st">&#39;3&#39;</span><span class="op">,</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>            title<span class="op">:</span> <span class="st">&#39;Build ToDo App&#39;</span><span class="op">,</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>            description<span class="op">:</span> <span class="st">&#39;Buat aplikasi ToDo sederhana&#39;</span><span class="op">,</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>            isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>            createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>        ];</span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Save sample data ke storage</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">await</span> storage<span class="op">.</span>saveTasks(tasks);</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>        tasks <span class="op">=</span> loadedTasks;</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>      setState(() <span class="op">{</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>        isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span>);</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;Error loading tasks: $e&#39;</span>);</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>      setState(() <span class="op">{</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>        isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span>);</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Save tasks to storage</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> saveTasksToStorage() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> storage<span class="op">.</span>saveTasks(tasks);</span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Getters - tetap sama</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> totalTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>length;</span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> completedTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> pendingTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> <span class="op">!</span>t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update addTask untuk save ke storage</span></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> addTask(<span class="op">{</span></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> title<span class="op">,</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> newId <span class="op">=</span> DateTime<span class="op">.</span>now()<span class="op">.</span>millisecondsSinceEpoch<span class="op">.</span>toString();</span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>    Task newTask <span class="op">=</span> Task(</span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> newId<span class="op">,</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">.</span>insert(<span class="dv">0</span><span class="op">,</span> newTask);</span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Save ke storage</span></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> saveTasksToStorage();</span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task added and saved: $newTask&#39;</span>);</span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update updateTask untuk save ke storage</span></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> updateTask(<span class="op">{</span></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> id<span class="op">,</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> title<span class="op">,</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> description<span class="op">,</span></span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span><span class="op">?</span> isCompleted<span class="op">,</span></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskIndex <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;Task not found: $id&#39;</span>);</span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span>;</span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a>    tasks[taskIndex] <span class="op">=</span> tasks[taskIndex]<span class="op">.</span>copyWith(</span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> isCompleted<span class="op">,</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Save ke storage</span></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> saveTasksToStorage();</span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task updated and saved: ${tasks[taskIndex]}&#39;</span>);</span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update toggleComplete untuk save ke storage</span></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> toggleComplete(<span class="dt">String</span> id) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskIndex <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>      tasks[taskIndex] <span class="op">=</span> tasks[taskIndex]<span class="op">.</span>copyWith(</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="op">!</span>tasks[taskIndex]<span class="op">.</span>isCompleted<span class="op">,</span></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Save ke storage</span></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>      <span class="at">await</span> saveTasksToStorage();</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a>      setState(() <span class="op">{}</span>);</span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update deleteTask untuk save ke storage</span></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> deleteTask(<span class="dt">String</span> id) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">.</span>removeWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Save ke storage</span></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> saveTasksToStorage();</span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Task deleted and saved&#39;</span>);</span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Clear all tasks</span></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> clearAllTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>    tasks<span class="op">.</span>clear();</span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> storage<span class="op">.</span>clearTasks();</span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{}</span>);</span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;All tasks cleared&#39;</span>);</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Filter methods - tetap sama</span></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> getTasksByStatus(<span class="dt">bool</span> isCompleted) <span class="op">{</span></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted <span class="op">==</span> isCompleted)<span class="op">.</span>toList();</span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> pendingTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">false</span>);</span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> completedTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">true</span>);</span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="update-addtaskpage"><strong>3.2 Update AddTaskPage</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/add_task_page.dart</code></strong></p>
+<p><strong>Ubah <code>_handleSave()</code> jadi async:</strong></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> _handleSave() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> title <span class="op">=</span> titleController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> description <span class="op">=</span> descriptionController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (title<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&#39;Error&#39;</span><span class="op">,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&#39;Task title tidak boleh kosong!&#39;</span><span class="op">,</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>DANGER<span class="op">,</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span>;</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> homeController <span class="op">=</span> nyNavigator<span class="op">.</span>navigator<span class="op">.</span>getControllerOfType<span class="op">&lt;</span>TodoHomeController<span class="op">&gt;</span>();</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (homeController <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Call addTask method (sekarang async)</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> homeController<span class="op">.</span>addTask(</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&#39;Success&#39;</span><span class="op">,</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&#39;Task berhasil ditambahkan dan disimpan!&#39;</span><span class="op">,</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>SUCCESS<span class="op">,</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Future</span><span class="op">.</span>delayed(Duration(seconds<span class="op">:</span> <span class="dv">1</span>)<span class="op">,</span> () <span class="op">{</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>      pop(context);</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="test-persistence"><strong>3.3 Test Persistence</strong></h3>
+<p><strong>Test flow:</strong></p>
+<ol type="1">
+<li><strong>Add beberapa tasks baru</strong></li>
+<li><strong>Close app completely</strong> (stop dari terminal atau kill
+app)</li>
+<li><strong>Run app lagi</strong></li>
+<li><strong>Tasks masih ada!</strong> 🎉</li>
+</ol>
+<p><strong>Test Checklist:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Add task → Close app → Open app →
+Task masih ada</label></li>
+<li><label><input type="checkbox" />Toggle complete → Close app → Open
+app → Status tetap</label></li>
+<li><label><input type="checkbox" />Delete task → Close app → Open app →
+Task sudah hilang</label></li>
+<li><label><input type="checkbox" />Edit task → Close app → Open app →
+Perubahan tersimpan</label></li>
+</ul>
+<hr />
+<h2 id="bonus-clear-all-tasks">🎨 Bonus: Clear All Tasks</h2>
+<p>Tambahkan button untuk clear semua tasks (useful untuk testing).</p>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<p><strong>Tambahkan menu di AppBar:</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@override</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Scaffold(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    appBar<span class="op">:</span> AppBar(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(<span class="st">&#39;My Todo List&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>      actions<span class="op">:</span> [</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        PopupMenuButton<span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>(</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          onSelected<span class="op">:</span> (value) <span class="op">{</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (value <span class="op">==</span> <span class="st">&#39;clear&#39;</span>) <span class="op">{</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>              _showClearConfirmation();</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          itemBuilder<span class="op">:</span> (context) <span class="op">=&gt;</span> [</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>            PopupMenuItem(</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>              value<span class="op">:</span> <span class="st">&#39;clear&#39;</span><span class="op">,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>              child<span class="op">:</span> Row(</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                children<span class="op">:</span> [</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                  Icon(Icons<span class="op">.</span>delete_sweep<span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>red)<span class="op">,</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>                  SizedBox(width<span class="op">:</span> <span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>                  Text(<span class="st">&#39;Clear All Tasks&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                ]<span class="op">,</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>          ]<span class="op">,</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    body<span class="op">:</span> Column(</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        _buildStatsCard()<span class="op">,</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>        Expanded(child<span class="op">:</span> _buildTaskList())<span class="op">,</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>      onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>        routeTo(<span class="st">&#39;/add-task&#39;</span>);</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> _showClearConfirmation() <span class="op">{</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>  showDialog(</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>    context<span class="op">:</span> context<span class="op">,</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    builder<span class="op">:</span> (context) <span class="op">=&gt;</span> AlertDialog(</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(<span class="st">&#39;Clear All Tasks?&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>      content<span class="op">:</span> Text(<span class="st">&#39;This will delete all tasks permanently. Are you sure?&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>      actions<span class="op">:</span> [</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>        TextButton(</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>          onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>            pop(context);</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>          child<span class="op">:</span> Text(<span class="st">&#39;Cancel&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>        TextButton(</span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>          onPressed<span class="op">:</span> () <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>            <span class="at">final</span> controller <span class="op">=</span> widget<span class="op">.</span>controller;</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>            <span class="at">await</span> controller<span class="op">.</span>clearAllTasks();</span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>            pop(context);</span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>            showToastNotification(</span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>              context<span class="op">,</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>              title<span class="op">:</span> <span class="st">&#39;Cleared&#39;</span><span class="op">,</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>              description<span class="op">:</span> <span class="st">&#39;All tasks have been deleted&#39;</span><span class="op">,</span></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>WARNING<span class="op">,</span></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>            );</span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>          style<span class="op">:</span> TextButton<span class="op">.</span>styleFrom(foregroundColor<span class="op">:</span> Colors<span class="op">.</span>red)<span class="op">,</span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>          child<span class="op">:</span> Text(<span class="st">&#39;Clear All&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h2 id="common-issues-solutions">🐛 Common Issues &amp; Solutions</h2>
+<h3 id="issue-1-tasks-not-loading-on-app-start"><strong>Issue 1: “Tasks
+not loading on app start”</strong></h3>
+<p><strong>Symptom</strong>: App starts with empty list setiap kali
+<strong>Solution</strong>: - Check if
+<code>loadTasksFromStorage()</code> dipanggil di
+<code>construct()</code> - Verify <code>tasksKey</code> string sama saat
+save dan load - Check console untuk error messages</p>
+<h3 id="issue-2-formatexception-unexpected-character"><strong>Issue 2:
+“FormatException: Unexpected character”</strong></h3>
+<p><strong>Symptom</strong>: Error saat decode JSON
+<strong>Solution</strong>: - Data corrupted di storage, clear dengan
+<code>storage.clearTasks()</code> - Verify <code>toJson()</code> return
+valid JSON structure</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="at">await</span> storage<span class="op">.</span>clearTasks();  <span class="co">// Clear corrupted data</span></span></code></pre></div>
+<h3 id="issue-3-tasks-duplicate-after-reload"><strong>Issue 3: “Tasks
+duplicate after reload”</strong></h3>
+<p><strong>Symptom</strong>: Tasks muncul double setelah restart
+<strong>Solution</strong>: - Jangan init dengan sample data jika storage
+sudah ada data - Check if <code>loadedTasks.isEmpty</code> sebelum add
+sample data</p>
+<h3 id="issue-4-storage-not-saving"><strong>Issue 4: “Storage not
+saving”</strong></h3>
+<p><strong>Symptom</strong>: Changes tidak persist
+<strong>Solution</strong>: - Verify semua CRUD methods call
+<code>saveTasksToStorage()</code> - Check if async/await properly
+implemented - Test with simple debug print di <code>saveTasks()</code>
+method</p>
+<hr />
+<h2 id="key-takeaways">📚 Key Takeaways</h2>
+<p>✅ <strong>Model Class:</strong> - Struktur data terorganisir dengan
+type safety - <code>fromJson()</code> untuk deserialize (storage →
+object) - <code>toJson()</code> untuk serialize (object → storage) -
+<code>copyWith()</code> untuk immutable updates</p>
+<p>✅ <strong>Data Serialization:</strong> - JSON = format text untuk
+transfer/simpan data - <code>jsonEncode()</code> = Object → JSON string
+- <code>jsonDecode()</code> = JSON string → Object</p>
+<p>✅ <strong>SharedPreferences:</strong> - Local storage untuk data
+simple key-value - Persist setelah app ditutup - Cocok untuk settings,
+preferences, small data - Tidak cocok untuk data besar atau
+sensitive</p>
+<p>✅ <strong>Persistent CRUD:</strong> - Setiap operasi (Create,
+Update, Delete) harus save ke storage - Load data saat app start di
+<code>construct()</code> - Always handle errors dengan try-catch - Use
+async/await untuk storage operations</p>
+<hr />
+<h2 id="resources">📖 Resources</h2>
+<ul>
+<li><strong>Dart JSON Serialization</strong>:
+https://dart.dev/guides/json</li>
+<li><strong>SharedPreferences Package</strong>:
+https://pub.dev/packages/shared_preferences</li>
+<li><strong>Nylo Models</strong>: https://nylo.dev/docs/6.x/models</li>
+<li><strong>Flutter Data Persistence</strong>:
+https://docs.flutter.dev/cookbook/persistence</li>
+</ul>
+<hr />
+<h2 id="navigation">🔗 Navigation</h2>
+<p><a href="./sesi-03.md">← Sesi 3 - State Management &amp; Local
+Data</a> | <a href="./sesi-05.md">Sesi 5 - Integrasi Supabase →</a></p>
+<hr />
+<p><em>Workshop Material - Simple ToDo List with Flutter Nylo |
+Dokumentasi Sesi 4 - Model &amp; Data Persistence | Terakhir diperbarui:
+November 21, 2025</em></p>
+</body>
+</html>

@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sesi-05</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="sesi-5-integrasi-supabase">☁️ Sesi 5: Integrasi Supabase</h1>
+<h2 id="overview-sesi">🎯 Overview Sesi</h2>
+<p><strong>Durasi</strong>: 90 menit (1.5 jam) |
+<strong>Branch</strong>: <code>11-supabase-setup</code> →
+<code>12-supabase-crud</code> → <code>13-cloud-sync</code> |
+<strong>Tujuan</strong>: Migrate dari SharedPreferences ke Supabase
+database untuk cloud storage</p>
+<hr />
+<h2 id="agenda-sesi">📋 Agenda Sesi</h2>
+<h3 id="bagian-1-supabase-setup-30-menit"><strong>Bagian 1: Supabase
+Setup</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Create Supabase account
+&amp; project</label></li>
+<li><label><input type="checkbox" checked="" />Create tasks table dengan
+SQL</label></li>
+<li><label><input type="checkbox" checked="" />Disable RLS untuk
+kesederhanaan</label></li>
+<li><label><input type="checkbox" checked="" />Install supabase_flutter
+package</label></li>
+<li><label><input type="checkbox" checked="" />Initialize Supabase di
+app</label></li>
+</ul>
+<h3
+id="bagian-2-replace-storage-dengan-supabase-35-menit"><strong>Bagian 2:
+Replace Storage dengan Supabase</strong> (35 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Create SupabaseService
+class</label></li>
+<li><label><input type="checkbox" checked="" />Implement CRUD methods
+dengan Supabase</label></li>
+<li><label><input type="checkbox" checked="" />Update Controller untuk
+pakai SupabaseService</label></li>
+<li><label><input type="checkbox" checked="" />Handle async
+operations</label></li>
+</ul>
+<h3 id="bagian-3-testing-polish-25-menit"><strong>Bagian 3: Testing
+&amp; Polish</strong> (25 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Test all CRUD
+operations</label></li>
+<li><label><input type="checkbox" checked="" />Handle errors &amp; edge
+cases</label></li>
+<li><label><input type="checkbox" checked="" />Loading states &amp;
+feedback</label></li>
+<li><label><input type="checkbox" checked="" />Final testing &amp;
+demo</label></li>
+</ul>
+<hr />
+<h2 id="bagian-1-supabase-setup-30-menit-1">🚀 Bagian 1: Supabase Setup
+(30 menit)</h2>
+<h3 id="what-is-supabase"><strong>1.1 What is Supabase?</strong></h3>
+<p><strong>Supabase</strong> adalah Backend-as-a-Service (BaaS) -
+backend siap pakai berbasis PostgreSQL.</p>
+<p><strong>Analogi:</strong> - <strong>SharedPreferences</strong> =
+Lemari di rumah (hanya bisa akses dari rumah sendiri) -
+<strong>Supabase</strong> = Cloud storage (bisa akses dari mana saja,
+device mana saja)</p>
+<p><strong>Keuntungan Supabase:</strong> - ✅ <strong>Cloud
+storage</strong>: Data tersimpan di cloud, tidak hilang meski uninstall
+app - ✅ <strong>Multi-device sync</strong>: Data sama di semua device -
+✅ <strong>Real database</strong>: PostgreSQL - powerful, scalable - ✅
+<strong>Free tier</strong>: Generous free plan untuk belajar - ✅
+<strong>Easy to use</strong>: Simple API, mirip seperti Firebase</p>
+<p><strong>Kapan pakai Supabase?</strong> - ✅ Data perlu sync antar
+devices - ✅ Data perlu backup di cloud - ✅ Multiple users - ✅ Data
+relational (ada relasi antar table)</p>
+<hr />
+<h3 id="create-supabase-account-project"><strong>1.2 Create Supabase
+Account &amp; Project</strong></h3>
+<h4 id="langkah-1-sign-up"><strong>Langkah 1: Sign Up</strong></h4>
+<ol type="1">
+<li>Buka https://supabase.com</li>
+<li>Klik <strong>Start your project</strong></li>
+<li>Sign up dengan GitHub account (recommended) atau email</li>
+<li>Verify email jika pakai email signup</li>
+</ol>
+<h4 id="langkah-2-create-new-project"><strong>Langkah 2: Create New
+Project</strong></h4>
+<ol type="1">
+<li>Klik <strong>New Project</strong></li>
+<li>Pilih organization (atau buat baru)</li>
+<li>Isi form:
+<ul>
+<li><strong>Name</strong>: <code>todo-app-workshop</code> (atau nama
+bebas)</li>
+<li><strong>Database Password</strong>: Buat password kuat (simpan
+baik-baik!)</li>
+<li><strong>Region</strong>: Pilih yang terdekat (e.g.,
+<code>Southeast Asia (Singapore)</code>)</li>
+<li><strong>Pricing Plan</strong>: <strong>Free</strong> (sudah cukup
+untuk workshop)</li>
+</ul></li>
+<li>Klik <strong>Create new project</strong></li>
+<li>Tunggu ~2 menit project selesai di-setup</li>
+</ol>
+<hr />
+<h3 id="create-tasks-table"><strong>1.3 Create Tasks Table</strong></h3>
+<h4 id="langkah-1-open-sql-editor"><strong>Langkah 1: Open SQL
+Editor</strong></h4>
+<ol type="1">
+<li>Di Supabase Dashboard, klik <strong>SQL Editor</strong> di
+sidebar</li>
+<li>Klik <strong>New query</strong></li>
+</ol>
+<h4 id="langkah-2-create-table-dengan-sql"><strong>Langkah 2: Create
+Table dengan SQL</strong></h4>
+<p>Copy dan paste SQL ini, lalu klik <strong>Run</strong>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Create tasks table</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> tasks (</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span> TEXT <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  title TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  description TEXT <span class="kw">DEFAULT</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  is_completed <span class="dt">BOOLEAN</span> <span class="kw">DEFAULT</span> <span class="kw">false</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  created_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  updated_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Create index untuk performa</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_tasks_created_at <span class="kw">ON</span> tasks(created_at <span class="kw">DESC</span>);</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_tasks_is_completed <span class="kw">ON</span> tasks(is_completed);</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- Add trigger untuk auto-update updated_at</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> update_updated_at_column()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">NEW</span>.updated_at <span class="op">=</span> NOW();</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>$$ LANGUAGE plpgsql;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> update_tasks_updated_at</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">BEFORE</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> tasks</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> update_updated_at_column();</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">-- Insert sample data untuk testing</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> tasks (<span class="kw">id</span>, title, description, is_completed, created_at)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  (<span class="st">&#39;sample-1&#39;</span>, <span class="st">&#39;Welcome to Supabase!&#39;</span>, <span class="st">&#39;This is a sample task from cloud database&#39;</span>, <span class="kw">false</span>, NOW()),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  (<span class="st">&#39;sample-2&#39;</span>, <span class="st">&#39;Test cloud sync&#39;</span>, <span class="st">&#39;Try adding, editing, and deleting tasks&#39;</span>, <span class="kw">false</span>, NOW());</span></code></pre></div>
+<p><strong>💡 Penjelasan:</strong></p>
+<ul>
+<li><strong>id TEXT PRIMARY KEY</strong>: ID sebagai string (sama
+seperti di app)</li>
+<li><strong>title TEXT NOT NULL</strong>: Title wajib diisi</li>
+<li><strong>description TEXT DEFAULT ’’</strong>: Description optional,
+default empty</li>
+<li><strong>is_completed BOOLEAN</strong>: Status completed
+true/false</li>
+<li><strong>created_at</strong>: Timestamp kapan dibuat</li>
+<li><strong>updated_at</strong>: Auto-update setiap kali record
+di-update (via trigger)</li>
+</ul>
+<h4 id="langkah-3-verify-table-created"><strong>Langkah 3: Verify Table
+Created</strong></h4>
+<ol type="1">
+<li>Klik <strong>Table Editor</strong> di sidebar</li>
+<li>Lihat table <code>tasks</code> dengan 2 sample rows</li>
+<li>Coba klik row untuk lihat detail</li>
+</ol>
+<hr />
+<h3 id="disable-rls-row-level-security"><strong>1.4 Disable RLS (Row
+Level Security)</strong></h3>
+<p>Untuk workshop ini, kita disable RLS agar lebih sederhana (tidak
+perlu authentication).</p>
+<p>⚠️ <strong>Note</strong>: Di production app, WAJIB pakai RLS + Auth
+untuk security!</p>
+<h4 id="langkah-1-open-sql-editor-1"><strong>Langkah 1: Open SQL
+Editor</strong></h4>
+<p>Jalankan SQL ini:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Disable RLS untuk tasks table</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> tasks <span class="kw">DISABLE</span> <span class="kw">ROW</span> <span class="kw">LEVEL</span> SECURITY;</span></code></pre></div>
+<p>Sekarang semua client bisa akses data tanpa authentication.</p>
+<hr />
+<h3 id="get-api-keys"><strong>1.5 Get API Keys</strong></h3>
+<h4 id="langkah-1-open-project-settings"><strong>Langkah 1: Open Project
+Settings</strong></h4>
+<ol type="1">
+<li>Klik <strong>Settings</strong> icon (gear) di sidebar bawah</li>
+<li>Klik <strong>API</strong></li>
+</ol>
+<h4 id="langkah-2-copy-keys"><strong>Langkah 2: Copy Keys</strong></h4>
+<p>Copy 2 values ini (simpan di notepad): - <strong>Project
+URL</strong>: <code>https://xxxxx.supabase.co</code> -
+<strong>anon/public key</strong>:
+<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....</code> (long string)</p>
+<hr />
+<h3 id="install-supabase-flutter-package"><strong>1.6 Install Supabase
+Flutter Package</strong></h3>
+<h4 id="langkah-1-add-dependencies"><strong>Langkah 1: Add
+Dependencies</strong></h4>
+<p><strong>Edit file: <code>pubspec.yaml</code></strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">flutter</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">sdk</span><span class="kw">:</span><span class="at"> flutter</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nylo_framework</span><span class="kw">:</span><span class="at"> ^6.9.1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">shared_preferences</span><span class="kw">:</span><span class="at"> ^2.5.3</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">supabase_flutter</span><span class="kw">:</span><span class="at"> ^2.9.1</span><span class="co">  # Tambahkan ini</span></span></code></pre></div>
+<h4 id="langkah-2-install-package"><strong>Langkah 2: Install
+Package</strong></h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> pub get</span></code></pre></div>
+<hr />
+<h3 id="initialize-supabase-di-app"><strong>1.7 Initialize Supabase di
+App</strong></h3>
+<h4 id="langkah-1-create-.env-file"><strong>Langkah 1: Create .env
+File</strong></h4>
+<p><strong>Create file: <code>.env</code> (di root project, sejajar
+dengan <code>pubspec.yaml</code>)</strong></p>
+<pre class="env"><code># Supabase Configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here</code></pre>
+<p><strong>⚠️ PENTING:</strong> - Ganti
+<code>your-project.supabase.co</code> dengan Project URL Anda - Ganti
+<code>your-anon-key-here</code> dengan anon key Anda</p>
+<h4 id="langkah-2-add-.env-ke-.gitignore"><strong>Langkah 2: Add .env ke
+.gitignore</strong></h4>
+<p><strong>Edit file: <code>.gitignore</code></strong></p>
+<p>Tambahkan di baris paling bawah:</p>
+<pre><code># Environment variables
+.env</code></pre>
+<p>Ini penting agar API keys tidak ter-commit ke git!</p>
+<h4 id="langkah-3-load-.env-di-pubspec.yaml"><strong>Langkah 3: Load
+.env di pubspec.yaml</strong></h4>
+<p><strong>Edit file: <code>pubspec.yaml</code></strong></p>
+<p>Di bagian <code>flutter:</code>, tambahkan:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flutter</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">uses-material-design</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">  # Add .env file</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">assets</span><span class="kw">:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> .env</span></span></code></pre></div>
+<h4 id="langkah-4-initialize-supabase"><strong>Langkah 4: Initialize
+Supabase</strong></h4>
+<p><strong>Edit file: <code>lib/main.dart</code></strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:supabase_flutter/supabase_flutter.dart&#39;</span>;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/services.dart&#39;</span>;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;bootstrap/boot.dart&#39;</span>;</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">/// Main entry point for the application.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  WidgetsFlutterBinding<span class="op">.</span>ensureInitialized();</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Load .env file</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> envContent <span class="op">=</span> <span class="at">await</span> rootBundle<span class="op">.</span>loadString(<span class="st">&#39;.env&#39;</span>);</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="dt">String</span><span class="op">&gt;</span> envVars <span class="op">=</span> <span class="op">{}</span>;</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="dt">String</span> line <span class="kw">in</span> envContent<span class="op">.</span>split(<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)) <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> line<span class="op">.</span>trim();</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Skip comments and empty lines</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (line<span class="op">.</span>isEmpty <span class="op">||</span> line<span class="op">.</span>startsWith(<span class="st">&#39;#&#39;</span>)) <span class="cf">continue</span>;</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Parse KEY=VALUE</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> separatorIndex <span class="op">=</span> line<span class="op">.</span>indexOf(<span class="st">&#39;=&#39;</span>);</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (separatorIndex <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">String</span> key <span class="op">=</span> line<span class="op">.</span>substring(<span class="dv">0</span><span class="op">,</span> separatorIndex)<span class="op">.</span>trim();</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">String</span> value <span class="op">=</span> line<span class="op">.</span>substring(separatorIndex <span class="op">+</span> <span class="dv">1</span>)<span class="op">.</span>trim();</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>      envVars[key] <span class="op">=</span> value;</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize Supabase</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> Supabase<span class="op">.</span>initialize(</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>      url<span class="op">:</span> envVars[<span class="st">&#39;SUPABASE_URL&#39;</span>] <span class="op">??</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      anonKey<span class="op">:</span> envVars[<span class="st">&#39;SUPABASE_ANON_KEY&#39;</span>] <span class="op">??</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;✅ Supabase initialized successfully&#39;</span>);</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;⚠️ Supabase initialization error: $e&#39;</span>);</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;⚠️ Please configure .env file with your Supabase credentials&#39;</span>);</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize Nylo</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">await</span> Nylo<span class="op">.</span>init(</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    setup<span class="op">:</span> Boot<span class="op">.</span>nylo<span class="op">,</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    setupFinished<span class="op">:</span> Boot<span class="op">.</span>finished<span class="op">,</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Penjelasan:</strong> -
+<code>WidgetsFlutterBinding.ensureInitialized()</code>: Required untuk
+async operations di main - Manual parsing <code>.env</code> menggunakan
+<code>rootBundle.loadString()</code> - tidak perlu package tambahan -
+Parse setiap line format <code>KEY=VALUE</code> - Skip comment lines
+(dimulai dengan <code>#</code>) dan empty lines -
+<code>Supabase.initialize()</code>: Initialize Supabase client dengan
+credentials - Wrapped dengan try-catch untuk handle error jika .env
+belum dikonfigurasi - <code>Nylo.init()</code>: Initialize Nylo
+framework setelah Supabase</p>
+<h4 id="langkah-5-test-initialization"><strong>Langkah 5: Test
+Initialization</strong></h4>
+<p><strong>Hot restart app</strong> (Shift + R di terminal atau stop
+&amp; run ulang)</p>
+<p>Cek console output:</p>
+<pre><code>✅ Supabase initialized successfully</code></pre>
+<p>Jika ada error <code>⚠️ Supabase initialization error</code>,
+berarti: - File <code>.env</code> belum ada atau belum dikonfigurasi -
+URL atau anon key salah - File <code>.env</code> belum ditambahkan ke
+<code>pubspec.yaml</code> di bagian assets</p>
+<p>Jika tidak ada error, Supabase berhasil di-initialize! 🎉</p>
+<hr />
+<h2 id="bagian-2-replace-storage-dengan-supabase-35-menit-1">🔄 Bagian
+2: Replace Storage dengan Supabase (35 menit)</h2>
+<h3 id="create-supabaseservice"><strong>2.1 Create
+SupabaseService</strong></h3>
+<p><strong>Create file:
+<code>lib/app/services/supabase_service.dart</code></strong></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:supabase_flutter/supabase_flutter.dart&#39;</span>;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SupabaseService <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Get Supabase client</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> SupabaseClient supabase <span class="op">=</span> Supabase<span class="op">.</span>instance<span class="op">.</span>client;</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Table name</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> tableName <span class="op">=</span> <span class="st">&#39;tasks&#39;</span>;</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Fetch all tasks from Supabase</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;&gt;</span> getTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> supabase</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>from(tableName)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>select()</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>order(<span class="st">&#39;created_at&#39;</span><span class="op">,</span> ascending<span class="op">:</span> <span class="cn">false</span>);</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert response to List&lt;Task&gt;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> (response <span class="kw">as</span> <span class="dt">List</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>map((json) <span class="op">=&gt;</span> Task<span class="op">.</span>fromSupabaseJson(json))</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>toList();</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Fetched ${tasks.length} tasks from Supabase&#39;</span>);</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> tasks;</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error fetching tasks: $e&#39;</span>);</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Insert new task to Supabase</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> createTask(Task task) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> supabase</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>from(tableName)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>insert(task<span class="op">.</span>toSupabaseJson())</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>select()</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>single();</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>      Task createdTask <span class="op">=</span> Task<span class="op">.</span>fromSupabaseJson(response);</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Created task in Supabase: ${createdTask.id}&#39;</span>);</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> createdTask;</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error creating task: $e&#39;</span>);</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Update existing task in Supabase</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> updateTask(Task task) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> supabase</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>from(tableName)</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>update(task<span class="op">.</span>toSupabaseJson())</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>eq(<span class="st">&#39;id&#39;</span><span class="op">,</span> task<span class="op">.</span>id)</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>select()</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>single();</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>      Task updatedTask <span class="op">=</span> Task<span class="op">.</span>fromSupabaseJson(response);</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Updated task in Supabase: ${updatedTask.id}&#39;</span>);</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> updatedTask;</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error updating task: $e&#39;</span>);</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Delete task from Supabase</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> deleteTask(<span class="dt">String</span> taskId) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">await</span> supabase</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>from(tableName)</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>delete()</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>          <span class="op">.</span>eq(<span class="st">&#39;id&#39;</span><span class="op">,</span> taskId);</span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Deleted task from Supabase: $taskId&#39;</span>);</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error deleting task: $e&#39;</span>);</span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Delete all tasks</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> deleteAllTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Get all task IDs first</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> tasks <span class="op">=</span> <span class="at">await</span> getTasks();</span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Delete one by one (untuk table tanpa RLS bisa delete all sekaligus)</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="dt">var</span> task <span class="kw">in</span> tasks) <span class="op">{</span></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>        <span class="at">await</span> deleteTask(task<span class="op">.</span>id);</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Deleted all tasks from Supabase&#39;</span>);</span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error deleting all tasks: $e&#39;</span>);</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h3 id="update-task-model-untuk-supabase"><strong>2.2 Update Task Model
+untuk Supabase</strong></h3>
+<p><strong>Edit file: <code>lib/app/models/task.dart</code></strong></p>
+<p>Tambahkan methods untuk convert dari/ke Supabase format:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Task <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Properties - tetap sama</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> id;</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> title;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> description;</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isCompleted;</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  DateTime createdAt;</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Constructor - tetap sama</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  Task(<span class="op">{</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>id<span class="op">,</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>title<span class="op">,</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span>description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span>isCompleted <span class="op">=</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    required <span class="kw">this</span><span class="op">.</span>createdAt<span class="op">,</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Existing fromJson untuk SharedPreferences</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">factory</span> Task<span class="op">.</span>fromJson(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> json) <span class="op">{</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task(</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> json[<span class="st">&#39;id&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> json[<span class="st">&#39;title&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> json[<span class="st">&#39;description&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">?</span> <span class="op">??</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> json[<span class="st">&#39;isCompleted&#39;</span>] <span class="kw">as</span> <span class="dt">bool</span><span class="op">?</span> <span class="op">??</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> DateTime<span class="op">.</span>parse(json[<span class="st">&#39;createdAt&#39;</span>] <span class="kw">as</span> <span class="dt">String</span>)<span class="op">,</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Existing toJson untuk SharedPreferences</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> toJson() <span class="op">{</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="op">{</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;id&#39;</span><span class="op">:</span> id<span class="op">,</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;title&#39;</span><span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;description&#39;</span><span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;isCompleted&#39;</span><span class="op">:</span> isCompleted<span class="op">,</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;createdAt&#39;</span><span class="op">:</span> createdAt<span class="op">.</span>toIso8601String()<span class="op">,</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>;</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">// NEW: fromSupabaseJson - convert dari Supabase response</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>  <span class="kw">factory</span> Task<span class="op">.</span>fromSupabaseJson(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> json) <span class="op">{</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task(</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> json[<span class="st">&#39;id&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> json[<span class="st">&#39;title&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> json[<span class="st">&#39;description&#39;</span>] <span class="kw">as</span> <span class="dt">String</span><span class="op">?</span> <span class="op">??</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> json[<span class="st">&#39;is_completed&#39;</span>] <span class="kw">as</span> <span class="dt">bool</span><span class="op">?</span> <span class="op">??</span> <span class="cn">false</span><span class="op">,</span>  <span class="co">// Note: snake_case dari database</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> DateTime<span class="op">.</span>parse(json[<span class="st">&#39;created_at&#39;</span>] <span class="kw">as</span> <span class="dt">String</span>)<span class="op">,</span>  <span class="co">// Note: snake_case</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  <span class="co">// NEW: toSupabaseJson - convert ke format Supabase</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> toSupabaseJson() <span class="op">{</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="op">{</span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;id&#39;</span><span class="op">:</span> id<span class="op">,</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;title&#39;</span><span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;description&#39;</span><span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;is_completed&#39;</span><span class="op">:</span> isCompleted<span class="op">,</span>  <span class="co">// Convert ke snake_case untuk database</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;created_at&#39;</span><span class="op">:</span> createdAt<span class="op">.</span>toIso8601String()<span class="op">,</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>;</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>  <span class="co">// copyWith - tetap sama</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>  Task copyWith(<span class="op">{</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> id<span class="op">,</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> title<span class="op">,</span></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> description<span class="op">,</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span><span class="op">?</span> isCompleted<span class="op">,</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>    DateTime<span class="op">?</span> createdAt<span class="op">,</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="op">{</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task(</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> id <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>id<span class="op">,</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> title <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>title<span class="op">,</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> description <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>description<span class="op">,</span></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>      isCompleted<span class="op">:</span> isCompleted <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>isCompleted<span class="op">,</span></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>      createdAt<span class="op">:</span> createdAt <span class="op">??</span> <span class="kw">this</span><span class="op">.</span>createdAt<span class="op">,</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> toString() <span class="op">{</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&#39;Task(id: $id, title: $title, isCompleted: $isCompleted)&#39;</span>;</span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Perbedaan Key:</strong> -
+<strong>SharedPreferences</strong>: <code>isCompleted</code>,
+<code>createdAt</code> (camelCase) - <strong>Supabase Database</strong>:
+<code>is_completed</code>, <code>created_at</code> (snake_case)</p>
+<p>Kita buat 2 set methods untuk handle keduanya!</p>
+<hr />
+<h3 id="update-controller-untuk-pakai-supabase"><strong>2.3 Update
+Controller untuk Pakai Supabase</strong></h3>
+<p><strong>Edit file:
+<code>lib/app/controllers/todo_home_controller.dart</code></strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/models/task.dart&#39;</span>;</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;/app/services/supabase_service.dart&#39;</span>;</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TodoHomeController <span class="kw">extends</span> NyController <span class="op">{</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// State</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> [];</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> errorMessage;</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Supabase service (ganti dari StorageService)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> SupabaseService supabase <span class="op">=</span> SupabaseService();</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  construct(BuildContext context) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span>construct(context);</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Load tasks from Supabase</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> loadTasksFromSupabase();</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Load tasks from Supabase</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> loadTasksFromSupabase() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    isLoading <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    errorMessage <span class="op">=</span> <span class="cn">null</span>;</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Fetch dari Supabase</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> loadedTasks <span class="op">=</span> <span class="at">await</span> supabase<span class="op">.</span>getTasks();</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>      tasks <span class="op">=</span> loadedTasks;</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>      isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Loaded ${tasks.length} tasks from Supabase&#39;</span>);</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error loading tasks: $e&#39;</span>);</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>      isLoading <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>      errorMessage <span class="op">=</span> <span class="st">&#39;Failed to load tasks: ${e.toString()}&#39;</span>;</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Refresh tasks (pull-to-refresh)</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> refresh() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> loadTasksFromSupabase();</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Helper getters</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> totalTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>length;</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> completedTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> <span class="kw">get</span> pendingTasks <span class="op">=&gt;</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> <span class="op">!</span>t<span class="op">.</span>isCompleted)<span class="op">.</span>length;</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Add new task to Supabase</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> addTask(<span class="op">{</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> title<span class="op">,</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span> description <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">,</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Create task object</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>      Task newTask <span class="op">=</span> Task(</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>        id<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">.</span>millisecondsSinceEpoch<span class="op">.</span>toString()<span class="op">,</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>        createdAt<span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">,</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Insert ke Supabase</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>      Task createdTask <span class="op">=</span> <span class="at">await</span> supabase<span class="op">.</span>createTask(newTask);</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Add to local list</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>      tasks<span class="op">.</span>insert(<span class="dv">0</span><span class="op">,</span> createdTask);</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Task added to Supabase: $createdTask&#39;</span>);</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error adding task: $e&#39;</span>);</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Update task in Supabase</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> updateTask(<span class="op">{</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>    required <span class="dt">String</span> id<span class="op">,</span></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> title<span class="op">,</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>    <span class="dt">String</span><span class="op">?</span> description<span class="op">,</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span><span class="op">?</span> isCompleted<span class="op">,</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (taskIndex <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">throw</span> <span class="kw">Exception</span>(<span class="st">&#39;Task not found&#39;</span>);</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Create updated task</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>      Task updatedTask <span class="op">=</span> tasks[taskIndex]<span class="op">.</span>copyWith(</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> isCompleted<span class="op">,</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Update di Supabase</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>      Task savedTask <span class="op">=</span> <span class="at">await</span> supabase<span class="op">.</span>updateTask(updatedTask);</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Update local list</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>      tasks[taskIndex] <span class="op">=</span> savedTask;</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Task updated: $savedTask&#39;</span>);</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error updating task: $e&#39;</span>);</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Toggle complete status</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> toggleComplete(<span class="dt">String</span> id) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskIndex <span class="op">=</span> tasks<span class="op">.</span>indexWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (taskIndex <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">{</span></span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>      <span class="at">await</span> updateTask(</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>        id<span class="op">:</span> id<span class="op">,</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>        isCompleted<span class="op">:</span> <span class="op">!</span>tasks[taskIndex]<span class="op">.</span>isCompleted<span class="op">,</span></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Delete task from Supabase</span></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> deleteTask(<span class="dt">String</span> id) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Delete dari Supabase</span></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a>      <span class="at">await</span> supabase<span class="op">.</span>deleteTask(id);</span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Remove from local list</span></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>      tasks<span class="op">.</span>removeWhere((t) <span class="op">=&gt;</span> t<span class="op">.</span>id <span class="op">==</span> id);</span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ Task deleted: $id&#39;</span>);</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error deleting task: $e&#39;</span>);</span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>  <span class="co">/// Clear all tasks</span></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> clearAllTasks() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>      <span class="at">await</span> supabase<span class="op">.</span>deleteAllTasks();</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>      tasks<span class="op">.</span>clear();</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>      setState(setState<span class="op">:</span> () <span class="op">{}</span>);</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;✅ All tasks cleared&#39;</span>);</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&#39;❌ Error clearing tasks: $e&#39;</span>);</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>      <span class="cf">rethrow</span>;</span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Filter methods</span></span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> getTasksByStatus(<span class="dt">bool</span> isCompleted) <span class="op">{</span></span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> tasks<span class="op">.</span>where((t) <span class="op">=&gt;</span> t<span class="op">.</span>isCompleted <span class="op">==</span> isCompleted)<span class="op">.</span>toList();</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> pendingTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">false</span>);</span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> <span class="kw">get</span> completedTasksList <span class="op">=&gt;</span> getTasksByStatus(<span class="cn">true</span>);</span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Perubahan penting dari docs sebelumnya:</strong> -
+<code>extends Controller</code> → <code>extends NyController</code> (API
+Nylo terbaru) - <code>construct()</code> method dibuat
+<code>async</code> untuk await <code>loadTasksFromSupabase()</code> -
+<code>setState(() {})</code> → <code>setState(setState: () {})</code>
+(named parameter) - Removed <code>showToastNotification</code> calls
+dari controller (lebih baik di UI layer) - <code>isLoading</code> state
+di-manage langsung tanpa wrap setState - Error handling lebih sederhana
+dengan rethrow</p>
+<hr />
+<h3 id="direct-supabase-access-dari-pages"><strong>2.4 Direct Supabase
+Access dari Pages</strong></h3>
+<p>Untuk page yang tidak memiliki controller association (seperti
+<code>AddTaskPage</code> dan <code>DetailTaskPage</code>), kita bisa
+langsung akses Supabase client tanpa melalui controller.</p>
+<h4 id="add-task-page-dengan-direct-supabase"><strong>Add Task Page
+dengan Direct Supabase</strong></h4>
+<p><strong>Edit file:
+<code>lib/resources/pages/add_task_page.dart</code></strong></p>
+<p>Pada method <code>_handleSave()</code>, tambahkan direct Supabase
+insert:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> _handleSave() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> title <span class="op">=</span> titleController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> description <span class="op">=</span> descriptionController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (title<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Error&quot;</span><span class="op">,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task title tidak boleh kosong!&quot;</span><span class="op">,</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>error<span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>danger<span class="op">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span>;</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  setState(() <span class="op">{</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    isSaving <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Create new task directly with Supabase</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Generate ID using timestamp (same as controller)</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> taskId <span class="op">=</span> DateTime<span class="op">.</span>now()<span class="op">.</span>millisecondsSinceEpoch<span class="op">.</span>toString();</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> Supabase<span class="op">.</span>instance<span class="op">.</span>client<span class="op">.</span>from(<span class="st">&#39;tasks&#39;</span>)<span class="op">.</span>insert(<span class="op">{</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;id&#39;</span><span class="op">:</span> taskId<span class="op">,</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;title&#39;</span><span class="op">:</span> title<span class="op">,</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;description&#39;</span><span class="op">:</span> description<span class="op">,</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;is_completed&#39;</span><span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;created_at&#39;</span><span class="op">:</span> DateTime<span class="op">.</span>now()<span class="op">.</span>toIso8601String()<span class="op">,</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Success&quot;</span><span class="op">,</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task berhasil ditambahkan dan disimpan!&quot;</span><span class="op">,</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>check_circle<span class="op">,</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>success<span class="op">,</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Wait a bit before popping</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> <span class="dt">Future</span><span class="op">.</span>delayed(Duration(milliseconds<span class="op">:</span> <span class="dv">500</span>));</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (mounted) <span class="op">{</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>      Navigator<span class="op">.</span>pop(context<span class="op">,</span> <span class="cn">true</span>); <span class="co">// Return true to indicate task was added</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    print(<span class="st">&#39;Error saving task: $e&#39;</span>);</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Error&quot;</span><span class="op">,</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Gagal menyimpan task!&quot;</span><span class="op">,</span></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>error<span class="op">,</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>danger<span class="op">,</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>      isSaving <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Poin penting:</strong> - Generate ID menggunakan timestamp
+(sama seperti di controller) - Direct insert ke Supabase tanpa melalui
+service/controller - Return <code>true</code> saat Navigator.pop untuk
+signal bahwa task ditambahkan - Parent page akan refresh saat menerima
+return value <code>true</code></p>
+<h4 id="detail-task-page-dengan-edit-feature"><strong>Detail Task Page
+dengan Edit Feature</strong></h4>
+<p><code>DetailTaskPage</code> juga menggunakan direct Supabase access
+untuk update dan delete:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Update task status</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> _toggleTaskStatus() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (task <span class="op">==</span> <span class="cn">null</span>) <span class="kw">return</span>;</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  setState(() <span class="op">{</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    isProcessing <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Update task status directly with Supabase</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> newStatus <span class="op">=</span> <span class="op">!</span>task<span class="op">!.</span>isCompleted;</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> Supabase<span class="op">.</span>instance<span class="op">.</span>client</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>from(<span class="st">&#39;tasks&#39;</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>update(<span class="op">{</span><span class="st">&#39;is_completed&#39;</span><span class="op">:</span> newStatus<span class="op">}</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>eq(<span class="st">&#39;id&#39;</span><span class="op">,</span> task<span class="op">!.</span>id);</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>      task <span class="op">=</span> task<span class="op">!.</span>copyWith(isCompleted<span class="op">:</span> newStatus);</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>      isProcessing <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>      hasChanges <span class="op">=</span> <span class="cn">true</span>; <span class="co">// Mark that task was modified</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Success&quot;</span><span class="op">,</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task status updated and saved to cloud!&quot;</span><span class="op">,</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>check_circle<span class="op">,</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>success<span class="op">,</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Error handling...</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co">// Save edited task</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> _saveChanges() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (task <span class="op">==</span> <span class="cn">null</span>) <span class="kw">return</span>;</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> newTitle <span class="op">=</span> titleController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> newDescription <span class="op">=</span> descriptionController<span class="op">.</span>text<span class="op">.</span>trim();</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (newTitle<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Error&quot;</span><span class="op">,</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task title cannot be empty!&quot;</span><span class="op">,</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>error<span class="op">,</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>danger<span class="op">,</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span>;</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  setState(() <span class="op">{</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>    isProcessing <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Update task in Supabase</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> Supabase<span class="op">.</span>instance<span class="op">.</span>client<span class="op">.</span>from(<span class="st">&#39;tasks&#39;</span>)<span class="op">.</span>update(<span class="op">{</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;title&#39;</span><span class="op">:</span> newTitle<span class="op">,</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;description&#39;</span><span class="op">:</span> newDescription<span class="op">,</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">.</span>eq(<span class="st">&#39;id&#39;</span><span class="op">,</span> task<span class="op">!.</span>id);</span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    setState(() <span class="op">{</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>      task <span class="op">=</span> task<span class="op">!.</span>copyWith(</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> newTitle<span class="op">,</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>        description<span class="op">:</span> newDescription<span class="op">,</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>      );</span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>      isProcessing <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>      isEditMode <span class="op">=</span> <span class="cn">false</span>;</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>      hasChanges <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>);</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Success&quot;</span><span class="op">,</span></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task updated successfully!&quot;</span><span class="op">,</span></span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>check_circle<span class="op">,</span></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>success<span class="op">,</span></span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Error handling...</span></span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="co">// Delete task</span></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> _deleteTask() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (task <span class="op">==</span> <span class="cn">null</span>) <span class="kw">return</span>;</span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>  setState(() <span class="op">{</span></span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>    isProcessing <span class="op">=</span> <span class="cn">true</span>;</span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>);</span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Delete task directly with Supabase</span></span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> Supabase<span class="op">.</span>instance<span class="op">.</span>client</span>
+<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>from(<span class="st">&#39;tasks&#39;</span>)</span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>delete()</span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>eq(<span class="st">&#39;id&#39;</span><span class="op">,</span> task<span class="op">!.</span>id);</span>
+<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a>    showToastNotification(</span>
+<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a>      context<span class="op">,</span></span>
+<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> <span class="st">&quot;Success&quot;</span><span class="op">,</span></span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>      description<span class="op">:</span> <span class="st">&quot;Task deleted and saved to cloud!&quot;</span><span class="op">,</span></span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a>      icon<span class="op">:</span> Icons<span class="op">.</span>delete<span class="op">,</span></span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>success<span class="op">,</span></span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> <span class="dt">Future</span><span class="op">.</span>delayed(Duration(milliseconds<span class="op">:</span> <span class="dv">500</span>));</span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (mounted) <span class="op">{</span></span>
+<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a>      Navigator<span class="op">.</span>pop(context<span class="op">,</span> <span class="cn">true</span>); <span class="co">// Return true to indicate modification</span></span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Error handling...</span></span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>💡 Pattern untuk change tracking:</strong> - Tambahkan flag
+<code>hasChanges</code> dan <code>isEditMode</code> di state - Set
+<code>hasChanges = true</code> setiap kali task dimodifikasi (toggle,
+edit, delete) - Return <code>hasChanges</code> saat back button pressed
+menggunakan PopScope - Parent page akan refresh jika menerima
+<code>true</code></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> PopScope(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  canPop<span class="op">:</span> <span class="cn">false</span><span class="op">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  onPopInvokedWithResult<span class="op">:</span> (didPop<span class="op">,</span> result) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>didPop) <span class="op">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Handle back button - return hasChanges flag</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      Navigator<span class="op">.</span>pop(context<span class="op">,</span> hasChanges);</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Scaffold(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    appBar<span class="op">:</span> AppBar(</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>      leading<span class="op">:</span> IconButton(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        icon<span class="op">:</span> Icon(Icons<span class="op">.</span>arrow_back)<span class="op">,</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>          Navigator<span class="op">.</span>pop(context<span class="op">,</span> hasChanges);</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>      <span class="co">// ...</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<hr />
+<h3 id="update-home-pages-untuk-auto-refresh"><strong>2.5 Update Home
+Pages untuk Auto-Refresh</strong></h3>
+<p>Update navigasi di home pages untuk listen return value dan
+refresh:</p>
+<p><strong>Edit file: <code>lib/resources/pages/home_page.dart</code>
+dan <code>todo_home_page.dart</code></strong></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Add Task navigation</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  onPressed<span class="op">:</span> () <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> Navigator<span class="op">.</span>pushNamed(context<span class="op">,</span> <span class="st">&#39;/add-task&#39;</span>);</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (result <span class="op">==</span> <span class="cn">true</span>) <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Task was added, refresh the list</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      widget<span class="op">.</span>controller<span class="op">.</span>refresh();</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">},</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>)<span class="op">,</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">// Detail Task navigation (in ListView item)</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>onTap<span class="op">:</span> () <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> result <span class="op">=</span> <span class="at">await</span> Navigator<span class="op">.</span>pushNamed(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    context<span class="op">,</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;/detail-task&#39;</span><span class="op">,</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    arguments<span class="op">:</span> task<span class="op">.</span>toJson()<span class="op">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (result <span class="op">==</span> <span class="cn">true</span>) <span class="op">{</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Task was modified or deleted, refresh the list</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    widget<span class="op">.</span>controller<span class="op">.</span>refresh();</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="op">},</span></span></code></pre></div>
+<p><strong>💡 Keuntungan pattern ini:</strong> - UI selalu up-to-date
+dengan cloud data - User tidak perlu manual refresh - Clean separation:
+pages handle CRUD, controller manage state - Lebih flexible untuk pages
+tanpa controller association</p>
+<hr />
+<h3 id="add-loading-indicator-to-ui"><strong>2.6 Add Loading Indicator
+to UI</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<p>Update <code>_buildTaskList()</code> untuk show loading:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Widget _buildTaskList() <span class="op">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> controller <span class="op">=</span> widget<span class="op">.</span>controller;</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Show loading indicator</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (controller<span class="op">.</span>isLoading <span class="op">&amp;&amp;</span> controller<span class="op">.</span>tasks<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Center(</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Column(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>          CircularProgressIndicator()<span class="op">,</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>          Text(<span class="st">&#39;Loading tasks from cloud...&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Show error message</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (controller<span class="op">.</span>errorMessage <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Center(</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Column(</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>          Icon(Icons<span class="op">.</span>cloud_off<span class="op">,</span> size<span class="op">:</span> <span class="dv">64</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>red)<span class="op">,</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Failed to load tasks&#39;</span><span class="op">,</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">18</span><span class="op">,</span> fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold)<span class="op">,</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>            controller<span class="op">.</span>errorMessage<span class="op">!,</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>            textAlign<span class="op">:</span> TextAlign<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(color<span class="op">:</span> Colors<span class="op">.</span>grey)<span class="op">,</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>          ElevatedButton<span class="op">.</span>icon(</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>            onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>              controller<span class="op">.</span>refresh();</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">:</span> Icon(Icons<span class="op">.</span>refresh)<span class="op">,</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>            label<span class="op">:</span> Text(<span class="st">&#39;Retry&#39;</span>)<span class="op">,</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">List</span><span class="op">&lt;</span>Task<span class="op">&gt;</span> tasks <span class="op">=</span> controller<span class="op">.</span>tasks;</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Empty state</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tasks<span class="op">.</span>isEmpty) <span class="op">{</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Center(</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Column(</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>        mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>        children<span class="op">:</span> [</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>          Icon(Icons<span class="op">.</span>cloud_done<span class="op">,</span> size<span class="op">:</span> <span class="dv">80</span><span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade300)<span class="op">,</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;No tasks yet!&#39;</span><span class="op">,</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade600<span class="op">,</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>              fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>          SizedBox(height<span class="op">:</span> <span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>          Text(</span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Tap the + button to add your first task&#39;</span><span class="op">,</span></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>            style<span class="op">:</span> TextStyle(</span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>              fontSize<span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">.</span>shade500<span class="op">,</span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> ListView<span class="op">.</span>builder(</span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">16</span>)<span class="op">,</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>    itemCount<span class="op">:</span> tasks<span class="op">.</span>length<span class="op">,</span></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>    itemBuilder<span class="op">:</span> (context<span class="op">,</span> index) <span class="op">{</span></span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a>      <span class="at">final</span> task <span class="op">=</span> tasks[index];</span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a>      <span class="kw">return</span> _buildTaskCard(task);</span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a>    <span class="op">},</span></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h2 id="bagian-3-testing-polish-25-menit-1">✅ Bagian 3: Testing &amp;
+Polish (25 menit)</h2>
+<h3 id="complete-testing-checklist"><strong>3.1 Complete Testing
+Checklist</strong></h3>
+<p>Test semua operasi CRUD dengan Supabase:</p>
+<p><strong>Create:</strong> - [ ] Add task baru - [ ] Task muncul di app
+- [ ] Check di Supabase Table Editor - task ada di database - [ ] Close
+app, open lagi - task masih ada</p>
+<p><strong>Read:</strong> - [ ] Open app - tasks load dari Supabase - [
+] Loading indicator muncul saat fetch - [ ] Empty state jika belum ada
+tasks</p>
+<p><strong>Update:</strong> - [ ] Toggle complete task - [ ] Status
+update di app - [ ] Check di Supabase - is_completed berubah - [ ]
+Refresh app - status tetap</p>
+<p><strong>Delete:</strong> - [ ] Delete task - [ ] Task hilang dari app
+- [ ] Check di Supabase - task hilang dari database</p>
+<p><strong>Multi-Device (Bonus):</strong> - [ ] Install app di 2 devices
+(atau 1 device + browser Supabase) - [ ] Add task di device 1 - [ ]
+Refresh/restart app di device 2 - [ ] Task muncul di device 2! 🎉</p>
+<hr />
+<h3 id="add-pull-to-refresh"><strong>3.2 Add
+Pull-to-Refresh</strong></h3>
+<p><strong>Edit file:
+<code>lib/resources/pages/todo_home_page.dart</code></strong></p>
+<p>Wrap ListView dengan RefreshIndicator:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@override</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Widget view(BuildContext context) <span class="op">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> Scaffold(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    appBar<span class="op">:</span> AppBar(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      title<span class="op">:</span> Text(<span class="st">&#39;My Todo List&#39;</span>)<span class="op">,</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      foregroundColor<span class="op">:</span> Colors<span class="op">.</span>white<span class="op">,</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      actions<span class="op">:</span> [</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Refresh button</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        IconButton(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>          icon<span class="op">:</span> Icon(Icons<span class="op">.</span>refresh)<span class="op">,</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>          onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>            widget<span class="op">.</span>controller<span class="op">.</span>refresh();</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        PopupMenuButton<span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>(</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>          onSelected<span class="op">:</span> (value) <span class="op">{</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (value <span class="op">==</span> <span class="st">&#39;clear&#39;</span>) <span class="op">{</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>              _showClearConfirmation();</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>          <span class="op">},</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>          itemBuilder<span class="op">:</span> (context) <span class="op">=&gt;</span> [</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            PopupMenuItem(</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>              value<span class="op">:</span> <span class="st">&#39;clear&#39;</span><span class="op">,</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>              child<span class="op">:</span> Row(</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>                children<span class="op">:</span> [</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>                  Icon(Icons<span class="op">.</span>delete_sweep<span class="op">,</span> color<span class="op">:</span> Colors<span class="op">.</span>red)<span class="op">,</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>                  SizedBox(width<span class="op">:</span> <span class="dv">8</span>)<span class="op">,</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>                  Text(<span class="st">&#39;Clear All Tasks&#39;</span>)<span class="op">,</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>                ]<span class="op">,</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>          ]<span class="op">,</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    body<span class="op">:</span> Column(</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>      children<span class="op">:</span> [</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        _buildStatsCard()<span class="op">,</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        Expanded(</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>          child<span class="op">:</span> RefreshIndicator(</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>            onRefresh<span class="op">:</span> () <span class="op">=&gt;</span> widget<span class="op">.</span>controller<span class="op">.</span>refresh()<span class="op">,</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>            child<span class="op">:</span> _buildTaskList()<span class="op">,</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>          )<span class="op">,</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>    floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>      onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        routeTo(<span class="st">&#39;/add-task&#39;</span>);</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Now users can pull down to refresh! 🔄</p>
+<hr />
+<h3 id="error-handling-best-practices"><strong>3.3 Error Handling Best
+Practices</strong></h3>
+<p>Pastikan semua async operations di-wrap dengan try-catch:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Good ✅</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">await</span> supabase<span class="op">.</span>createTask(newTask);</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Success handling</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Error handling</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  showToastNotification(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    context<span class="op">,</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    title<span class="op">:</span> <span class="st">&#39;Error&#39;</span><span class="op">,</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    description<span class="op">:</span> <span class="st">&#39;Something went wrong&#39;</span><span class="op">,</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    style<span class="op">:</span> ToastNotificationStyleType<span class="op">.</span>DANGER<span class="op">,</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Bad ❌</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="at">await</span> supabase<span class="op">.</span>createTask(newTask); <span class="co">// Bisa crash kalau error!</span></span></code></pre></div>
+<hr />
+<h2 id="congratulations">🎉 Congratulations!</h2>
+<p>Aplikasi ToDo List Anda sekarang: ✅ Pakai Model class (type-safe) ✅
+Data persist dengan Supabase (cloud storage) ✅ CRUD operations lengkap
+✅ Multi-device sync ready ✅ Error handling proper ✅ Loading states
+&amp; feedback</p>
+<hr />
+<h2 id="next-steps-after-workshop">🚀 Next Steps (After Workshop)</h2>
+<h3 id="improvements"><strong>Improvements:</strong></h3>
+<ol type="1">
+<li><strong>Authentication</strong>: Add user login dengan Supabase
+Auth</li>
+<li><strong>RLS</strong>: Enable Row Level Security untuk data
+privacy</li>
+<li><strong>Offline Mode</strong>: Cache data dengan Hive untuk
+offline-first</li>
+<li><strong>Real-time</strong>: Subscribe ke Supabase Realtime untuk
+live updates</li>
+<li><strong>Search &amp; Filter</strong>: Tambah fitur search dan filter
+by status</li>
+<li><strong>Categories</strong>: Buat multiple task
+lists/categories</li>
+<li><strong>Due Dates</strong>: Tambah due date &amp; reminders</li>
+<li><strong>UI Polish</strong>: Better animations, themes, dark
+mode</li>
+</ol>
+<hr />
+<hr />
+<h2 id="common-issues-solutions">🐛 Common Issues &amp; Solutions</h2>
+<h3
+id="issue-0-type-null-is-not-a-subtype-of-type-string-di-theme.dart"><strong>Issue
+0: “type ‘Null’ is not a subtype of type ‘String’” di
+theme.dart</strong></h3>
+<p><strong>Symptom</strong>: App crash saat startup dengan error di
+<code>appThemes</code> configuration <strong>Solution</strong>:</p>
+<p>Theme configuration di Nylo menggunakan environment variables untuk
+theme IDs. Jika <code>.env</code> tidak ada atau tidak loaded,
+<code>getEnv()</code> return <code>null</code> yang menyebabkan
+error.</p>
+<p><strong>Fix di <code>lib/config/theme.dart</code>:</strong></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">// SEBELUM (Error jika .env belum ada)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> <span class="dt">List</span><span class="op">&lt;</span>BaseThemeConfig<span class="op">&lt;</span>ColorStyles<span class="op">&gt;&gt;</span> appThemes <span class="op">=</span> [</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  BaseThemeConfig<span class="op">&lt;</span>ColorStyles<span class="op">&gt;</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> getEnv(<span class="st">&#39;LIGHT_THEME_ID&#39;</span>)<span class="op">,</span>  <span class="co">// ❌ Bisa return null</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    description<span class="op">:</span> <span class="st">&quot;Light theme&quot;</span><span class="op">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    theme<span class="op">:</span> lightTheme<span class="op">,</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">:</span> LightThemeColors()<span class="op">,</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>];</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">// SESUDAH (Always works)</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> <span class="dt">List</span><span class="op">&lt;</span>BaseThemeConfig<span class="op">&lt;</span>ColorStyles<span class="op">&gt;&gt;</span> appThemes <span class="op">=</span> [</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  BaseThemeConfig<span class="op">&lt;</span>ColorStyles<span class="op">&gt;</span>(</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> <span class="st">&#39;light_theme&#39;</span><span class="op">,</span>  <span class="co">// ✅ Hardcoded string</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    description<span class="op">:</span> <span class="st">&quot;Light theme&quot;</span><span class="op">,</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    theme<span class="op">:</span> lightTheme<span class="op">,</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">:</span> LightThemeColors()<span class="op">,</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  BaseThemeConfig<span class="op">&lt;</span>ColorStyles<span class="op">&gt;</span>(</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> <span class="st">&#39;dark_theme&#39;</span><span class="op">,</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    description<span class="op">:</span> <span class="st">&quot;Dark theme&quot;</span><span class="op">,</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    theme<span class="op">:</span> darkTheme<span class="op">,</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">:</span> DarkThemeColors()<span class="op">,</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>];</span></code></pre></div>
+<p>Untuk workshop ini, lebih simple pakai hardcoded theme IDs. Di
+production app, bisa tetap pakai <code>getEnv()</code> dengan
+fallback:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>id<span class="op">:</span> getEnv(<span class="st">&#39;LIGHT_THEME_ID&#39;</span>) <span class="op">??</span> <span class="st">&#39;light_theme&#39;</span><span class="op">,</span></span></code></pre></div>
+<hr />
+<h3 id="issue-1-connection-refused-atau-failed-to-connect"><strong>Issue
+1: “Connection refused” atau “Failed to connect”</strong></h3>
+<p><strong>Symptom</strong>: Error saat fetch dari Supabase
+<strong>Solution</strong>: - Check internet connection - Verify
+SUPABASE_URL dan SUPABASE_ANON_KEY di .env - Check di Supabase Dashboard
+- project status = Active - Coba access URL di browser - harus
+response</p>
+<h3 id="issue-2-invalid-api-key"><strong>Issue 2: “Invalid API
+key”</strong></h3>
+<p><strong>Symptom</strong>: 401 Unauthorized error
+<strong>Solution</strong>: - Copy ulang anon key dari Supabase Dashboard
+→ Settings → API - Pastikan tidak ada extra spaces di .env - Restart app
+setelah ubah .env</p>
+<h3 id="issue-3-table-tasks-does-not-exist"><strong>Issue 3: “Table
+‘tasks’ does not exist”</strong></h3>
+<p><strong>Symptom</strong>: Error query table not found
+<strong>Solution</strong>: - Check di Table Editor - table
+<code>tasks</code> ada? - Re-run SQL create table script - Verify table
+name sama persis (case-sensitive)</p>
+<h3 id="issue-4-column-is_completed-not-found"><strong>Issue 4: “Column
+‘is_completed’ not found”</strong></h3>
+<p><strong>Symptom</strong>: Error query column not found
+<strong>Solution</strong>: - Check column names di Table Editor -
+Pastikan pakai snake_case: <code>is_completed</code>,
+<code>created_at</code> - Update <code>toSupabaseJson()</code> dan
+<code>fromSupabaseJson()</code> methods</p>
+<h3 id="issue-5-tasks-not-syncing-between-devices"><strong>Issue 5:
+Tasks not syncing between devices</strong></h3>
+<p><strong>Symptom</strong>: Add di device A, tidak muncul di device B
+<strong>Solution</strong>: - Pastikan kedua device pakai project
+Supabase yang sama - Call <code>refresh()</code> di device B untuk fetch
+latest data - Check internet di kedua devices</p>
+<hr />
+<h2 id="key-takeaways">📚 Key Takeaways</h2>
+<p>✅ <strong>Supabase:</strong> - Backend-as-a-Service berbasis
+PostgreSQL - Free tier generous untuk belajar &amp; small projects -
+Easy integration dengan Flutter via supabase_flutter package</p>
+<p>✅ <strong>Migration Path:</strong> - Start simple: In-memory (List)
+- Then persist: SharedPreferences (local) - Scale up: Supabase
+(cloud)</p>
+<p>✅ <strong>Best Practices:</strong> - Always use .env untuk
+credentials (jangan hardcode!) - Add .env ke .gitignore - Wrap async
+operations dengan try-catch - Show loading states untuk better UX -
+Handle errors gracefully dengan user feedback</p>
+<p>✅ <strong>Database Naming:</strong> - Dart/Flutter: camelCase
+(<code>isCompleted</code>) - Database: snake_case
+(<code>is_completed</code>) - Convert di Model methods:
+<code>fromSupabaseJson()</code> &amp; <code>toSupabaseJson()</code></p>
+<hr />
+<h2 id="resources">📖 Resources</h2>
+<ul>
+<li><strong>Supabase Docs</strong>: https://supabase.com/docs</li>
+<li><strong>Supabase Flutter</strong>:
+https://supabase.com/docs/reference/dart/introduction</li>
+<li><strong>Flutter Dotenv</strong>:
+https://pub.dev/packages/flutter_dotenv</li>
+<li><strong>PostgreSQL Tutorial</strong>:
+https://www.postgresqltutorial.com/</li>
+</ul>
+<hr />
+<h2 id="navigation">🔗 Navigation</h2>
+<p><a href="./sesi-04.md">← Sesi 4 - Model &amp; Data Persistence</a> |
+<a href="./README.md">Workshop Modules</a></p>
+<hr />
+<p><em>Workshop Material - Simple ToDo List with Flutter Nylo |
+Dokumentasi Sesi 5 - Integrasi Supabase | Terakhir diperbarui: November
+22, 2025</em></p>
+</body>
+</html>

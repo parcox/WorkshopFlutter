@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sesi-01</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="sesi-1-hello-flutter-with-nylo">📚 Sesi 1: Hello Flutter with
+Nylo</h1>
+<h2 id="overview-sesi">🎯 Overview Sesi</h2>
+<p><strong>Durasi</strong>: 90 menit (1.5 jam) |
+<strong>Branch</strong>: <code>00-setup-complete</code> →
+<code>01-first-run</code> → <code>02-hello-modified</code> |
+<strong>Tujuan</strong>: Peserta berhasil menjalankan aplikasi Flutter
+Nylo pertama mereka dan melakukan modifikasi sederhana</p>
+<hr />
+<h2 id="agenda-sesi">📋 Agenda Sesi</h2>
+<h3 id="bagian-1-setup-instalasi-30-menit"><strong>Bagian 1: Setup &amp;
+Instalasi</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Install Flutter
+SDK</label></li>
+<li><label><input type="checkbox" checked="" />Install Nylo
+CLI</label></li>
+<li><label><input type="checkbox" checked="" />Verify
+installation</label></li>
+<li><label><input type="checkbox" checked="" />Troubleshooting common
+issues</label></li>
+</ul>
+<h3 id="bagian-2-create-first-project-30-menit"><strong>Bagian 2: Create
+First Project</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Create Nylo
+project</label></li>
+<li><label><input type="checkbox" checked="" />Explore folder
+structure</label></li>
+<li><label><input type="checkbox" checked="" />Run app di
+emulator/device</label></li>
+<li><label><input type="checkbox" checked="" />Hot reload
+demo</label></li>
+</ul>
+<h3 id="bagian-3-first-modification-30-menit"><strong>Bagian 3: First
+Modification</strong> (30 menit)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Edit HomePage
+text</label></li>
+<li><label><input type="checkbox" checked="" />Change
+colors</label></li>
+<li><label><input type="checkbox" checked="" />Add icon dan
+button</label></li>
+<li><label><input type="checkbox" checked="" />Understand widget
+tree</label></li>
+</ul>
+<hr />
+<h2 id="bagian-1-setup-instalasi-30-menit-1">💻 Bagian 1: Setup &amp;
+Instalasi (30 menit)</h2>
+<h3 id="install-flutter-sdk"><strong>1.1 Install Flutter
+SDK</strong></h3>
+<h4 id="windows"><strong>Windows:</strong></h4>
+<ol type="1">
+<li>Download Flutter SDK dari <a
+href="https://docs.flutter.dev/get-started/install/windows"
+class="uri">https://docs.flutter.dev/get-started/install/windows</a></li>
+<li>Extract zip file ke lokasi (contoh:
+<code>C:\src\flutter</code>)</li>
+<li>Tambahkan Flutter ke PATH:
+<ul>
+<li>Search “Environment Variables” di Windows</li>
+<li>Edit “Path” variable</li>
+<li>Add <code>C:\src\flutter\bin</code></li>
+</ul></li>
+</ol>
+<h4 id="macos"><strong>macOS:</strong></h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Flutter SDK</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/development</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/flutter/flutter.git <span class="at">-b</span> stable</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to PATH (tambahkan ke ~/.zshrc atau ~/.bashrc)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PATH</span><span class="st">:</span><span class="va">$HOME</span><span class="st">/development/flutter/bin&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply changes</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.zshrc</span></code></pre></div>
+<h4 id="linux"><strong>Linux:</strong></h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Flutter SDK</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/development</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/flutter/flutter.git <span class="at">-b</span> stable</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PATH</span><span class="st">:</span><span class="va">$HOME</span><span class="st">/development/flutter/bin&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply changes</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
+<h4 id="verify-installation"><strong>Verify Installation:</strong></h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> <span class="at">--version</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output harus menunjukkan Flutter 3.24.0 atau lebih tinggi</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> doctor</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check semua requirements</span></span></code></pre></div>
+<p><strong>📌 Output yang Diharapkan:</strong></p>
+<pre><code>Flutter 3.24.0 • channel stable
+Tools • Dart 3.5.0 • DevTools 2.37.0
+
+[✓] Flutter (Channel stable, 3.24.0, on macOS)
+[✓] Android toolchain - develop for Android devices
+[✓] Xcode - develop for iOS and macOS (Xcode 15.0)
+[✓] Chrome - develop for the web
+[✓] VS Code (version 1.85.0)
+[✓] Connected device (2 available)</code></pre>
+<hr />
+<h3 id="understand-metro-cli"><strong>1.2 Understand Metro
+CLI</strong></h3>
+<p><strong>Apa itu Metro?</strong> Metro adalah CLI tool dari Nylo untuk
+generate code (models, controllers, pages, dll).</p>
+<p><strong>Cara Menggunakan Metro:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Command lengkap (tanpa alias)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh: Create model</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:model Task</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Contoh: Create page</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">dart</span> run nylo_framework:main make:page home_page</span></code></pre></div>
+<p><strong>💡 Optional: Buat Alias untuk Kemudahan</strong></p>
+<p><strong>macOS/Linux:</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tambahkan alias ke bash_profile atau zshrc</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> echo <span class="st">&quot;alias metro=&#39;dart run nylo_framework:main&#39;&quot;</span> <span class="op">&gt;&gt;</span>~/.zshrc <span class="kw">&amp;&amp;</span> <span class="bu">source</span> ~/.zshrc</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test alias</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">metro</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Akan muncul Metro CLI menu</span></span></code></pre></div>
+<p><strong>Windows (PowerShell):</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buat/edit PowerShell profile</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!(</span><span class="fu">Test-Path</span> <span class="op">-</span>Path <span class="va">$PROFILE</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">New-Item</span> <span class="op">-</span>ItemType File <span class="op">-</span>Path <span class="va">$PROFILE</span> <span class="op">-</span>Force</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit profile</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>notepad <span class="va">$PROFILE</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tambahkan line ini:</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> metro <span class="op">{</span> dart run nylo_framework<span class="op">:</span>main @args <span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Save dan reload</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> <span class="va">$PROFILE</span></span></code></pre></div>
+<p>Setelah setup alias, Anda bisa gunakan <code>metro</code> instead of
+<code>dart run nylo_framework:main</code>.</p>
+<p><strong>⚠️ Catatan:</strong> Metro <strong>tidak perlu</strong>
+diinstall terpisah. Dia sudah include dalam Nylo project. Anda hanya
+perlu run <code>dart run nylo_framework:main</code> dari dalam project
+folder.—</p>
+<h3 id="setup-android-emulator-optional"><strong>1.3 Setup Android
+Emulator (Optional)</strong></h3>
+<p>Jika belum punya physical device:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check available emulators</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> emulators</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch emulator</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> emulators <span class="at">--launch</span> <span class="op">&lt;</span>emulator_id<span class="op">&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Atau buat emulator baru via Android Studio:</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tools → Device Manager → Create Device → Pilih Pixel 5 → Finish</span></span></code></pre></div>
+<hr />
+<h3 id="verify-everything-works"><strong>1.4 Verify Everything
+Works</strong></h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Flutter doctor</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> doctor <span class="at">-v</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List connected devices</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> devices</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Harus menunjukkan minimal 1 device (emulator atau physical)</span></span></code></pre></div>
+<p><strong>✅ Checklist Setup:</strong> - [ ] Flutter SDK installed - [
+] <code>flutter doctor</code> tidak ada [!] error - [ ] Minimal 1 device
+available (<code>flutter devices</code>) - [ ] Understand cara akses
+Metro CLI (<code>dart run nylo_framework:main</code>)</p>
+<hr />
+<h2 id="bagian-2-create-first-project-30-menit-1">🚀 Bagian 2: Create
+First Project (30 menit)</h2>
+<h3 id="download-nylo-project-template"><strong>2.1 Download Nylo
+Project Template</strong></h3>
+<p><strong>Ada 2 cara download Nylo:</strong></p>
+<h4 id="option-1-git-clone-recommended"><strong>Option 1: Git Clone
+(Recommended)</strong></h4>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate ke folder workspace</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/workshop-flutter</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Clone Nylo template dari GitHub</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/nylo-core/nylo.git my_todo_app</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Masuk ke folder project</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my_todo_app</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> pub get</span></code></pre></div>
+<h4 id="option-2-download-zip"><strong>Option 2: Download
+ZIP</strong></h4>
+<ol type="1">
+<li>Buka <a href="https://nylo.dev/download"
+class="uri">https://nylo.dev/download</a></li>
+<li>Download Nylo template (ZIP file)</li>
+<li>Extract ke folder <code>my_todo_app</code></li>
+<li>Buka terminal di folder tersebut</li>
+<li>Run <code>flutter pub get</code></li>
+</ol>
+<p><strong>🔍 Apa yang Didapat:</strong> - Flutter project dengan
+struktur Nylo - Dependencies sudah dikonfigurasi - Boilerplate code siap
+pakai - Metro CLI tools sudah tersedia—</p>
+<h3 id="explore-folder-structure"><strong>2.2 Explore Folder
+Structure</strong></h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my_todo_app</span></code></pre></div>
+<p><strong>📁 Struktur Folder:</strong></p>
+<pre><code>my_todo_app/
+├── lib/
+│   ├── app/
+│   │   ├── controllers/      # Business logic
+│   │   ├── models/           # Data structures
+│   │   └── networking/       # API calls
+│   ├── resources/
+│   │   ├── pages/            # UI screens
+│   │   │   └── home_page.dart
+│   │   └── widgets/          # Reusable widgets
+│   ├── routes/
+│   │   └── routes.dart       # Route definitions
+│   ├── bootstrap/
+│   │   └── app.dart          # App initialization
+│   └── main.dart             # Entry point
+├── pubspec.yaml              # Dependencies
+├── .env                      # Environment variables
+└── README.md</code></pre>
+<p><strong>💡 Penjelasan Singkat:</strong></p>
+<ul>
+<li><strong><code>lib/app/</code></strong> → Logic aplikasi
+(controllers, models)</li>
+<li><strong><code>lib/resources/pages/</code></strong> → Halaman-halaman
+UI</li>
+<li><strong><code>lib/routes/</code></strong> → Navigasi antar
+halaman</li>
+<li><strong><code>lib/main.dart</code></strong> → Starting point
+aplikasi</li>
+<li><strong><code>pubspec.yaml</code></strong> → Daftar package/library
+yang digunakan</li>
+</ul>
+<hr />
+<h3 id="run-default-app"><strong>2.3 Run Default App</strong></h3>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> pub get</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run app</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Atau jika ada multiple devices:</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run <span class="at">-d</span> <span class="op">&lt;</span>device_id<span class="op">&gt;</span></span></code></pre></div>
+<p><strong>📱 Expected Output:</strong></p>
+<p>App akan terbuka di emulator/device dengan tampilan default Nylo: -
+App bar dengan judul “Home” - Body dengan text “Hello World” atau Nylo
+logo - FloatingActionButton di kanan bawah</p>
+<p><strong>🎉 Congratulations!</strong> Anda sudah menjalankan aplikasi
+Flutter Nylo pertama!</p>
+<hr />
+<h3 id="hot-reload-demo"><strong>2.4 Hot Reload Demo</strong></h3>
+<p><strong>Apa itu Hot Reload?</strong> Hot reload memungkinkan Anda
+melihat perubahan code secara instant tanpa restart app.</p>
+<p><strong>Test Hot Reload:</strong></p>
+<ol type="1">
+<li><strong>Buka</strong>
+<code>lib/resources/pages/home_page.dart</code></li>
+<li><strong>Edit</strong> text di dalam widget:</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Find this:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Text(<span class="st">&#39;Hello World&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Change to:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Text(<span class="st">&#39;Hello Flutter!&#39;</span>)</span></code></pre></div>
+<ol start="3" type="1">
+<li><strong>Save file</strong> (Cmd+S / Ctrl+S)</li>
+<li><strong>Lihat emulator</strong> → Text akan berubah otomatis!
+⚡</li>
+</ol>
+<p><strong>Shortcut Hot Reload:</strong> - <strong>VS Code</strong>:
+Cmd+S / Ctrl+S (auto hot reload saat save) - <strong>Terminal</strong>:
+Tekan <code>r</code> di terminal yang menjalankan
+<code>flutter run</code> - <strong>Hot Restart</strong>: Tekan
+<code>R</code> (capital R) untuk full restart</p>
+<hr />
+<h2 id="bagian-3-first-modification-30-menit-1">🎨 Bagian 3: First
+Modification (30 menit)</h2>
+<h3 id="edit-homepage-text"><strong>3.1 Edit HomePage Text</strong></h3>
+<p>Mari kita ubah tampilan HomePage dengan sesuatu yang lebih
+personal.</p>
+<p><strong>File</strong>:
+<code>lib/resources/pages/home_page.dart</code></p>
+<h4 id="sebelum"><strong>Sebelum:</strong></h4>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HomePage <span class="kw">extends</span> NyStatefulWidget <span class="op">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> path <span class="op">=</span> <span class="st">&#39;/home&#39;</span>;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  HomePage(<span class="op">{</span>Key<span class="op">?</span> key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(key<span class="op">:</span> key);</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  _HomePageState createState() <span class="op">=&gt;</span> _HomePageState();</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _HomePageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>HomePage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  Widget build(BuildContext context) <span class="op">{</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&quot;Home&quot;</span>)<span class="op">,</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> Center(</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Text(<span class="st">&quot;Hello World&quot;</span>)<span class="op">,</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="setelah"><strong>Setelah:</strong></h4>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:flutter/material.dart&#39;</span>;</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;package:nylo_framework/nylo_framework.dart&#39;</span>;</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HomePage <span class="kw">extends</span> NyStatefulWidget <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> path <span class="op">=</span> <span class="st">&#39;/home&#39;</span>;</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  HomePage(<span class="op">{</span>Key<span class="op">?</span> key<span class="op">}</span>) <span class="op">:</span> <span class="kw">super</span>(key<span class="op">:</span> key);</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  _HomePageState createState() <span class="op">=&gt;</span> _HomePageState();</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> _HomePageState <span class="kw">extends</span> NyState<span class="op">&lt;</span>HomePage<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">@override</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  Widget build(BuildContext context) <span class="op">{</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Scaffold(</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>      appBar<span class="op">:</span> AppBar(</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        title<span class="op">:</span> Text(<span class="st">&quot;My ToDo App&quot;</span>)<span class="op">,</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> Center(</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>        child<span class="op">:</span> Column(</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>          mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>          children<span class="op">:</span> [</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            Icon(</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>              Icons<span class="op">.</span>check_circle<span class="op">,</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>              size<span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>              color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;Welcome to My ToDo App!&quot;</span><span class="op">,</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>                fontSize<span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>                fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>            SizedBox(height<span class="op">:</span> <span class="dv">10</span>)<span class="op">,</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>            Text(</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;Let&#39;s get things done together&quot;</span><span class="op">,</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>              style<span class="op">:</span> TextStyle(</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>                fontSize<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>                color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>              )<span class="op">,</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>            )<span class="op">,</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>          ]<span class="op">,</span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>        )<span class="op">,</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>🎨 Perubahan yang Dilakukan:</strong> 1. ✅ AppBar title →
+“My ToDo App” 2. ✅ Added blue background color to AppBar 3. ✅ Added
+check_circle icon (size 100, blue) 4. ✅ Changed text dengan styling 5.
+✅ Used Column untuk vertical layout 6. ✅ Added spacing dengan
+SizedBox</p>
+<p><strong>Save dan lihat hasilnya!</strong> 🚀</p>
+<hr />
+<h3 id="add-button"><strong>3.2 Add Button</strong></h3>
+<p>Sekarang tambahkan button di bawah text.</p>
+<p><strong>Update</strong> bagian <code>children</code> di Column:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Column(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  mainAxisAlignment<span class="op">:</span> MainAxisAlignment<span class="op">.</span>center<span class="op">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  children<span class="op">:</span> [</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    Icon(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>      Icons<span class="op">.</span>check_circle<span class="op">,</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      size<span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      color<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    SizedBox(height<span class="op">:</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    Text(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Welcome to My ToDo App!&quot;</span><span class="op">,</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> TextStyle(</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        fontSize<span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        fontWeight<span class="op">:</span> FontWeight<span class="op">.</span>bold<span class="op">,</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    SizedBox(height<span class="op">:</span> <span class="dv">10</span>)<span class="op">,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    Text(</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Let&#39;s get things done together&quot;</span><span class="op">,</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> TextStyle(</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        fontSize<span class="op">:</span> <span class="dv">16</span><span class="op">,</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        color<span class="op">:</span> Colors<span class="op">.</span>grey<span class="op">,</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    SizedBox(height<span class="op">:</span> <span class="dv">30</span>)<span class="op">,</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 🆕 Button baru</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    ElevatedButton(</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>      onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>        print(<span class="st">&quot;Button clicked!&quot;</span>);</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>      <span class="op">},</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>      style<span class="op">:</span> ElevatedButton<span class="op">.</span>styleFrom(</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>        padding<span class="op">:</span> EdgeInsets<span class="op">.</span>symmetric(horizontal<span class="op">:</span> <span class="dv">40</span><span class="op">,</span> vertical<span class="op">:</span> <span class="dv">15</span>)<span class="op">,</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>      child<span class="op">:</span> Text(</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Get Started&quot;</span><span class="op">,</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>        style<span class="op">:</span> TextStyle(fontSize<span class="op">:</span> <span class="dv">18</span>)<span class="op">,</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>Test Button:</strong> 1. Save file 2. Tap button di app 3.
+Lihat console → akan muncul “Button clicked!”</p>
+<hr />
+<h3 id="understand-widget-tree"><strong>3.3 Understand Widget
+Tree</strong></h3>
+<p><strong>Apa itu Widget Tree?</strong></p>
+<p>Di Flutter, semua yang Anda lihat di screen adalah widget. Widget
+disusun dalam tree structure.</p>
+<p><strong>Contoh Widget Tree untuk HomePage kita:</strong></p>
+<pre><code>Scaffold
+├── AppBar
+│   └── Text (&quot;My ToDo App&quot;)
+└── body: Center
+    └── Column
+        ├── Icon (check_circle)
+        ├── SizedBox (spacing)
+        ├── Text (&quot;Welcome...&quot;)
+        ├── SizedBox (spacing)
+        ├── Text (&quot;Let&#39;s get things done...&quot;)
+        ├── SizedBox (spacing)
+        └── ElevatedButton
+            └── Text (&quot;Get Started&quot;)</code></pre>
+<p><strong>💡 Key Concepts:</strong></p>
+<ul>
+<li><strong>Scaffold</strong>: Blueprint halaman (appBar, body,
+floatingActionButton)</li>
+<li><strong>Center</strong>: Widget yang center childnya</li>
+<li><strong>Column</strong>: Layout vertical (dari atas ke bawah)</li>
+<li><strong>Row</strong>: Layout horizontal (dari kiri ke kanan)</li>
+<li><strong>SizedBox</strong>: Spacing atau container dengan size
+tertentu</li>
+<li><strong>Padding</strong>: Add spacing around widget</li>
+</ul>
+<hr />
+<h3 id="experiment-time"><strong>3.4 Experiment Time! 🧪</strong></h3>
+<p>Coba modifikasi sendiri:</p>
+<h4 id="challenge-1-change-colors"><strong>Challenge 1: Change
+Colors</strong></h4>
+<p>Ubah warna icon dan button ke hijau (<code>Colors.green</code>)</p>
+<h4 id="challenge-2-add-more-text"><strong>Challenge 2: Add More
+Text</strong></h4>
+<p>Tambahkan text di bawah button: “Version 1.0”</p>
+<h4 id="challenge-3-add-padding"><strong>Challenge 3: Add
+Padding</strong></h4>
+<p>Wrap Column dengan Padding widget:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>body<span class="op">:</span> Center(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  child<span class="op">:</span> Padding(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    padding<span class="op">:</span> EdgeInsets<span class="op">.</span>all(<span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> Column(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="co">// ... existing children</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h4 id="challenge-4-add-floatingactionbutton"><strong>Challenge 4: Add
+FloatingActionButton</strong></h4>
+<p>Tambahkan FloatingActionButton di Scaffold:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> Scaffold(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  appBar<span class="op">:</span> AppBar(<span class="op">...</span>)<span class="op">,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  body<span class="op">:</span> Center(<span class="op">...</span>)<span class="op">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  floatingActionButton<span class="op">:</span> FloatingActionButton(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    onPressed<span class="op">:</span> () <span class="op">{</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      print(<span class="st">&quot;FAB clicked!&quot;</span>);</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">},</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    child<span class="op">:</span> Icon(Icons<span class="op">.</span>add)<span class="op">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    backgroundColor<span class="op">:</span> Colors<span class="op">.</span>blue<span class="op">,</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<hr />
+<h2 id="testing-verification">🎯 Testing &amp; Verification</h2>
+<h3 id="checklist-sesi-1"><strong>Checklist Sesi 1:</strong></h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Flutter SDK installed dan
+verified</label></li>
+<li><label><input type="checkbox" />Nylo CLI installed</label></li>
+<li><label><input type="checkbox" />Project created dengan
+<code>nylo create</code></label></li>
+<li><label><input type="checkbox" />App berjalan di
+device/emulator</label></li>
+<li><label><input type="checkbox" />Hot reload works</label></li>
+<li><label><input type="checkbox" />HomePage modified (text, icon,
+button)</label></li>
+<li><label><input type="checkbox" />Button onClick works (print di
+console)</label></li>
+<li><label><input type="checkbox" />Understand basic widget
+structure</label></li>
+</ul>
+<hr />
+<h2 id="common-issues-solutions">🐛 Common Issues &amp; Solutions</h2>
+<h3 id="issue-1-command-flutter-not-found"><strong>Issue 1: “Command
+‘flutter’ not found”</strong></h3>
+<p><strong>Symptom</strong>: Terminal tidak recognize
+<code>flutter</code> command</p>
+<p><strong>Solution</strong>:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify Flutter location</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> flutter</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If not found, add to PATH</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PATH</span><span class="st">:/path/to/flutter/bin&quot;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.zshrc</span></code></pre></div>
+<hr />
+<h3 id="issue-2-android-licenses-not-accepted"><strong>Issue 2: “Android
+licenses not accepted”</strong></h3>
+<p><strong>Symptom</strong>: <code>flutter doctor</code> shows Android
+licenses issue</p>
+<p><strong>Solution</strong>:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> doctor <span class="at">--android-licenses</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Press &#39;y&#39; untuk accept semua licenses</span></span></code></pre></div>
+<hr />
+<h3 id="issue-3-no-devices-found"><strong>Issue 3: “No devices
+found”</strong></h3>
+<p><strong>Symptom</strong>: <code>flutter devices</code> returns
+empty</p>
+<p><strong>Solution</strong>:</p>
+<p><strong>For Physical Device:</strong> - Enable USB Debugging di
+Developer Options - Connect via USB - Trust computer saat diminta</p>
+<p><strong>For Emulator:</strong></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List available emulators</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> emulators</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch specific emulator</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> emulators <span class="at">--launch</span> Pixel_5_API_33</span></code></pre></div>
+<hr />
+<h3 id="issue-4-gradle-build-failed"><strong>Issue 4: “Gradle build
+failed”</strong></h3>
+<p><strong>Symptom</strong>: Error saat build Android app</p>
+<p><strong>Solution</strong>:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean build</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> clean</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get dependencies</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> pub get</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run again</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">flutter</span> run</span></code></pre></div>
+<hr />
+<h3 id="issue-5-hot-reload-not-working"><strong>Issue 5: “Hot reload not
+working”</strong></h3>
+<p><strong>Symptom</strong>: Perubahan code tidak muncul di app</p>
+<p><strong>Solution</strong>: - Press <code>R</code> (capital R) untuk
+hot restart - Atau stop dan run ulang app - Check if you saved the file
+(Cmd+S / Ctrl+S)</p>
+<hr />
+<h2 id="key-takeaways">📚 Key Takeaways</h2>
+<p>✅ <strong>Flutter SDK</strong>: - Cross-platform framework (Android,
+iOS, Web, Desktop) - Uses Dart programming language - Hot reload untuk
+fast development - Widget-based UI architecture</p>
+<p>✅ <strong>Nylo Framework</strong>: - Micro framework built on top of
+Flutter - Provides MVC-like structure - Metro CLI untuk scaffolding
+(make:model, make:page, dll) - Built-in routing dan state management</p>
+<p>✅ <strong>Widget Basics</strong>: - Everything is a widget - Widgets
+arranged in tree structure - Stateless vs Stateful widgets - Common
+widgets: Scaffold, AppBar, Text, Icon, Button</p>
+<p>✅ <strong>Development Workflow</strong>: - Edit code → Save → Hot
+reload → See changes - Use <code>print()</code> untuk debugging - Check
+console untuk errors dan logs</p>
+<hr />
+<h2 id="resources">📖 Resources</h2>
+<h3 id="official-docs"><strong>Official Docs:</strong></h3>
+<ul>
+<li>Flutter: <a href="https://docs.flutter.dev"
+class="uri">https://docs.flutter.dev</a></li>
+<li>Nylo: <a href="https://nylo.dev/docs/6.x"
+class="uri">https://nylo.dev/docs/6.x</a></li>
+<li>Dart: <a href="https://dart.dev"
+class="uri">https://dart.dev</a></li>
+</ul>
+<h3 id="tutorials"><strong>Tutorials:</strong></h3>
+<ul>
+<li>Flutter Codelabs: <a href="https://docs.flutter.dev/codelabs"
+class="uri">https://docs.flutter.dev/codelabs</a></li>
+<li>Nylo Quick Start: <a href="https://nylo.dev/docs/6.x/installation"
+class="uri">https://nylo.dev/docs/6.x/installation</a></li>
+<li>Flutter Widget Catalog: <a
+href="https://docs.flutter.dev/development/ui/widgets"
+class="uri">https://docs.flutter.dev/development/ui/widgets</a></li>
+</ul>
+<h3 id="videos"><strong>Videos:</strong></h3>
+<ul>
+<li>Flutter Official YouTube: <a href="https://youtube.com/flutter"
+class="uri">https://youtube.com/flutter</a></li>
+<li>Flutter Widget of the Week: <a
+href="https://youtube.com/playlist?list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG"
+class="uri">https://youtube.com/playlist?list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG</a></li>
+</ul>
+<hr />
+<h2 id="navigation">🔗 Navigation</h2>
+<p><a href="./README.md">Workshop Modules</a> | <a
+href="./sesi-02.md">Sesi 2 - UI &amp; Navigation →</a></p>
+<hr />
+<p><em>Workshop Material - Simple ToDo List with Flutter Nylo |
+Dokumentasi Sesi 1 - Hello Flutter with Nylo | Terakhir diperbarui:
+November 21, 2025</em></p>
+</body>
+</html>
