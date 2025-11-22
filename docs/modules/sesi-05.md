@@ -253,57 +253,73 @@ flutter:
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/services.dart';
+import 'bootstrap/boot.dart';
 
+/// Main entry point for the application.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load .env file
-  await dotenv.load(fileName: ".env");
+  String envContent = await rootBundle.loadString('.env');
+  Map<String, String> envVars = {};
+
+  for (String line in envContent.split('\n')) {
+    line = line.trim();
+    // Skip comments and empty lines
+    if (line.isEmpty || line.startsWith('#')) continue;
+
+    // Parse KEY=VALUE
+    int separatorIndex = line.indexOf('=');
+    if (separatorIndex != -1) {
+      String key = line.substring(0, separatorIndex).trim();
+      String value = line.substring(separatorIndex + 1).trim();
+      envVars[key] = value;
+    }
+  }
 
   // Initialize Supabase
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
-  );
-
-  runApp(Main());
-}
-
-class Main extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppBuild();
+  try {
+    await Supabase.initialize(
+      url: envVars['SUPABASE_URL'] ?? '',
+      anonKey: envVars['SUPABASE_ANON_KEY'] ?? '',
+    );
+    print('✅ Supabase initialized successfully');
+  } catch (e) {
+    print('⚠️ Supabase initialization error: $e');
+    print('⚠️ Please configure .env file with your Supabase credentials');
   }
+
+  // Initialize Nylo
+  await Nylo.init(
+    setup: Boot.nylo,
+    setupFinished: Boot.finished,
+  );
 }
 ```
 
 **💡 Penjelasan:**
 - `WidgetsFlutterBinding.ensureInitialized()`: Required untuk async operations di main
-- `dotenv.load()`: Load environment variables dari .env file
+- Manual parsing `.env` menggunakan `rootBundle.loadString()` - tidak perlu package tambahan
+- Parse setiap line format `KEY=VALUE`
+- Skip comment lines (dimulai dengan `#`) dan empty lines
 - `Supabase.initialize()`: Initialize Supabase client dengan credentials
+- Wrapped dengan try-catch untuk handle error jika .env belum dikonfigurasi
+- `Nylo.init()`: Initialize Nylo framework setelah Supabase
 
-#### **Langkah 5: Install flutter_dotenv Package**
+#### **Langkah 5: Test Initialization**
 
-**Edit file: `pubspec.yaml`**
+**Hot restart app** (Shift + R di terminal atau stop & run ulang)
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  nylo_framework: ^6.9.1
-  shared_preferences: ^2.5.3
-  supabase_flutter: ^2.9.1
-  flutter_dotenv: ^5.2.1  # Tambahkan ini
+Cek console output:
+```
+✅ Supabase initialized successfully
 ```
 
-```bash
-flutter pub get
-```
-
-#### **Langkah 6: Test Initialization**
-
-**Hot restart app** (Shift + R di terminal)
+Jika ada error `⚠️ Supabase initialization error`, berarti:
+- File `.env` belum ada atau belum dikonfigurasi
+- URL atau anon key salah
+- File `.env` belum ditambahkan ke `pubspec.yaml` di bagian assets
 
 Jika tidak ada error, Supabase berhasil di-initialize! 🎉
 
@@ -529,9 +545,9 @@ Kita buat 2 set methods untuk handle keduanya!
 import 'package:flutter/material.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import '/app/models/task.dart';
-import '/app/services/supabase_service.dart';  // Import Supabase service
+import '/app/services/supabase_service.dart';
 
-class TodoHomeController extends Controller {
+class TodoHomeController extends NyController {
   // State
   List<Task> tasks = [];
   bool isLoading = false;
@@ -541,46 +557,34 @@ class TodoHomeController extends Controller {
   final SupabaseService supabase = SupabaseService();
 
   @override
-  construct(BuildContext context) {
+  construct(BuildContext context) async {
     super.construct(context);
 
     // Load tasks from Supabase
-    loadTasksFromSupabase();
+    await loadTasksFromSupabase();
   }
 
   /// Load tasks from Supabase
   Future<void> loadTasksFromSupabase() async {
-    setState(() {
-      isLoading = true;
-      errorMessage = null;
-    });
+    isLoading = true;
+    errorMessage = null;
+    setState(setState: () {});
 
     try {
       // Fetch dari Supabase
       List<Task> loadedTasks = await supabase.getTasks();
 
       tasks = loadedTasks;
-
-      setState(() {
-        isLoading = false;
-      });
+      isLoading = false;
+      setState(setState: () {});
 
       print('✅ Loaded ${tasks.length} tasks from Supabase');
     } catch (e) {
       print('❌ Error loading tasks: $e');
 
-      setState(() {
-        isLoading = false;
-        errorMessage = 'Failed to load tasks: ${e.toString()}';
-      });
-
-      // Show error toast
-      showToastNotification(
-        context,
-        title: 'Error',
-        description: 'Failed to load tasks from cloud',
-        style: ToastNotificationStyleType.DANGER,
-      );
+      isLoading = false;
+      errorMessage = 'Failed to load tasks: ${e.toString()}';
+      setState(setState: () {});
     }
   }
 
@@ -589,7 +593,7 @@ class TodoHomeController extends Controller {
     await loadTasksFromSupabase();
   }
 
-  // Getters
+  // Helper getters
   int get totalTasks => tasks.length;
   int get completedTasks => tasks.where((t) => t.isCompleted).length;
   int get pendingTasks => tasks.where((t) => !t.isCompleted).length;
@@ -599,10 +603,6 @@ class TodoHomeController extends Controller {
     required String title,
     String description = '',
   }) async {
-    setState(() {
-      isLoading = true;
-    });
-
     try {
       // Create task object
       Task newTask = Task(
@@ -619,25 +619,11 @@ class TodoHomeController extends Controller {
       // Add to local list
       tasks.insert(0, createdTask);
 
-      setState(() {
-        isLoading = false;
-      });
+      setState(setState: () {});
 
-      print('✅ Task added: $createdTask');
+      print('✅ Task added to Supabase: $createdTask');
     } catch (e) {
       print('❌ Error adding task: $e');
-
-      setState(() {
-        isLoading = false;
-      });
-
-      showToastNotification(
-        context,
-        title: 'Error',
-        description: 'Failed to add task',
-        style: ToastNotificationStyleType.DANGER,
-      );
-
       rethrow;
     }
   }
@@ -649,10 +635,6 @@ class TodoHomeController extends Controller {
     String? description,
     bool? isCompleted,
   }) async {
-    setState(() {
-      isLoading = true;
-    });
-
     try {
       final taskIndex = tasks.indexWhere((t) => t.id == id);
 
@@ -673,25 +655,11 @@ class TodoHomeController extends Controller {
       // Update local list
       tasks[taskIndex] = savedTask;
 
-      setState(() {
-        isLoading = false;
-      });
+      setState(setState: () {});
 
       print('✅ Task updated: $savedTask');
     } catch (e) {
       print('❌ Error updating task: $e');
-
-      setState(() {
-        isLoading = false;
-      });
-
-      showToastNotification(
-        context,
-        title: 'Error',
-        description: 'Failed to update task',
-        style: ToastNotificationStyleType.DANGER,
-      );
-
       rethrow;
     }
   }
@@ -710,10 +678,6 @@ class TodoHomeController extends Controller {
 
   /// Delete task from Supabase
   Future<void> deleteTask(String id) async {
-    setState(() {
-      isLoading = true;
-    });
-
     try {
       // Delete dari Supabase
       await supabase.deleteTask(id);
@@ -721,52 +685,27 @@ class TodoHomeController extends Controller {
       // Remove from local list
       tasks.removeWhere((t) => t.id == id);
 
-      setState(() {
-        isLoading = false;
-      });
+      setState(setState: () {});
 
       print('✅ Task deleted: $id');
     } catch (e) {
       print('❌ Error deleting task: $e');
-
-      setState(() {
-        isLoading = false;
-      });
-
-      showToastNotification(
-        context,
-        title: 'Error',
-        description: 'Failed to delete task',
-        style: ToastNotificationStyleType.DANGER,
-      );
-
       rethrow;
     }
   }
 
   /// Clear all tasks
   Future<void> clearAllTasks() async {
-    setState(() {
-      isLoading = true;
-    });
-
     try {
       await supabase.deleteAllTasks();
 
       tasks.clear();
 
-      setState(() {
-        isLoading = false;
-      });
+      setState(setState: () {});
 
       print('✅ All tasks cleared');
     } catch (e) {
       print('❌ Error clearing tasks: $e');
-
-      setState(() {
-        isLoading = false;
-      });
-
       rethrow;
     }
   }
@@ -781,9 +720,295 @@ class TodoHomeController extends Controller {
 }
 ```
 
+**💡 Perubahan penting dari docs sebelumnya:**
+- `extends Controller` → `extends NyController` (API Nylo terbaru)
+- `construct()` method dibuat `async` untuk await `loadTasksFromSupabase()`
+- `setState(() {})` → `setState(setState: () {})` (named parameter)
+- Removed `showToastNotification` calls dari controller (lebih baik di UI layer)
+- `isLoading` state di-manage langsung tanpa wrap setState
+- Error handling lebih sederhana dengan rethrow
+
 ---
 
-### **2.4 Add Loading Indicator to UI**
+### **2.4 Direct Supabase Access dari Pages**
+
+Untuk page yang tidak memiliki controller association (seperti `AddTaskPage` dan `DetailTaskPage`), kita bisa langsung akses Supabase client tanpa melalui controller.
+
+#### **Add Task Page dengan Direct Supabase**
+
+**Edit file: `lib/resources/pages/add_task_page.dart`**
+
+Pada method `_handleSave()`, tambahkan direct Supabase insert:
+
+```dart
+Future<void> _handleSave() async {
+  String title = titleController.text.trim();
+  String description = descriptionController.text.trim();
+
+  if (title.isEmpty) {
+    showToastNotification(
+      context,
+      title: "Error",
+      description: "Task title tidak boleh kosong!",
+      icon: Icons.error,
+      style: ToastNotificationStyleType.danger,
+    );
+    return;
+  }
+
+  setState(() {
+    isSaving = true;
+  });
+
+  try {
+    // Create new task directly with Supabase
+    // Generate ID using timestamp (same as controller)
+    final taskId = DateTime.now().millisecondsSinceEpoch.toString();
+
+    await Supabase.instance.client.from('tasks').insert({
+      'id': taskId,
+      'title': title,
+      'description': description,
+      'is_completed': false,
+      'created_at': DateTime.now().toIso8601String(),
+    });
+
+    showToastNotification(
+      context,
+      title: "Success",
+      description: "Task berhasil ditambahkan dan disimpan!",
+      icon: Icons.check_circle,
+      style: ToastNotificationStyleType.success,
+    );
+
+    // Wait a bit before popping
+    await Future.delayed(Duration(milliseconds: 500));
+
+    if (mounted) {
+      Navigator.pop(context, true); // Return true to indicate task was added
+    }
+  } catch (e) {
+    print('Error saving task: $e');
+
+    showToastNotification(
+      context,
+      title: "Error",
+      description: "Gagal menyimpan task!",
+      icon: Icons.error,
+      style: ToastNotificationStyleType.danger,
+    );
+
+    setState(() {
+      isSaving = false;
+    });
+  }
+}
+```
+
+**💡 Poin penting:**
+- Generate ID menggunakan timestamp (sama seperti di controller)
+- Direct insert ke Supabase tanpa melalui service/controller
+- Return `true` saat Navigator.pop untuk signal bahwa task ditambahkan
+- Parent page akan refresh saat menerima return value `true`
+
+#### **Detail Task Page dengan Edit Feature**
+
+`DetailTaskPage` juga menggunakan direct Supabase access untuk update dan delete:
+
+```dart
+// Update task status
+Future<void> _toggleTaskStatus() async {
+  if (task == null) return;
+
+  setState(() {
+    isProcessing = true;
+  });
+
+  try {
+    // Update task status directly with Supabase
+    final newStatus = !task!.isCompleted;
+    await Supabase.instance.client
+        .from('tasks')
+        .update({'is_completed': newStatus})
+        .eq('id', task!.id);
+
+    setState(() {
+      task = task!.copyWith(isCompleted: newStatus);
+      isProcessing = false;
+      hasChanges = true; // Mark that task was modified
+    });
+
+    showToastNotification(
+      context,
+      title: "Success",
+      description: "Task status updated and saved to cloud!",
+      icon: Icons.check_circle,
+      style: ToastNotificationStyleType.success,
+    );
+  } catch (e) {
+    // Error handling...
+  }
+}
+
+// Save edited task
+Future<void> _saveChanges() async {
+  if (task == null) return;
+
+  final newTitle = titleController.text.trim();
+  final newDescription = descriptionController.text.trim();
+
+  if (newTitle.isEmpty) {
+    showToastNotification(
+      context,
+      title: "Error",
+      description: "Task title cannot be empty!",
+      icon: Icons.error,
+      style: ToastNotificationStyleType.danger,
+    );
+    return;
+  }
+
+  setState(() {
+    isProcessing = true;
+  });
+
+  try {
+    // Update task in Supabase
+    await Supabase.instance.client.from('tasks').update({
+      'title': newTitle,
+      'description': newDescription,
+    }).eq('id', task!.id);
+
+    setState(() {
+      task = task!.copyWith(
+        title: newTitle,
+        description: newDescription,
+      );
+      isProcessing = false;
+      isEditMode = false;
+      hasChanges = true;
+    });
+
+    showToastNotification(
+      context,
+      title: "Success",
+      description: "Task updated successfully!",
+      icon: Icons.check_circle,
+      style: ToastNotificationStyleType.success,
+    );
+  } catch (e) {
+    // Error handling...
+  }
+}
+
+// Delete task
+Future<void> _deleteTask() async {
+  if (task == null) return;
+
+  setState(() {
+    isProcessing = true;
+  });
+
+  try {
+    // Delete task directly with Supabase
+    await Supabase.instance.client
+        .from('tasks')
+        .delete()
+        .eq('id', task!.id);
+
+    showToastNotification(
+      context,
+      title: "Success",
+      description: "Task deleted and saved to cloud!",
+      icon: Icons.delete,
+      style: ToastNotificationStyleType.success,
+    );
+
+    await Future.delayed(Duration(milliseconds: 500));
+
+    if (mounted) {
+      Navigator.pop(context, true); // Return true to indicate modification
+    }
+  } catch (e) {
+    // Error handling...
+  }
+}
+```
+
+**💡 Pattern untuk change tracking:**
+- Tambahkan flag `hasChanges` dan `isEditMode` di state
+- Set `hasChanges = true` setiap kali task dimodifikasi (toggle, edit, delete)
+- Return `hasChanges` saat back button pressed menggunakan PopScope
+- Parent page akan refresh jika menerima `true`
+
+```dart
+return PopScope(
+  canPop: false,
+  onPopInvokedWithResult: (didPop, result) async {
+    if (!didPop) {
+      // Handle back button - return hasChanges flag
+      Navigator.pop(context, hasChanges);
+    }
+  },
+  child: Scaffold(
+    appBar: AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context, hasChanges);
+        },
+      ),
+      // ...
+    ),
+    // ...
+  ),
+);
+```
+
+---
+
+### **2.5 Update Home Pages untuk Auto-Refresh**
+
+Update navigasi di home pages untuk listen return value dan refresh:
+
+**Edit file: `lib/resources/pages/home_page.dart` dan `todo_home_page.dart`**
+
+```dart
+// Add Task navigation
+floatingActionButton: FloatingActionButton(
+  onPressed: () async {
+    final result = await Navigator.pushNamed(context, '/add-task');
+    if (result == true) {
+      // Task was added, refresh the list
+      widget.controller.refresh();
+    }
+  },
+  child: Icon(Icons.add),
+),
+
+// Detail Task navigation (in ListView item)
+onTap: () async {
+  final result = await Navigator.pushNamed(
+    context,
+    '/detail-task',
+    arguments: task.toJson(),
+  );
+  if (result == true) {
+    // Task was modified or deleted, refresh the list
+    widget.controller.refresh();
+  }
+},
+```
+
+**💡 Keuntungan pattern ini:**
+- UI selalu up-to-date dengan cloud data
+- User tidak perlu manual refresh
+- Clean separation: pages handle CRUD, controller manage state
+- Lebih flexible untuk pages tanpa controller association
+
+---
+
+### **2.6 Add Loading Indicator to UI**
 
 **Edit file: `lib/resources/pages/todo_home_page.dart`**
 
@@ -1037,7 +1262,54 @@ Aplikasi ToDo List Anda sekarang:
 
 ---
 
+---
+
 ## 🐛 Common Issues & Solutions
+
+### **Issue 0: "type 'Null' is not a subtype of type 'String'" di theme.dart**
+**Symptom**: App crash saat startup dengan error di `appThemes` configuration
+**Solution**:
+
+Theme configuration di Nylo menggunakan environment variables untuk theme IDs. Jika `.env` tidak ada atau tidak loaded, `getEnv()` return `null` yang menyebabkan error.
+
+**Fix di `lib/config/theme.dart`:**
+
+```dart
+// SEBELUM (Error jika .env belum ada)
+final List<BaseThemeConfig<ColorStyles>> appThemes = [
+  BaseThemeConfig<ColorStyles>(
+    id: getEnv('LIGHT_THEME_ID'),  // ❌ Bisa return null
+    description: "Light theme",
+    theme: lightTheme,
+    colors: LightThemeColors(),
+  ),
+  // ...
+];
+
+// SESUDAH (Always works)
+final List<BaseThemeConfig<ColorStyles>> appThemes = [
+  BaseThemeConfig<ColorStyles>(
+    id: 'light_theme',  // ✅ Hardcoded string
+    description: "Light theme",
+    theme: lightTheme,
+    colors: LightThemeColors(),
+  ),
+  BaseThemeConfig<ColorStyles>(
+    id: 'dark_theme',
+    description: "Dark theme",
+    theme: darkTheme,
+    colors: DarkThemeColors(),
+  ),
+];
+```
+
+Untuk workshop ini, lebih simple pakai hardcoded theme IDs. Di production app, bisa tetap pakai `getEnv()` dengan fallback:
+
+```dart
+id: getEnv('LIGHT_THEME_ID') ?? 'light_theme',
+```
+
+---
 
 ### **Issue 1: "Connection refused" atau "Failed to connect"**
 **Symptom**: Error saat fetch dari Supabase
@@ -1118,4 +1390,4 @@ Aplikasi ToDo List Anda sekarang:
 
 ---
 
-*Workshop Material - Simple ToDo List with Flutter Nylo | Dokumentasi Sesi 5 - Integrasi Supabase | Terakhir diperbarui: November 21, 2025*
+*Workshop Material - Simple ToDo List with Flutter Nylo | Dokumentasi Sesi 5 - Integrasi Supabase | Terakhir diperbarui: November 22, 2025*
